@@ -1,0 +1,41 @@
+---
+date: 2019-02-11
+draft: false
+summary: An overview of the database tables in use.
+title: Tables
+weight: 2
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(collapse = TRUE)
+options(knitr.kable.NA = '')
+library(data.table)
+```
+
+## Unified variables
+
+All accessible tables will contain these variables.
+
+```{r echo=FALSE, results='asis'}
+d <- data.table(readxl::read_excel("variables_unified.xlsx"))
+d <- huxtable::huxtable(d, add_colnames = T)
+d <- huxtable::theme_blue(d)
+huxtable::wrap(d) <- TRUE
+huxtable::width(d) <- 1
+huxtable::print_html(d)
+```
+
+## Suggested variable names
+
+These are suggested variables name in an attempt to keep naming consistent across all tables.
+
+```{r echo=FALSE, results='asis'}
+d <- data.table(readxl::read_excel("variables_values.xlsx"))
+d <- huxtable::huxtable(d, add_colnames = T)
+d <- huxtable::theme_blue(d)
+huxtable::wrap(d) <- TRUE
+huxtable::width(d) <- 1
+huxtable::print_html(d)
+```

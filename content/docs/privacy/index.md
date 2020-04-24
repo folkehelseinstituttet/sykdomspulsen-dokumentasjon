@@ -1,0 +1,35 @@
+---
+date: "2019-02-11T19:27:37+10:00"
+title: Privacy policy
+summary: Privacy policy.
+weight: 100
+---
+
+This privacy policy will explain how Sykdomspulsen uses the personal data we collect from you when you use our website for technical documentation (sykdomspulsen-dokumentasjon.no).
+
+## What data do we collect?
+
+On sykdomspulsen-dokumentasjon.no we do not collect any information.
+
+## Cookies
+
+Cookies are text files placed on your computer to collect standard Internet log information and visitor behavior information. For further information, visit allaboutcookies.org.
+
+## How do we use cookies?
+
+We do not use cookies.
+
+## Changes to our privacy policy
+
+We keep our privacy policy under regular review and places any updates on this web page. This privacy policy was last updated on 2020-02-25
+
+## How to contact us
+
+If you have any questions about our privacy policy, or you would like to exercise one of your data protection rights, please do not hesitate to contact us.
+
+Email us at: sykdomspulsen@fhi.no
+
+## How to contact the appropriate authority
+
+Should you wish to report a complaint or if you feel that we have not addressed your concern in a satisfactory manner, you may contact datatilsynet at https://www.datatilsynet.no/om-datatilsynet/kontakt-oss/
+

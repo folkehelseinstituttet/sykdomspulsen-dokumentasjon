@@ -1,0 +1,285 @@
+---
+date: 2019-02-11
+draft: false
+summary: Understanding the terminology.
+title: Philosophy
+weight: 3
+editor_options: 
+  chunk_output_type: console
+---
+
+
+
+<div id="plnr" class="section level2">
+<h2>plnr</h2>
+<p>The basis of our design philosophy comes from the R package <a href="https://folkehelseinstituttet.github.io/plnr/">plnr</a>.</p>
+<table class="huxtable" style="border-collapse: collapse; margin-bottom: 2em; margin-top: 2em; width: 100%; margin-left: auto; margin-right: auto;  ">
+<col>
+<col>
+<tr>
+<td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 1pt 1pt 1pt 1pt; border-top-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-left-color: rgb(255, 255, 255); padding: 4pt 4pt 4pt 4pt; background-color: rgb(84, 153, 199); font-weight: bold;">
+<span style="color: rgb(255, 255, 255);">Object</span>
+</td>
+<td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 1pt 1pt 1pt 1pt; border-top-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-left-color: rgb(255, 255, 255); padding: 4pt 4pt 4pt 4pt; background-color: rgb(84, 153, 199); font-weight: bold;">
+<span style="color: rgb(255, 255, 255);">Description</span>
+</td>
+</tr>
+<tr>
+<td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 1pt 1pt 1pt 1pt; border-top-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-left-color: rgb(255, 255, 255); padding: 4pt 4pt 4pt 4pt; background-color: rgb(84, 153, 199); font-weight: bold;">
+<span style="color: rgb(255, 255, 255);">argset</span>
+</td>
+<td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 1pt 1pt 1pt 1pt; border-top-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-left-color: rgb(255, 255, 255); padding: 4pt 4pt 4pt 4pt; background-color: rgb(212, 230, 241);">
+A named list containing set of arguments
+</td>
+</tr>
+<tr>
+<td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 1pt 1pt 1pt 1pt; border-top-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-left-color: rgb(255, 255, 255); padding: 4pt 4pt 4pt 4pt; background-color: rgb(84, 153, 199); font-weight: bold;">
+<span style="color: rgb(255, 255, 255);">analysis</span>
+</td>
+<td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 1pt 1pt 1pt 1pt; border-top-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-left-color: rgb(255, 255, 255); padding: 4pt 4pt 4pt 4pt; background-color: rgb(169, 204, 227);">
+<p>These are the fundamental units that are scheduled in <code>plnr</code>:</p>
+<ul>
+<li>1 argset</li>
+<li>1 function that takes two arguments:</li>
+</ul>
+<ol style="list-style-type: decimal">
+<li>data (named list)</li>
+<li>argset (named list)
+</td>
+</tr>
+<tr>
+<td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 1pt 1pt 1pt 1pt; border-top-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-left-color: rgb(255, 255, 255); padding: 4pt 4pt 4pt 4pt; background-color: rgb(84, 153, 199); font-weight: bold;">
+<span style="color: rgb(255, 255, 255);">plan</span>
+</td>
+<td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 1pt 1pt 1pt 1pt; border-top-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-left-color: rgb(255, 255, 255); padding: 4pt 4pt 4pt 4pt; background-color: rgb(212, 230, 241);">
+This is the overarching “scheduler”:</li>
+</ol>
+<ul>
+<li>1 data pull</li>
+<li>1 list of analyses
+</td>
+</tr>
+</table></li>
+</ul>
+<p>In brief, we work within the mental model where we have one (or more) datasets and we want to run multiple analyses on these datasets. These multiple analyses can take the form of:</p>
+<ul>
+<li>one function (e.g. <code>table_1</code>) called multiple times with different argsets (e.g. <code>year=2019</code>, <code>year=2020</code>)</li>
+<li>multiple functions (e.g. <code>table_1</code>, <code>table_2</code>) called multiple times with different argsets (e.g. <code>table_1</code>: <code>year=2019</code>, while for <code>table_2</code>: <code>year=2019</code> and <code>year=2020</code>)</li>
+</ul>
+<p>By demanding that all analyses use the same data sources we can:</p>
+<ol style="list-style-type: decimal">
+<li>Be efficient with requiring the minimal amount of data-pulling (this only happens once at the start)</li>
+<li>Better enforce the concept that data-cleaning and analysis should be completely separate</li>
+</ol>
+<p>By demanding that all analysis functions only use two arguments (<code>data</code> and <code>argset</code>) we can:</p>
+<ol style="list-style-type: decimal">
+<li>Reduce mental fatigue by working within the same mental model for each analysis</li>
+<li>Make it easier for analyses to be exchanged with each other and iterated on</li>
+<li>Easily schedule the running of each analysis</li>
+</ol>
+<p>By including all of this in one <code>Plan</code> class, we can easily maintain a good overview of all the analyses (i.e. outputs) that need to be run.</p>
+<p>We now provide a simple example that shows how a person can develop code to provide graphs for multiple years.</p>
+<pre class="r"><code>library(ggplot2)</code></pre>
+<pre><code>## Warning: package &#39;ggplot2&#39; was built under R version 3.6.3</code></pre>
+<pre class="r"><code>library(data.table)
+
+# We begin by defining a new plan
+p &lt;- plnr::Plan$new()
+
+# We add sources of data
+# We can add data directly
+p$add_data(direct = data.table(deaths=1:4, year=2001:2004), name = &quot;deaths&quot;)
+
+# We can add data functions that return data
+p$add_data(fn = function() {
+  3
+}, name = &quot;ok&quot;)
+
+# We can then add a simple analysis that returns a figure:
+
+# To do this, we first need to create an analysis function
+# (takes two arguments -- data and argset)
+fn_fig_1 &lt;- function(data, argset){
+  plot_data &lt;- data$deaths[year&lt;= argset$year_max]
+  
+  q &lt;- ggplot(plot_data, aes(x=year, y=deaths))
+  q &lt;- q + geom_line()
+  q &lt;- q + geom_point(size=3)
+  q &lt;- q + labs(title = glue::glue(&quot;Deaths from 2001 until {argset$year_max}&quot;))
+  q
+}
+
+# We can then add the analysis (function + argset) to the plan
+p$add_analysis(
+  fn = fn_fig_1,
+  name = &quot;fig_1_2002&quot;,
+  year_max = 2002
+)
+
+# And another analysis
+p$add_analysis(
+  fn = fn_fig_1,
+  name = &quot;fig_1_2003&quot;,
+  year_max = 2003
+)
+
+# And another analysis
+# (don&#39;t need to provide a name if you refer to it via index)
+p$add_analysis(
+  fn = fn_fig_1,
+  year_max = 2004
+)
+
+# How many analyses have we created?
+p$len()</code></pre>
+<pre><code>## [1] 3</code></pre>
+<pre class="r"><code># When debugging and developing code, we have a number of
+# convenience functions that let us directly access the
+# data and argsets.
+
+# We can directly access the data:
+p$get_data()</code></pre>
+<pre><code>## $deaths
+##    deaths year
+## 1:      1 2001
+## 2:      2 2002
+## 3:      3 2003
+## 4:      4 2004
+## 
+## $ok
+## [1] 3</code></pre>
+<pre class="r"><code># We can access the argset by index (i.e. first argset):
+p$get_argset(1)</code></pre>
+<pre><code>## $year_max
+## [1] 2002</code></pre>
+<pre class="r"><code># We can also access the argset by name:
+p$get_argset(&quot;fig_1_2002&quot;)</code></pre>
+<pre><code>## $year_max
+## [1] 2002</code></pre>
+<pre class="r"><code># We can acess the analysis (function + argset) by both index and name:
+p$get_analysis(1)</code></pre>
+<pre><code>## $fn
+## function(data, argset){
+##   plot_data &lt;- data$deaths[year&lt;= argset$year_max]
+##   
+##   q &lt;- ggplot(plot_data, aes(x=year, y=deaths))
+##   q &lt;- q + geom_line()
+##   q &lt;- q + geom_point(size=3)
+##   q &lt;- q + labs(title = glue::glue(&quot;Deaths from 2001 until {argset$year_max}&quot;))
+##   q
+## }
+## 
+## $fn_name
+## NULL
+## 
+## $argset
+## $argset$year_max
+## [1] 2002
+## 
+## $argset$index_analysis
+## [1] 1</code></pre>
+<pre class="r"><code># We recommend writing commented-out code for the first two
+# lines of the analysis function that directly extracts
+# the needed data and argset for one of your analyses.
+# This allows for simple debugging and code development
+# (the programmer would manually run the first two lines
+# of code and then run line-by-line inside the function)
+fn_analysis &lt;- function(data, argset){
+  # data &lt;- p$get_data()
+  # argset &lt;- p$get_argset(&quot;fig_1_2002)
+  
+  # function continues here
+}
+
+# We can run the analysis for each argset (by index and name):
+p$run_one(&quot;fig_1_2002&quot;)</code></pre>
+<p><img src="/docs/philosophy/index_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<pre class="r"><code>p$run_one(&quot;fig_1_2003&quot;)</code></pre>
+<p><img src="/docs/philosophy/index_files/figure-html/unnamed-chunk-2-2.png" width="672" /></p>
+<pre class="r"><code>p$run_one(3)</code></pre>
+<p><img src="/docs/philosophy/index_files/figure-html/unnamed-chunk-2-3.png" width="672" /></p>
+</div>
+<div id="sykdomspulsen" class="section level2">
+<h2>sykdomspulsen</h2>
+<p>Within the <a href="https://folkehelseinstituttet.github.io/sykdomspulsen/">sykdomspulsen</a> R package we expand upon <a href="https://folkehelseinstituttet.github.io/plnr/">plnr</a>.</p>
+<table class="huxtable" style="border-collapse: collapse; margin-bottom: 2em; margin-top: 2em; width: 100%; margin-left: auto; margin-right: auto;  ">
+<col>
+<col>
+<tr>
+<td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 1pt 1pt 1pt 1pt; border-top-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-left-color: rgb(255, 255, 255); padding: 4pt 4pt 4pt 4pt; background-color: rgb(84, 153, 199); font-weight: bold;">
+<span style="color: rgb(255, 255, 255);">Object</span>
+</td>
+<td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 1pt 1pt 1pt 1pt; border-top-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-left-color: rgb(255, 255, 255); padding: 4pt 4pt 4pt 4pt; background-color: rgb(84, 153, 199); font-weight: bold;">
+<span style="color: rgb(255, 255, 255);">Description</span>
+</td>
+</tr>
+<tr>
+<td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 1pt 1pt 1pt 1pt; border-top-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-left-color: rgb(255, 255, 255); padding: 4pt 4pt 4pt 4pt; background-color: rgb(84, 153, 199); font-weight: bold;">
+<span style="color: rgb(255, 255, 255);">Action R6 class</span>
+</td>
+<td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 1pt 1pt 1pt 1pt; border-top-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-left-color: rgb(255, 255, 255); padding: 4pt 4pt 4pt 4pt; background-color: rgb(212, 230, 241);">
+<p>An R6 class that contains a function called <code>run</code> that takes three arguments:</p>
+<ul>
+<li><p>data (named list)</p></li>
+<li><p>argset (named list)</p></li>
+<li><p>schema (named list)</p>
+</td>
+</tr>
+<tr>
+<td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 1pt 1pt 1pt 1pt; border-top-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-left-color: rgb(255, 255, 255); padding: 4pt 4pt 4pt 4pt; background-color: rgb(84, 153, 199); font-weight: bold;">
+<p><span style="color: rgb(255, 255, 255);">Action</span></p>
+</td>
+<td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 1pt 1pt 1pt 1pt; border-top-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-left-color: rgb(255, 255, 255); padding: 4pt 4pt 4pt 4pt; background-color: rgb(169, 204, 227);">
+<p>We do not explicitly create these, but the definition is useful:</p></li>
+<li><p>one Action R6 class</p></li>
+<li><p>one plan (from <code>plnr::Plan</code>) that provides:</p>
+<ol style="list-style-type: decimal">
+<li>data (from the plan – <code>data_get</code>)</li>
+<li>arguments (from the plan – <code>argset_get</code>)</li>
+</ol></li>
+</ul>
+This can be thought of as as “extended <code>plnr::Plan</code>”
+</td>
+</tr>
+<tr>
+<td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 1pt 1pt 1pt 1pt; border-top-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-left-color: rgb(255, 255, 255); padding: 4pt 4pt 4pt 4pt; background-color: rgb(84, 153, 199); font-weight: bold;">
+<span style="color: rgb(255, 255, 255);">Task</span>
+</td>
+<td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 1pt 1pt 1pt 1pt; border-top-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-left-color: rgb(255, 255, 255); padding: 4pt 4pt 4pt 4pt; background-color: rgb(212, 230, 241);">
+<p>These are the fundamental units that are scheduled in <code>sykdomspulsen</code>:</p>
+<ul>
+<li><p>one Action R6 class</p></li>
+<li><p>one list of multiple plans (from <code>plnr::Plan</code>) that provides:</p>
+<ol style="list-style-type: decimal">
+<li>data (from the plan – <code>data_get</code>)</li>
+<li>arguments (from the plan – <code>argset_get</code>)</li>
+</ol></li>
+</ul>
+<p>This can be thought of as a “list of extended <code>plnr::Plan</code>s”.</p>
+<code>TaskManager</code> is responsible for creating and running the <code>Task</code>s as needed.
+</td>
+</tr>
+<tr>
+<td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 1pt 1pt 1pt 1pt; border-top-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-left-color: rgb(255, 255, 255); padding: 4pt 4pt 4pt 4pt; background-color: rgb(84, 153, 199); font-weight: bold;">
+<span style="color: rgb(255, 255, 255);">TaskManager</span>
+</td>
+<td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 1pt 1pt 1pt 1pt; border-top-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-left-color: rgb(255, 255, 255); padding: 4pt 4pt 4pt 4pt; background-color: rgb(169, 204, 227);">
+<p>Stored in <code>config$tasks</code>. The <code>TaskManager</code> receives:</p>
+<ul>
+<li>task name</li>
+<li>type (data/analysis)</li>
+<li>*r6</li>
+<li>*plan</li>
+<li>schema mapping</li>
+</ul>
+The objects marked with * are used to create and run <code>Task</code>s as needed.
+</td>
+</tr>
+</table>
+<p>In principle we aim to use <code>plnr::Plan</code>s, but replace the analysis function with an <code>Action</code> R6 class. The aim of this is to:</p>
+<ol style="list-style-type: decimal">
+<li>Allow for more complicated analyses by encapusulation within a single object</li>
+<li>Allow for inheritance that performs necessary infrastructure checks, such as “has this analysis already run today?”</li>
+</ol>
+<p><code>TaskManager</code> is responsible for creating and running the <code>Task</code>s as needed.</p>
+</div>

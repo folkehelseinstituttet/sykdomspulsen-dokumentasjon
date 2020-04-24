@@ -1,0 +1,49 @@
+baseURL = "/"
+languageCode = "en-us"
+title = "Sykdomspulsen"
+theme = "hugo-whisper-theme"
+
+ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
+
+pygmentsCodeFences = true
+pygmentsCodefencesGuessSyntax = true
+pygmentsUseClasses = true
+
+# Controls how many words are printed in the content summary on the docs homepage.
+# See https://gohugo.io/content-management/summaries/
+summaryLength = 30
+
+[[menu.main]]
+    name = "Home"
+    url = "/"
+    weight = 1
+
+[[menu.main]]
+    name = "Docs"
+    url = "/docs/"
+    weight = 2
+
+[params]
+  google_analytics_id=""
+  homepage_button_link = '/docs'
+  homepage_button_text = 'Read The Docs'
+  homepage_intro = 'Sykdomspulsen is a free and open-source health surveillance system. This website contains technical documentation of the infrastructure and statistical methods used in Sykdomspulsen.'
+  homepage_image = '/images/terminal.gif'
+
+  ## You can enable to add anchor links to header elements
+  # enable_anchor_link = true
+
+  [params.homepage_meta_tags]
+    meta_description = "Sykdomspulsen is a free and open-source health surveillance system."
+    meta_og_title = "Sykdomspulsen Technical Documentation"
+    meta_og_type = "website"
+    meta_og_url = "https://sykdomspulsen-dokumentasjon.no"
+    meta_og_image = "https://raw.githubusercontent.com/folkehelseinstituttet/sykdomspulsen-dokumentasjon/master/themes/hugo-whisper-theme/images/tn.png"
+    meta_og_description = "Sykdomspulsen is a free and open-source health surveillance system."
+    meta_twitter_card = "summary"
+    meta_twitter_site = "@zerostaticio"
+    meta_twitter_creator = "@zerostaticio"
+
+  [params.logo]
+      mobile = "/images/logo-mobile.svg"
+      standard  = "/images/logo.svg"
