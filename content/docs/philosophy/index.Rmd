@@ -14,6 +14,15 @@ options(knitr.kable.NA = '')
 library(data.table)
 ```
 
+## Why Sykdomspulsen?
+
+We developed Sykdomspulsen to achieve a few goals:
+
+1. Have a real-time surveillance platform that can scale to millions of rows of data and is written entirely in R
+2. Allow interactive development (REPL) that is similar to "one simple script that I can just jump straight into"
+3. Allow people with less-advanced R skills to easily work on analyses that have already been started by people with more advanced R skills
+4. Allow for the creation and easily handling of 100s of different data-sources, analyses, and generation of graphs, reports, emails, etc
+
 ## plnr
 
 The basis of our design philosophy comes from the R package [plnr](https://folkehelseinstituttet.github.io/plnr/).
