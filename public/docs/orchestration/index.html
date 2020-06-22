@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title>Overview - Sykdomspulsen</title>
+  <title>Orchestration - Sykdomspulsen</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   
   <link rel="icon" href="/favicon.png">
@@ -18,7 +18,7 @@
 
 </head>
 
-<body class='page page-default-list'>
+<body class='page page-default-single'>
   <div id="main-menu-mobile" class="main-menu-mobile">
   <ul>
     
@@ -29,7 +29,7 @@
       </a>
     </li>
     
-    <li class="menu-item-docs active">
+    <li class="menu-item-docs">
       <a href="/docs/">
         <span>Docs</span>
       </a>
@@ -56,7 +56,7 @@
       </a>
     </li>
     
-    <li class="menu-item-docs active">
+    <li class="menu-item-docs">
       <a href="/docs/">
         <span>Docs</span>
       </a>
@@ -102,7 +102,7 @@
       <a href="/docs/examples/">Examples</a>
     </li>
     
-    <li class="">
+    <li class="active ">
       <a href="/docs/orchestration/">Orchestration</a>
     </li>
     
@@ -117,52 +117,25 @@
         </div>
         <div class="col-12 col-md-9">
           
-
-<span class="overview">Overview</span>
-<h1 class="title">Overview</h1>
-<div class="content">
-  <h2 id="sykdomspulsen">Sykdomspulsen</h2>
-<p>Sykdomspulsen is a free and open-source health surveillance system. This website contains technical documentation of the infrastructure and statistical methods used in Sykdomspulsen.</p>
-
-</div>
-
-
-<div class="summary mb-2">
+<h1 class="title">Orchestration</h1>
+<div class="content ">
   
-  <h2 class="title-summary"><a href="/docs/tables/">Tables</a></h2>
-  <p>An overview of the database tables in use.</p>
+
+
+<div id="a-new-r-package" class="section level2">
+<h2>A new R package</h2>
+<p>As mentioned in the “Examples” section, schemas need to be added via <code>sc::add_schema</code> and tasks need to be added via <code>sc::add_task</code>. It is easiest to create a new R package (e.g. <code>sykdomspulsen</code>) and include all schema/task creation code in an <code>onAttach</code> function (<a href="http://r-pkgs.had.co.nz/r.html" class="uri">http://r-pkgs.had.co.nz/r.html</a>), which means that any <code>sykdomspulsen::</code> call will automatically have all schema/task creation code run automatically.</p>
+<p>We then create a function <code>sykdomspulsen::tm_run_task</code> which is a wrapper around <code>sc::tm_run_task</code>, with all schema/task creation code run automatically.</p>
+<p>This means that we can then run tasks from the console (outside of R):</p>
+<pre><code>RScript -e &#39;sykdomspulsen::tm_run_task(&quot;example_data&quot;)&#39;</code></pre>
+</div>
+<div id="airflow" class="section level2">
+<h2>Airflow</h2>
+<p>We recomment using <a href="https://airflow.apache.org/" class="uri">https://airflow.apache.org/</a> to orchestrate tasks.</p>
 </div>
 
-
-<div class="summary mb-2">
-  
-  <h2 class="title-summary"><a href="/docs/philosophy/">Philosophy</a></h2>
-  <p>Understanding the terminology.</p>
 </div>
-
-
-<div class="summary mb-2">
-  
-  <h2 class="title-summary"><a href="/docs/examples/">Examples</a></h2>
-  <p>Examples.</p>
 </div>
-
-
-<div class="summary mb-2">
-  
-  <h2 class="title-summary"><a href="/docs/orchestration/">Orchestration</a></h2>
-  <p>Task orchestration</p>
-</div>
-
-
-<div class="summary mb-2">
-  
-  <h2 class="title-summary"><a href="/docs/privacy/">Privacy policy</a></h2>
-  <p>Privacy policy.</p>
-</div>
-
-
-
 
         </div>
       </div>

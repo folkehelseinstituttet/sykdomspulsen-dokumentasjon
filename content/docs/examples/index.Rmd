@@ -167,9 +167,58 @@ datar_weather <- function(data, argset, schema) {
   print(res)
   
   # we now need to format it
+  res[, granularity_time := "day"]
+  res[, granularity_geo := "county"]
+  res[, location_code := "county03"]
+  res[, border := 2020]
+  res[, age := "total"]
+  res[, sex := "total"]
+  res[, year := fhi::isoyear_n(date)]
+  res[, week := fhi::isoweek_n(date)]
+  res[, yrwk := fhi::isoyearweek(date)]
+  res[, season := fhi::season(yrwk)]
+  res[, x := fhi::x(week)]
+  
+  # upload it to the database
+  schema$output$db_upsert_load_data_infile(res)
 }
 ```
 
+It is important to pay attention to the lines at the top of the function:
+
+```
+if(plnr::is_run_directly()){
+  data <- sc::tm_get_data("example_weather")
+  argset <- sc::tm_get_argset("example_weather")
+  schema <- sc::tm_get_schema("example_weather")
+}
+```
+
+These lines allow a person to run the code interactively from directly inside the function, without running any prior "setup" code. This means that if a person wants to develop or debug a particular task, they can work directly inside that task, without "going to file X, running lines A, B, C, going to file Y, running lines D, E, F, ...". Instead, they can treat the task function like an independent R script.
+
+This has large benefits, as it means that:
+
+- more advanced R programmers can work with the broader "infrastructure" (setting up database schema, tasks)
+- less-advanced R programmers can work within a task that has already been set up (e.g. modifying it as if it were a simple independent R script)
+
+This means that resources can be used most effectively, with advanced programmers working on the difficult tasks, with less-advanced programmers assisting in areas where they can (without the need for them to understand the more complicated aspects)
+
+### Running the task
+
+The following command is used to run the task from within R:
+
+```
+sc::tm_run_task("example_data")
+```
+
+### Accessing the data
+
+We can easily access data from the database via the helper function `sc::tbl` and subsequent dplyr (https://dplyr.tidyverse.org/) functions:
+
+```{r}
+sc::tbl("example_weather") %>%
+  dplyr::collect()
+```
 
 
 

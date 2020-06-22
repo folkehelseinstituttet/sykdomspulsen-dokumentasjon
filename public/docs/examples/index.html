@@ -103,6 +103,10 @@
     </li>
     
     <li class="">
+      <a href="/docs/orchestration/">Orchestration</a>
+    </li>
+    
+    <li class="">
       <a href="/docs/privacy/">Privacy policy</a>
     </li>
     
@@ -243,7 +247,58 @@
   print(res)
   
   # we now need to format it
+  res[, granularity_time := &quot;day&quot;]
+  res[, granularity_geo := &quot;county&quot;]
+  res[, location_code := &quot;county03&quot;]
+  res[, border := 2020]
+  res[, age := &quot;total&quot;]
+  res[, sex := &quot;total&quot;]
+  res[, year := fhi::isoyear_n(date)]
+  res[, week := fhi::isoweek_n(date)]
+  res[, yrwk := fhi::isoyearweek(date)]
+  res[, season := fhi::season(yrwk)]
+  res[, x := fhi::x(week)]
+  
+  # upload it to the database
+  schema$output$db_upsert_load_data_infile(res)
 }</code></pre>
+<p>It is important to pay attention to the lines at the top of the function:</p>
+<pre><code>if(plnr::is_run_directly()){
+  data &lt;- sc::tm_get_data(&quot;example_weather&quot;)
+  argset &lt;- sc::tm_get_argset(&quot;example_weather&quot;)
+  schema &lt;- sc::tm_get_schema(&quot;example_weather&quot;)
+}</code></pre>
+<p>These lines allow a person to run the code interactively from directly inside the function, without running any prior “setup” code. This means that if a person wants to develop or debug a particular task, they can work directly inside that task, without “going to file X, running lines A, B, C, going to file Y, running lines D, E, F, …”. Instead, they can treat the task function like an independent R script.</p>
+<p>This has large benefits, as it means that:</p>
+<ul>
+<li>more advanced R programmers can work with the broader “infrastructure” (setting up database schema, tasks)</li>
+<li>less-advanced R programmers can work within a task that has already been set up (e.g. modifying it as if it were a simple independent R script)</li>
+</ul>
+<p>This means that resources can be used most effectively, with advanced programmers working on the difficult tasks, with less-advanced programmers assisting in areas where they can (without the need for them to understand the more complicated aspects)</p>
+</div>
+<div id="running-the-task" class="section level3">
+<h3>Running the task</h3>
+<p>The following command is used to run the task from within R:</p>
+<pre><code>sc::tm_run_task(&quot;example_data&quot;)</code></pre>
+</div>
+<div id="accessing-the-data" class="section level3">
+<h3>Accessing the data</h3>
+<p>We can easily access data from the database via the helper function <code>sc::tbl</code> and subsequent dplyr (<a href="https://dplyr.tidyverse.org/" class="uri">https://dplyr.tidyverse.org/</a>) functions:</p>
+<pre class="r"><code>sc::tbl(&quot;example_weather&quot;) %&gt;%
+  dplyr::collect()
+## # A tibble: 8 x 16
+##   granularity_time granularity_geo location_code border age   sex    year  week
+##   &lt;chr&gt;            &lt;chr&gt;           &lt;chr&gt;          &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;int&gt;
+## 1 day              county          county03        2020 total total  2020    26
+## 2 day              county          county03        2020 total total  2020    26
+## 3 day              county          county03        2020 total total  2020    26
+## 4 day              county          county03        2020 total total  2020    26
+## 5 day              county          county03        2020 total total  2020    26
+## 6 day              county          county03        2020 total total  2020    26
+## 7 day              county          county03        2020 total total  2020    27
+## 8 day              county          county03        2020 total total  2020    27
+## # … with 8 more variables: yrwk &lt;chr&gt;, season &lt;chr&gt;, x &lt;dbl&gt;, date &lt;date&gt;,
+## #   tg &lt;dbl&gt;, tx &lt;dbl&gt;, tn &lt;dbl&gt;, rr &lt;dbl&gt;</code></pre>
 </div>
 </div>
 
