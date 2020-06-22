@@ -79,9 +79,8 @@ This is the overarching “scheduler”:</li>
 </ol>
 <p>By including all of this in one <code>Plan</code> class, we can easily maintain a good overview of all the analyses (i.e. outputs) that need to be run.</p>
 <p>We now provide a simple example that shows how a person can develop code to provide graphs for multiple years.</p>
-<pre class="r"><code>library(ggplot2)</code></pre>
-<pre><code>## Warning: package &#39;ggplot2&#39; was built under R version 3.6.3</code></pre>
-<pre class="r"><code>library(data.table)
+<pre class="r"><code>library(ggplot2)
+library(data.table)
 
 # We begin by defining a new plan
 p &lt;- plnr::Plan$new()
@@ -199,9 +198,9 @@ p$run_one(&quot;fig_1_2002&quot;)</code></pre>
 <pre class="r"><code>p$run_one(3)</code></pre>
 <p><img src="/docs/philosophy/index_files/figure-html/unnamed-chunk-2-3.png" width="672" /></p>
 </div>
-<div id="sykdomspulsen" class="section level2">
-<h2>sykdomspulsen</h2>
-<p>Within the <a href="https://folkehelseinstituttet.github.io/sykdomspulsen/">sykdomspulsen</a> R package we expand upon <a href="https://folkehelseinstituttet.github.io/plnr/">plnr</a>.</p>
+<div id="sykdomspulsen-core" class="section level2">
+<h2>sykdomspulsen core</h2>
+<p>Within the <a href="https://github.com/folkehelseinstituttet/sykdomspulsen/">sykdomspulsen core</a> R package we expand upon <a href="https://folkehelseinstituttet.github.io/plnr/">plnr</a>.</p>
 <table class="huxtable" style="border-collapse: collapse; margin-bottom: 2em; margin-top: 2em; width: 100%; margin-left: auto; margin-right: auto;  ">
 <col>
 <col>

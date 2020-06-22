@@ -137,9 +137,9 @@ p$run_one(3)
 ```
 
 
-## sykdomspulsen
+## sykdomspulsen core
 
-Within the [sykdomspulsen](https://folkehelseinstituttet.github.io/sykdomspulsen/) R package we expand upon [plnr](https://folkehelseinstituttet.github.io/plnr/).
+Within the [sykdomspulsen core](https://github.com/folkehelseinstituttet/sykdomspulsen/) R package we expand upon [plnr](https://folkehelseinstituttet.github.io/plnr/).
 
 ```{r echo=FALSE, results='asis'}
 d <- data.table(readxl::read_excel("tab_sykdomspulsen.xlsx"))
@@ -156,3 +156,4 @@ In principle we aim to use `plnr::Plan`s, but replace the analysis function with
 2. Allow for inheritance that performs necessary infrastructure checks, such as "has this analysis already run today?"
 
 `TaskManager` is responsible for creating and running the `Task`s as needed.
+

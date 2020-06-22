@@ -1,0 +1,175 @@
+---
+date: 2019-02-11
+draft: false
+summary: Examples.
+title: Examples
+weight: 4
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(collapse = TRUE)
+options(knitr.kable.NA = '')
+library(data.table)
+library(magrittr)
+```
+
+## Weather
+
+```{r include=FALSE}
+system2("/bin/authenticate.sh", stdout=NULL)
+```
+
+We will now work our way through an example implementation of a weather surveillance system.
+
+### Database table/schema
+
+To begin with, we need to create a database table `schema` that describes the final database table that we will store the information that we will collect.
+
+```{r}
+sc::add_schema(
+  name = "example_weather",
+  schema = sc::Schema$new(
+    db_config = sc::config$db_config,
+    db_table = "example_weather",
+    db_field_types =  c(
+      "granularity_time" = "TEXT",
+      "granularity_geo" = "TEXT",
+      "location_code" = "TEXT",
+      "border" = "INTEGER",
+      "age" = "TEXT",
+      "sex" = "TEXT",
+      "year" = "INTEGER",
+      "week" = "INTEGER",
+      "yrwk" = "TEXT",
+      "season" = "TEXT",
+      "x" = "DOUBLE",
+      "date" = "DATE",
+
+      "tg" = "DOUBLE",
+      "tx" = "DOUBLE",
+      "tn" = "DOUBLE",
+      "rr" = "DOUBLE"
+    ),
+    db_load_folder = tempdir(),
+    keys =  c(
+      "location_code",
+      "date"
+    ),
+    validator_field_types = sc::validator_field_types_sykdomspulsen,
+    validator_field_contents = sc::validator_field_contents_sykdomspulsen
+  )
+)
+```
+
+This `schema` has a few main parts.
+
+`name` is an internal reference that we will use to access this database table at `sc::config$schemas$example_weather`.
+
+`db_config` is a list that contains information about the database:
+
+```{r}
+names(sc::config$db_config)
+```
+
+`db_table` is the name of the database table in the database.
+
+`db_field_types` is a vector containing the names and variable types of the columns of the database table.
+
+`keys` are the columns that will form the primary key of the databse (i.e. identify unique rows).
+
+`validator_field_types` is a validator that is useful for ensuring that your database table names are consistent with predetermined rules. For example, in Sykdomspulsen we have decided that we always want the first 12 columns to be `granularity_time`, `granularity_geo`, `location_code`, `border`, `age`, `sex`, `year`, `week`, `yrwk`, `season`, `x`, `date`. However, while developing new code we found that it was difficult to force all developers to remember to include these 12 columns in the correct order. The validator `sc::validator_field_types_sykdomspulsen` ensures that the first 12 columns are as expected, and otherwise the developer will not be able to run their code.
+
+`validator_field_contents` is a validator that ensures that the contents of your data is correct. We experienced that there were issues with `granularity_time` sometimes containing the value `week` and sometimes containing the value `weekly`. To maintain consistency in our data, the validator `sc::validator_field_contents_sykdomspulsen` will throw an error if it observes non-accepted values for certain variables.
+
+### Task
+
+We now need to create a task that will download the data from an API, clean it, and store it in the database schema.
+
+For simple tasks we can use the convenience function `sc::task_from_config`.
+
+```{r}
+sc::add_task(
+  sc::task_from_config(
+    name = "example_weather",
+    type = "data",
+    action = "example_weather",
+    schema = list(output = sc::config$schemas$example_weather)
+  )
+)
+```
+
+`name` is an internal name that we will use to reference the task. 
+
+`type` is one of `data`, `analysis`, `ui`, or `single`.
+
+`action` is the function that will be called.
+
+`schema` is a list containing `schema`s.
+
+### Action
+
+We now need to develop the action `example_weather`. We do this by creating an R function that contains 3 arguments:
+
+```{r}
+datar_weather <- function(data, argset, schema) {
+  # sc::tm_run_task("example_weather")
+
+  if(plnr::is_run_directly()){
+    data <- sc::tm_get_data("example_weather")
+    argset <- sc::tm_get_argset("example_weather")
+    schema <- sc::tm_get_schema("example_weather")
+  }
+  
+  # download the forecast for Oslo
+  a <- httr::GET(glue::glue("https://api.met.no/weatherapi/locationforecastlts/1.3/?lat=59.9&lon=10.8"), httr::content_type_xml())
+  a <- xml2::read_xml(a$content)
+
+  baz <- xml2::xml_find_all(a, ".//maxTemperature")
+  res <- vector("list", length = length(baz))
+  for (i in seq_along(baz)) {
+    parent <- xml2::xml_parent(baz[[i]])
+    grandparent <- xml2::xml_parent(parent)
+    time_from <- xml2::xml_attr(grandparent, "from")
+    time_to <- xml2::xml_attr(grandparent, "to")
+    x <- xml2::xml_find_all(parent, ".//minTemperature")
+    temp_min <- xml2::xml_attr(x, "value")
+    x <- xml2::xml_find_all(parent, ".//maxTemperature")
+    temp_max <- xml2::xml_attr(x, "value")
+    x <- xml2::xml_find_all(parent, ".//precipitation")
+    precip <- xml2::xml_attr(x, "value")
+
+    res[[i]] <- data.frame(
+      time_from = as.character(time_from),
+      time_to = as.character(time_to),
+      tx = as.numeric(temp_max),
+      tn = as.numeric(temp_min),
+      rr = as.numeric(precip)
+    )
+  }
+  res <- rbindlist(res)
+  res <- res[stringr::str_sub(time_from, 12, 13) %in% c("00", "06", "12", "18")]
+  res[, date := as.Date(stringr::str_sub(time_from, 1, 10))]
+  res[, N := .N, by = date]
+  res <- res[N == 4]
+  res <- res[, .(
+    tg = NA,
+    tx = max(tx),
+    tn = min(tn),
+    rr = sum(rr)
+  ),
+  keyby = .(date)
+  ]
+  
+  # we look at the downloaded data
+  print(res)
+  
+  # we now need to format it
+}
+```
+
+
+
+
+
