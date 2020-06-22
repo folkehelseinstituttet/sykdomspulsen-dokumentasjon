@@ -30,8 +30,10 @@ RScript -e 'sykdomspulsen::tm_run_task("example_data")'
 
 ## Airflow
 
-We recomment using https://airflow.apache.org/ to orchestrate tasks.
+We recommend using https://airflow.apache.org/ to orchestrate tasks.
 
+Here is an example workflow, with each task represented as a rectangle.
 
+![](airflow.png)
 
 
