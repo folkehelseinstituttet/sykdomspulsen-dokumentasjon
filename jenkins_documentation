@@ -1,0 +1,41 @@
+pipeline {
+  agent any
+  stages {
+
+    stage('Checkout') {
+      steps {
+	 // Get website from GitHub
+	 checkout([  
+            $class: 'GitSCM', 
+            branches: [[name: 'refs/heads/master']], 
+            doGenerateSubmoduleConfigurations: false, 
+            extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'documentation']], 
+            submoduleCfg: [], 
+            userRemoteConfigs: [[url: 'https://github.com/folkehelseinstituttet/sykdomspulsen-dokumentasjon.git']],
+	          poll: true
+        ])
+      }
+    }
+    stage('Distill Build') {
+      steps {
+        sh 'echo $WORKSPACE'
+        sh 'ls'
+        sh 'pwd'
+	      sh '$WORKSPACE/bin/distill_build.sh.sh'
+        sh 'sudo -E $WORKSPACE/bin/distill_build.sh'
+      }
+    }
+    stage('Image Build') {
+      steps {
+        // create nginx container
+        sh '$WORKSPACE/bin/distill-images-build.sh'
+      }
+    }
+    stage('deploy') {
+      steps {
+        // delete existing container, run new one
+        sh '$WORKSPACE/bin/distill-images-deploy.sh'
+      }
+    }
+  }
+}
