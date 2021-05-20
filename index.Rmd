@@ -1,3 +1,75 @@
 ---
-site: blogdown:::blogdown_site
+title: "Sykdomspulsen"
+description: |
+  Interndokumentasjon for Sykdomspulsen
+site: distill::distill_website
 ---
+
+This is an overview
+
+![](images/spuls_overview.jpg)
+
+## Important links
+
+### Airflow
+
+[Airflow Prod](http://sykdomspulsen-intern.fhi.no/airflow/admin/airflow/graph?dag_id=sykdomspulsen_prod)
+
+[Airflow Test](http://posl-fhi-syk02.fhi.no:8081/admin/airflow/graph?dag_id=sykdomspulsen_test&root=&execution_date=)
+
+### Shiny websites
+
+[Shiny - spuls.fhi.no](https://spuls.fhi.no)
+
+[Shiny - beta_kht](http://dosl-fhi-syk01.yellow.ext/shiny/beta_kht)
+
+[Shiny - beta_oh](http://dosl-fhi-syk01.yellow.ext/shiny/beta_oh)
+
+### Jenkins
+
+[Jenkins](http://posl-fhi-syk02.fhi.no:8080/)
+
+### Github project
+
+[Github - Project overview](https://github.com/orgs/folkehelseinstituttet/projects/2)
+
+[Github - Project overview (Aurora)](https://github.com/orgs/folkehelseinstituttet/projects/2?card_filter_query=assignee%3Aaurorasmil)
+
+[Github - Project overview (Bea)](https://github.com/orgs/folkehelseinstituttet/projects/2?card_filter_query=assignee%3Abedavs)
+
+[Github - Project overview (Chi)](https://github.com/orgs/folkehelseinstituttet/projects/2?card_filter_query=assignee%3Aandreaczhang)
+
+[Github - Project overview (Gry)](https://github.com/orgs/folkehelseinstituttet/projects/2?card_filter_query=assignee%3Agrymgr)
+
+[Github - Project overview (Gunnar)](https://github.com/orgs/folkehelseinstituttet/projects/2?card_filter_query=assignee%3Agulfa)
+
+[Github - Project overview (Richard)](https://github.com/orgs/folkehelseinstituttet/projects/2?card_filter_query=assignee%3Araubreywhite)
+
+[Github - Sykdomspulsen network](https://github.com/folkehelseinstituttet/sykdomspulsen/network)
+
+[Github - Sykdomspulsen code](https://github.com/folkehelseinstituttet/sykdomspulsen)
+
+[Github - Shiny code](https://github.com/folkehelseinstituttet/shiny/network)
+
+[Github - Shiny network](https://github.com/shiny/sykdomspulsen)
+
+### R packages
+
+[Travis-ci](https://travis-ci.com/folkehelseinstituttet)
+
+### R packages documentation
+
+[fhidata documentation](https://folkehelseinstituttet.github.io/fhidata)
+
+[fhimaps documentation](https://folkehelseinstituttet.github.io/fhimaps)
+
+[fhiplot documentation](https://folkehelseinstituttet.github.io/fhiplot)
+
+### R packages code
+
+[fhidata code](https://github.com/folkehelseinstituttet/fhidata)
+
+[fhimaps code](https://github.com/folkehelseinstituttet/fhimaps)
+
+[fhiplot code](https://github.com/folkehelseinstituttet/fhiplot)
+
