@@ -1,7 +1,7 @@
 ---
 title: "Sykdomspulsen"
 description: |
-  Sykdomspulsen
+  A free and open-source health surveillance system
 site: distill::distill_website
 ---
 
@@ -11,4 +11,4 @@ The package is undergoing development now at https://github.com/folkehelseinstit
 
 You can subscribe to our newsletter to be notified when Sykdomspulsen Core is ready for public use.
 
-<iframe src="https://forms.apsisforms.com/60ca0083f9f3c57b8a91c3022d460c55"></iframe>
+<iframe src="https://forms.apsisforms.com/60ca0083f9f3c57b8a91c3022d460c55" height="600"></iframe>
