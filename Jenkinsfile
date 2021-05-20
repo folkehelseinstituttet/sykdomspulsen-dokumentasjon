@@ -20,7 +20,7 @@ pipeline {
         // delete existing container, run new one
         sh 'git -C $WORKSPACE add .'
         sh 'git -C $WORKSPACE commit -m "[ci-skip]"'
-        sh 'git -C $WORKSPACE push origin HEAD:main'
+        sh 'git -C $WORKSPACE push origin HEAD:master'
       }
     }
   }
