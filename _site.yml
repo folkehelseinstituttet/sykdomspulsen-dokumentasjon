@@ -1,7 +1,7 @@
 name: "distill-spuls"
-title: "Documentation for Sykdomspulsen"
+title: "Documentation for Sykdomspulsen Core"
 description: |
-  Sykdomspulsen
+  Sykdomspulsen Core
 output_dir: "_site"
 navbar:
   right:
