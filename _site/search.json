@@ -6,7 +6,7 @@
       "description": "Some additional details about the website",
       "author": [],
       "contents": "\nDevelopment\ntest test test\nThis package is developed by researchers at FHI.(TO BE FILLED IN)\nHow to contact us\nIf you have any questions about our privacy policy, or you would like to exercise one of your data protection rights, please do not hesitate to contact us.\nEmail us at: sykdomspulsen@fhi.no\nPrivacy\nThis privacy policy will explain how Sykdomspulsen uses the personal data we collect from you when you use our website for technical documentation (sykdomspulsen-dokumentasjon.no).\nWhat data do we collect?\nOn sykdomspulsen-dokumentasjon.no we do not collect any information.\nCookies\nCookies are text files placed on your computer to collect standard Internet log information and visitor behavior information. For further information, visit allaboutcookies.org.\nHow do we use cookies?\nWe do not use cookies.\nChanges to our privacy policy\nWe keep our privacy policy under regular review and places any updates on this web page. This privacy policy was last updated on 2020-02-25\nHow to contact the appropriate authority\nShould you wish to report a complaint or if you feel that we have not addressed your concern in a satisfactory manner, you may contact datatilsynet at https://www.datatilsynet.no/om-datatilsynet/kontakt-oss/\n\n\n\n",
-      "last_modified": "2021-05-20T12:24:48+02:00"
+      "last_modified": "2021-05-20T12:25:47+02:00"
     },
     {
       "path": "index.html",
@@ -14,7 +14,7 @@
       "description": "Interndokumentasjon for Sykdomspulsen\n",
       "author": [],
       "contents": "\nThis is an overview\n\nImportant links\nAirflow\nAirflow Prod\nAirflow Test\nShiny websites\nShiny - spuls.fhi.no\nShiny - beta_kht\nShiny - beta_oh\nJenkins\nJenkins\nGithub project\nGithub - Project overview\nGithub - Project overview (Aurora)\nGithub - Project overview (Bea)\nGithub - Project overview (Chi)\nGithub - Project overview (Gry)\nGithub - Project overview (Gunnar)\nGithub - Project overview (Richard)\nGithub - Sykdomspulsen network\nGithub - Sykdomspulsen code\nGithub - Shiny code\nGithub - Shiny network\nR packages\nTravis-ci\nR packages documentation\nfhidata documentation\nfhimaps documentation\nfhiplot documentation\nR packages code\nfhidata code\nfhimaps code\nfhiplot code\n\n\n\n",
-      "last_modified": "2021-05-20T12:24:48+02:00"
+      "last_modified": "2021-05-20T12:25:48+02:00"
     }
   ],
   "collections": []
