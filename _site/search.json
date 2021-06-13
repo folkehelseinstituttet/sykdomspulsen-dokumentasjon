@@ -6,7 +6,7 @@
       "description": "Some additional details about the website",
       "author": [],
       "contents": "\nDevelopment\ntest test test\nThis package is developed by researchers at FHI.(TO BE FILLED IN)\nHow to contact us\nIf you have any questions about our privacy policy, or you would like to exercise one of your data protection rights, please do not hesitate to contact us.\nEmail us at: sykdomspulsen@fhi.no\nPrivacy\nThis privacy policy will explain how Sykdomspulsen uses the personal data we collect from you when you use our website for technical documentation (sykdomspulsen-dokumentasjon.no).\nWhat data do we collect?\nOn sykdomspulsen-dokumentasjon.no we do not collect any information.\nCookies\nCookies are text files placed on your computer to collect standard Internet log information and visitor behavior information. For further information, visit allaboutcookies.org.\nHow do we use cookies?\nWe do not use cookies.\nChanges to our privacy policy\nWe keep our privacy policy under regular review and places any updates on this web page. This privacy policy was last updated on 2020-02-25\nHow to contact the appropriate authority\nShould you wish to report a complaint or if you feel that we have not addressed your concern in a satisfactory manner, you may contact datatilsynet at https://www.datatilsynet.no/om-datatilsynet/kontakt-oss/\n\n\n\n",
-      "last_modified": "2021-06-13T01:46:11+02:00"
+      "last_modified": "2021-06-14T01:46:08+02:00"
     },
     {
       "path": "index.html",
@@ -14,7 +14,7 @@
       "description": "A free and open-source health surveillance system\n",
       "author": [],
       "contents": "\nSykdomspulsen core is a free and open-source health surveillance system designed and developed by the Norwegian Institute of Public Health.\nThe package is undergoing development now at https://github.com/folkehelseinstituttet/sc\nYou can subscribe to our newsletter to be notified when Sykdomspulsen Core is ready for public use.\n\n\n\n\n\n",
-      "last_modified": "2021-06-13T01:46:11+02:00"
+      "last_modified": "2021-06-14T01:46:08+02:00"
     }
   ],
   "collections": []
