@@ -1,0 +1,95 @@
+---
+title: "Tips and Tricks"
+description: |
+  Notes on how to use Sykdomspulsen Analytics infrastructure
+date: 2021-06-02
+author:
+  - first_name: "Chi"
+    last_name: "Zhang"
+    url: https://www.fhi.no
+    affiliation: Folkehelseinstituttet
+    affiliation_url: https://www.fhi.no
+output:
+  distill::distill_article:
+    toc: true
+    toc_depth: 2
+editor_options: 
+  chunk_output_type: console
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(collapse = TRUE)
+options(knitr.kable.NA = '')
+library(data.table)
+library(sykdomspulsen)
+library(magrittr)
+```
+
+## FAQ
+
+
+## Data, argset, schema
+
+It is necessary to know which **analysis** you are working on. All the analyses within a task can be accessed by `sc::tm_get_plans_argsets_as_dt()`. 
+
+```{r, echo=T}
+options(width = 150)
+# if don't know which plan to choose, can examine by 
+sc::tm_get_plans_argsets_as_dt('ui_autoc19_report_county')
+```
+
+## Running tasks
+
+### Run externally (without manually loading data into environment)
+
+The analysis (**main function**) is run in loops, with data/argset/schema iterating over all combinations. 
+
+The following two are equivalent: 
+
+```{r, echo=T, eval=F}
+tm_run_task('analysis_covid_metrics')
+```
+
+What it actually does: 
+
+```{r, echo=T, eval=F}
+retval <- list()
+
+# 1:5 is an example
+for(index_plan in 1:5){  
+  # data is the same for each plan
+  data <- plans[[index_plan]]$get_data()
+  
+  # argset could be different for the SAME DATA
+  for(index_analysis in 1:5){
+    argset <- plans[[index_plan]]$get_argset(index_analysis)
+    
+    # then run the MAIN ANALYSIS 
+    retval[[index]] <- analysis_covid_metrics(data = data, argset = argset) # schema = schema
+  }
+}
+```
+
+### Run internally (manually)
+
+Since we do not run with the loop above, it is necessary to specify **ONE set of data/argset/schema** manually. This is done with the following. 
+
+```{r, echo=T, eval=F}
+if(plnr::is_run_directly()){
+  # sc::tm_get_plans_argsets_as_dt("skuhr_import_data_recent")
+
+  index_plan <- 7
+  index_analysis <- 1
+
+  data <- sc::tm_get_data("skuhr_import_data_recent", index_plan = index_plan)
+  argset <- sc::tm_get_argset("skuhr_import_data_recent", index_plan = index_plan, index_analysis = index_analysis)
+  schema <- sc::tm_get_schema("skuhr_import_data_recent")
+}
+```
+
+As this chunk is INSIDE the main function, it overwrites the argument values. 
+
+## Changelog {.appendix}
+
+2021-06-02: Originally published.
