@@ -36,7 +36,7 @@ In short, you can think of a Sykdomspulsen Core task as multiple [plnr plans](ht
 
 ## Definitions
 
-```{r definitions}
+```{r definitions, echo = F}
 d <- rbindlist(list(
   data.table(
     Object = glue::glue("argset"),
@@ -129,7 +129,7 @@ tab
 
 ## General tasks
 
-```{r general-tasks, layout="l-body-outset", fig.cap="A general task showing the many options of a task."}
+```{r general-tasks, echo=F, layout="l-body-outset", fig.cap="A general task showing the many options of a task."}
 knitr::include_graphics("analytics_tasks_introduction/task_general.png")
 ```
 
@@ -163,7 +163,7 @@ Figure \@ref(fig:general-tasks) shows only 2 location based analyses, but in rea
 
 ## Putting it together
 
-```{r file-locations, layout="l-body-outset", fig.cap="A typical file setup for an implementation of Sykdomspulsen Core. `plan_argset_fn` is rarely used, and is therefore shown as blacked out in the most of the tasks."}
+```{r file-locations, echo=F, layout="l-body-outset", fig.cap="A typical file setup for an implementation of Sykdomspulsen Core. `plan_argset_fn` is rarely used, and is therefore shown as blacked out in the most of the tasks."}
 knitr::include_graphics("analytics_tasks_introduction/file_locations.png")
 ```
 
@@ -183,7 +183,7 @@ We will now go through an example of how a person would design and implement tas
 
 As documented in more detail [here](analytics_db_schemas_introduction.html), we create a db schema that fits our needs (recording weather data).
 
-```{r}
+```{r, echo=F}
 knitr::include_graphics("analytics_tasks_introduction/addins_1.png")
 ```
 
@@ -241,7 +241,7 @@ sc::add_schema_v8(
 
 To "register" our task, we use the RStudio addin `task_from_config`.
 
-```{r}
+```{r, echo=F}
 knitr::include_graphics("analytics_tasks_introduction/addins_2.png")
 ```
 
@@ -362,7 +362,7 @@ A named list containing the schemas used in this task.
 
 Use the addins dropdown to easily add in boilerplate code.
 
-```{r}
+```{r, echo=F}
 knitr::include_graphics("analytics_tasks_introduction/addins_3.png")
 ```
 
@@ -574,7 +574,7 @@ sc::add_task_from_config_v8(
 
 ### Analysis
 
-```{r, layout="l-body-outset"}
+```{r, echo=F, layout="l-body-outset"}
 knitr::include_graphics("analytics_tasks_introduction/task_analysis.png")
 ```
 
@@ -607,7 +607,7 @@ sc::add_task_from_config_v8(
 
 ### Exporting multiple sets of results
 
-```{r, layout="l-body-outset"}
+```{r, echo=F, layout="l-body-outset"}
 knitr::include_graphics("analytics_tasks_introduction/task_export_multiple.png")
 ```
 
@@ -641,7 +641,7 @@ sc::add_task_from_config_v8(
 
 ### Exporting combined results
 
-```{r, layout="l-body-outset"}
+```{r, echo=F, layout="l-body-outset"}
 knitr::include_graphics("analytics_tasks_introduction/task_export_combined.png")
 ```
 
