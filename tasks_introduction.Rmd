@@ -36,7 +36,7 @@ In short, you can think of a Sykdomspulsen Core task as multiple [plnr plans](ht
 
 ## Definitions
 
-```{r definitions, echo = F}
+```{r definitions, echo=FALSE}
 d <- rbindlist(list(
   data.table(
     Object = glue::glue("argset"),

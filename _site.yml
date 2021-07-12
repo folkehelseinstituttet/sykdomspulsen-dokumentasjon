@@ -10,7 +10,7 @@ navbar:
     - text: "Tutorial"
       menu:
         - text: "Introduction to tasks"
-          href: tasks_introduction.Rmd
+          href: tasks_introduction.html
     - text: "About"
       href: about.html
 output: distill::distill_article
