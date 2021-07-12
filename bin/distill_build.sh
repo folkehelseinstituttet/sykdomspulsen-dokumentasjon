@@ -2,7 +2,7 @@
 
 echo Running $1 in testbash
 echo " "
-sudo podman run --rm \
+sudo podman run --privileged --rm \
   -v $WORKSPACE:/git/sykdomspulsen-dokumentasjon \
   dsyk:bash_interactive Rscript -e 'rmarkdown::render_site("/git/sykdomspulsen-dokumentasjon")'
 
