@@ -2124,97 +2124,6 @@ Tutorial
 <p>In short, you can think of a Sykdomspulsen Core task as multiple <a href="https://folkehelseinstituttet.github.io/plnr/">plnr plans</a> plus <a href="analytics_db_schemas_introduction.html">Sykdomspulsen Core db schemas</a>.</p>
 <h2 id="definitions">Definitions</h2>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>d</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://Rdatatable.gitlab.io/data.table/reference/rbindlist.html'>rbindlist</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
-  <span class='fu'><a href='https://Rdatatable.gitlab.io/data.table/reference/data.table.html'>data.table</a></span><span class='op'>(</span>
-    Object <span class='op'>=</span> <span class='fu'>glue</span><span class='fu'>::</span><span class='fu'><a href='https://glue.tidyverse.org/reference/glue.html'>glue</a></span><span class='op'>(</span><span class='st'>"argset"</span><span class='op'>)</span>,
-    Description <span class='op'>=</span> <span class='fu'>glue</span><span class='fu'>::</span><span class='fu'><a href='https://glue.tidyverse.org/reference/glue.html'>glue</a></span><span class='op'>(</span>
-<span class='st'>"A named list containing arguments."</span>
-  <span class='op'>)</span><span class='op'>)</span>,
-  <span class='fu'><a href='https://Rdatatable.gitlab.io/data.table/reference/data.table.html'>data.table</a></span><span class='op'>(</span>
-    Object <span class='op'>=</span> <span class='fu'>glue</span><span class='fu'>::</span><span class='fu'><a href='https://glue.tidyverse.org/reference/glue.html'>glue</a></span><span class='op'>(</span><span class='st'>"plnr analysis"</span><span class='op'>)</span>,
-    Description <span class='op'>=</span> <span class='fu'>glue</span><span class='fu'>::</span><span class='fu'><a href='https://glue.tidyverse.org/reference/glue.html'>glue</a></span><span class='op'>(</span>
-
-<span class='st'>"These are the fundamental units that are scheduled in plnr:
-&lt;ul&gt;
-  &lt;li&gt;1 argset&lt;/li&gt;
-  &lt;li&gt;1 function that takes two (or more) arguments:
-    &lt;ul&gt;
-      &lt;li&gt;data (named list)&lt;/li&gt;
-      &lt;li&gt;argset (named list)&lt;/li&gt;
-      &lt;li&gt;... (optional arguments)&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-"</span>
-  <span class='op'>)</span><span class='op'>)</span>,
-  <span class='fu'><a href='https://Rdatatable.gitlab.io/data.table/reference/data.table.html'>data.table</a></span><span class='op'>(</span>
-    Object <span class='op'>=</span> <span class='fu'>glue</span><span class='fu'>::</span><span class='fu'><a href='https://glue.tidyverse.org/reference/glue.html'>glue</a></span><span class='op'>(</span><span class='st'>"data_selector_fn"</span><span class='op'>)</span>,
-    Description <span class='op'>=</span> <span class='fu'>glue</span><span class='fu'>::</span><span class='fu'><a href='https://glue.tidyverse.org/reference/glue.html'>glue</a></span><span class='op'>(</span>
-<span class='st'>"A function that takes two arguments:
-&lt;ul&gt;
-  &lt;li&gt;argset (named list)&lt;/li&gt;
-  &lt;li&gt;schema (named list)&lt;/li&gt;
-&lt;/ul&gt;
-This function provides a named list to be used as the `data` argument to `action_fn`
-"</span>
-  <span class='op'>)</span><span class='op'>)</span>,
-  <span class='fu'><a href='https://Rdatatable.gitlab.io/data.table/reference/data.table.html'>data.table</a></span><span class='op'>(</span>
-    Object <span class='op'>=</span> <span class='fu'>glue</span><span class='fu'>::</span><span class='fu'><a href='https://glue.tidyverse.org/reference/glue.html'>glue</a></span><span class='op'>(</span><span class='st'>"action_fn"</span><span class='op'>)</span>,
-    Description <span class='op'>=</span> <span class='fu'>glue</span><span class='fu'>::</span><span class='fu'><a href='https://glue.tidyverse.org/reference/glue.html'>glue</a></span><span class='op'>(</span>
-<span class='st'>"A function that takes three arguments:
-&lt;ul&gt;
-  &lt;li&gt;data (named list, returned from data_selector_fn)&lt;/li&gt;
-  &lt;li&gt;argset (named list)&lt;/li&gt;
-  &lt;li&gt;schema (named list)&lt;/li&gt;
-&lt;/ul&gt;
-This is the thing that **'does stuff'** in Sykdomspulsen Core.
-"</span>
-  <span class='op'>)</span><span class='op'>)</span>,
-  <span class='fu'><a href='https://Rdatatable.gitlab.io/data.table/reference/data.table.html'>data.table</a></span><span class='op'>(</span>
-    Object <span class='op'>=</span> <span class='fu'>glue</span><span class='fu'>::</span><span class='fu'><a href='https://glue.tidyverse.org/reference/glue.html'>glue</a></span><span class='op'>(</span><span class='st'>"sc analysis"</span><span class='op'>)</span>,
-    Description <span class='op'>=</span> <span class='fu'>glue</span><span class='fu'>::</span><span class='fu'><a href='https://glue.tidyverse.org/reference/glue.html'>glue</a></span><span class='op'>(</span>
-<span class='st'>"A `sc analysis` is essentially a `plnr analysis` with database schemas:
-&lt;ul&gt;
-  &lt;li&gt;1 argset&lt;/li&gt;
-  &lt;li&gt;1 action_fn&lt;/li&gt;
-&lt;/ul&gt;
-"</span>
-  <span class='op'>)</span><span class='op'>)</span>,
-  <span class='fu'><a href='https://Rdatatable.gitlab.io/data.table/reference/data.table.html'>data.table</a></span><span class='op'>(</span>
-    Object <span class='op'>=</span> <span class='fu'>glue</span><span class='fu'>::</span><span class='fu'><a href='https://glue.tidyverse.org/reference/glue.html'>glue</a></span><span class='op'>(</span><span class='st'>"plan"</span><span class='op'>)</span>,
-    Description <span class='op'>=</span> <span class='fu'>glue</span><span class='fu'>::</span><span class='fu'><a href='https://glue.tidyverse.org/reference/glue.html'>glue</a></span><span class='op'>(</span>
-<span class='st'>"
-&lt;ul&gt;
-  &lt;li&gt;1 data-pull (using data_selector_fn)&lt;/li&gt;
-  &lt;li&gt;1 list of sc analyses&lt;/li&gt;
-&lt;/ul&gt;
-"</span>
-  <span class='op'>)</span><span class='op'>)</span>,
-  <span class='fu'><a href='https://Rdatatable.gitlab.io/data.table/reference/data.table.html'>data.table</a></span><span class='op'>(</span>
-    Object <span class='op'>=</span> <span class='fu'>glue</span><span class='fu'>::</span><span class='fu'><a href='https://glue.tidyverse.org/reference/glue.html'>glue</a></span><span class='op'>(</span><span class='st'>"task"</span><span class='op'>)</span>,
-    Description <span class='op'>=</span> <span class='fu'>glue</span><span class='fu'>::</span><span class='fu'><a href='https://glue.tidyverse.org/reference/glue.html'>glue</a></span><span class='op'>(</span>
-<span class='st'>"
-This is is the unit that Airflow schedules.
-&lt;ul&gt;
-  &lt;li&gt;1 list of plans&lt;/li&gt;
-&lt;/ul&gt;
-We sometimes run the list of plans in parallel.
-"</span>
-  <span class='op'>)</span><span class='op'>)</span>
-<span class='op'>)</span><span class='op'>)</span>
-<span class='va'>tab</span> <span class='op'>&lt;-</span> <span class='fu'>fhiplot</span><span class='fu'>::</span><span class='fu'><a href='https://folkehelseinstituttet.github.io/fhiplot/reference/htmltable_quick_style.html'>htmltable_quick_style</a></span><span class='op'>(</span><span class='va'>d</span>, widths <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>20</span>, <span class='fl'>80</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-  <span class='fu'>htmlTable</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/htmlTable/man/htmlTable.html'>htmlTable</a></span><span class='op'>(</span>
-    rnames <span class='op'>=</span> <span class='cn'>FALSE</span>,
-    align <span class='op'>=</span> <span class='st'>"|l|l|"</span>,
-    align.header <span class='op'>=</span> <span class='st'>"|l|l|"</span>,
-    align.cgroup <span class='op'>=</span> <span class='st'>"|l|l|"</span>,
-    spacer.celltype <span class='op'>=</span> <span class='st'>"skip"</span>,
-    caption <span class='op'>=</span> <span class='cn'>NULL</span>
-  <span class='op'>)</span>
-<span class='va'>tab</span>
-</code></pre>
-</div>
 <table class="gmisc_table" style="border-collapse: collapse; width: 100%; border-collapse: separate;">
 <thead>
 <tr>
@@ -2349,10 +2258,6 @@ We sometimes run the list of plans in parallel.
 </div>
 <h2 id="general-tasks">General tasks</h2>
 <div class="layout-chunk" data-layout="l-body-outset">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"analytics_tasks_introduction/task_general.png"</span><span class='op'>)</span>
-</code></pre>
-</div>
 <div class="figure"><span id="fig:general-tasks"></span>
 <img src="analytics_tasks_introduction/task_general.png" alt="A general task showing the many options of a task." width="1532" />
 <p class="caption">
@@ -2382,10 +2287,6 @@ Figure 1: A general task showing the many options of a task.
 <p>Figure <a href="#fig:general-tasks">1</a> shows only 2 location based analyses, but in reality there are 356 municipalities in Norway in 2021. If figure <a href="#fig:general-tasks">1</a> had 2 plans (1 for 2021 data, 1 for 2020 data) and 356 analyses for each plan (1 for each location_code) then we would be taking an analysis-heavy approach.</p>
 <h2 id="putting-it-together">Putting it together</h2>
 <div class="layout-chunk" data-layout="l-body-outset">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"analytics_tasks_introduction/file_locations.png"</span><span class='op'>)</span>
-</code></pre>
-</div>
 <div class="figure"><span id="fig:file-locations"></span>
 <img src="analytics_tasks_introduction/file_locations.png" alt="A typical file setup for an implementation of Sykdomspulsen Core. `plan_argset_fn` is rarely used, and is therefore shown as blacked out in the most of the tasks." width="948" />
 <p class="caption">
@@ -2402,10 +2303,6 @@ Figure 2: A typical file setup for an implementation of Sykdomspulsen Core. <cod
 <h3 id="db-schema">db schema</h3>
 <p>As documented in more detail <a href="analytics_db_schemas_introduction.html">here</a>, we create a db schema that fits our needs (recording weather data).</p>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"analytics_tasks_introduction/addins_1.png"</span><span class='op'>)</span>
-</code></pre>
-</div>
 <p><img src="analytics_tasks_introduction/addins_1.png" width="228" /></p>
 </div>
 <div class="layout-chunk" data-layout="l-body">
@@ -2463,10 +2360,6 @@ Figure 2: A typical file setup for an implementation of Sykdomspulsen Core. <cod
 <h3 id="task_from_config_v8">task_from_config_v8</h3>
 <p>To “register” our task, we use the RStudio addin <code>task_from_config</code>.</p>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"analytics_tasks_introduction/addins_2.png"</span><span class='op'>)</span>
-</code></pre>
-</div>
 <p><img src="analytics_tasks_introduction/addins_2.png" width="247" /></p>
 </div>
 <div class="layout-chunk" data-layout="l-body">
@@ -2599,10 +2492,6 @@ Figure 2: A typical file setup for an implementation of Sykdomspulsen Core. <cod
 <h3 id="data_selector_fn">data_selector_fn</h3>
 <p>Use the addins dropdown to easily add in boilerplate code.</p>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"analytics_tasks_introduction/addins_3.png"</span><span class='op'>)</span>
-</code></pre>
-</div>
 <p><img src="analytics_tasks_introduction/addins_3.png" width="244" /></p>
 </div>
 <p>The <code>data_selector_fn</code> is used to extract the data for each plan.</p>
@@ -2945,10 +2834,6 @@ $last_argset
 </div>
 <h3 id="analysis">Analysis</h3>
 <div class="layout-chunk" data-layout="l-body-outset">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"analytics_tasks_introduction/task_analysis.png"</span><span class='op'>)</span>
-</code></pre>
-</div>
 <p><img src="analytics_tasks_introduction/task_analysis.png" width="1535" /></p>
 </div>
 <div class="layout-chunk" data-layout="l-body">
@@ -2982,10 +2867,6 @@ $last_argset
 </div>
 <h3 id="exporting-multiple-sets-of-results">Exporting multiple sets of results</h3>
 <div class="layout-chunk" data-layout="l-body-outset">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"analytics_tasks_introduction/task_export_multiple.png"</span><span class='op'>)</span>
-</code></pre>
-</div>
 <p><img src="analytics_tasks_introduction/task_export_multiple.png" width="1534" /></p>
 </div>
 <div class="layout-chunk" data-layout="l-body">
@@ -3020,10 +2901,6 @@ $last_argset
 </div>
 <h3 id="exporting-combined-results">Exporting combined results</h3>
 <div class="layout-chunk" data-layout="l-body-outset">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/include_graphics.html'>include_graphics</a></span><span class='op'>(</span><span class='st'>"analytics_tasks_introduction/task_export_combined.png"</span><span class='op'>)</span>
-</code></pre>
-</div>
 <p><img src="analytics_tasks_introduction/task_export_combined.png" width="1533" /></p>
 </div>
 <div class="layout-chunk" data-layout="l-body">
