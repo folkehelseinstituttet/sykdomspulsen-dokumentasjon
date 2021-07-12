@@ -86,29 +86,33 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </style>
 
   <!--radix_placeholder_meta_tags-->
-  <title>Documentation for Sykdomspulsen Core: Sykdomspulsen Core</title>
+  <title>Documentation for Sykdomspulsen Core: Tips and Tricks</title>
 
-  <meta property="description" itemprop="description" content="A free and open-source health surveillance system"/>
+  <meta property="description" itemprop="description" content="Notes on how to use Sykdomspulsen Analytics infrastructure"/>
 
 
+  <!--  https://schema.org/Article -->
+  <meta property="article:published" itemprop="datePublished" content="2021-06-02"/>
+  <meta property="article:created" itemprop="dateCreated" content="2021-06-02"/>
+  <meta name="article:author" content="Chi Zhang"/>
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
-  <meta property="og:title" content="Documentation for Sykdomspulsen Core: Sykdomspulsen Core"/>
+  <meta property="og:title" content="Documentation for Sykdomspulsen Core: Tips and Tricks"/>
   <meta property="og:type" content="article"/>
-  <meta property="og:description" content="A free and open-source health surveillance system"/>
+  <meta property="og:description" content="Notes on how to use Sykdomspulsen Analytics infrastructure"/>
   <meta property="og:locale" content="en_US"/>
   <meta property="og:site_name" content="Documentation for Sykdomspulsen Core"/>
 
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary"/>
-  <meta property="twitter:title" content="Documentation for Sykdomspulsen Core: Sykdomspulsen Core"/>
-  <meta property="twitter:description" content="A free and open-source health surveillance system"/>
+  <meta property="twitter:title" content="Documentation for Sykdomspulsen Core: Tips and Tricks"/>
+  <meta property="twitter:description" content="Notes on how to use Sykdomspulsen Analytics infrastructure"/>
 
   <!--/radix_placeholder_meta_tags-->
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","site"]}},"value":[{"type":"character","attributes":{},"value":["Sykdomspulsen Core"]},{"type":"character","attributes":{},"value":["A free and open-source health surveillance system\n"]},{"type":"character","attributes":{},"value":["distill::distill_website"]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","date","author","output","editor_options"]}},"value":[{"type":"character","attributes":{},"value":["Tips and Tricks"]},{"type":"character","attributes":{},"value":["Notes on how to use Sykdomspulsen Analytics infrastructure\n"]},{"type":"character","attributes":{},"value":["2021-06-02"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["first_name","last_name","url","affiliation","affiliation_url"]}},"value":[{"type":"character","attributes":{},"value":["Chi"]},{"type":"character","attributes":{},"value":["Zhang"]},{"type":"character","attributes":{},"value":["https://www.fhi.no"]},{"type":"character","attributes":{},"value":["Folkehelseinstituttet"]},{"type":"character","attributes":{},"value":["https://www.fhi.no"]}]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc","toc_depth"]}},"value":[{"type":"logical","attributes":{},"value":[true]},{"type":"integer","attributes":{},"value":[2]}]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["chunk_output_type"]}},"value":[{"type":"character","attributes":{},"value":["console"]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -2053,7 +2057,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Sykdomspulsen Core","description":"A free and open-source health surveillance system","authors":[]}
+{"title":"Tips and Tricks","description":"Notes on how to use Sykdomspulsen Analytics infrastructure","authors":[{"author":"Chi Zhang","authorURL":"https://www.fhi.no","affiliation":"Folkehelseinstituttet","affiliationURL":"https://www.fhi.no","orcidID":""}],"publishedDate":"2021-06-02T00:00:00.000+02:00","citationText":"Zhang, 2021"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2085,20 +2089,118 @@ Tutorial
 <!--/radix_placeholder_site_before_body-->
 
 <div class="d-title">
-<h1>Sykdomspulsen Core</h1>
+<h1>Tips and Tricks</h1>
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
-<p><p>A free and open-source health surveillance system</p></p>
+<p><p>Notes on how to use Sykdomspulsen Analytics infrastructure</p></p>
 </div>
 
+<div class="d-byline">
+  
+  true
+  
+<br/>2021-06-02
+</div>
 
 <div class="d-article">
-<p>Sykdomspulsen core is a free and open-source health surveillance system designed and developed by the Norwegian Institute of Public Health.</p>
-<p>The package is undergoing development now at <a href="https://github.com/folkehelseinstituttet/sc" class="uri">https://github.com/folkehelseinstituttet/sc</a></p>
-<p>You can subscribe to our newsletter to be notified when Sykdomspulsen Core is ready for public use.</p>
-<iframe src="https://forms.apsisforms.com/60ca0083f9f3c57b8a91c3022d460c55" height="600">
-</iframe>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="d-contents d-contents-float">
+<nav class="l-text toc figcaption" id="TOC">
+<h3>Contents</h3>
+<ul>
+<li><a href="#faq">FAQ</a></li>
+<li><a href="#data-argset-schema">Data, argset, schema</a></li>
+<li><a href="#running-tasks">Running tasks</a></li>
+<li><a href="#changelog">Changelog</a></li>
+</ul>
+</nav>
+</div>
+<h2 id="faq">FAQ</h2>
+<h2 id="data-argset-schema">Data, argset, schema</h2>
+<p>It is necessary to know which <strong>analysis</strong> you are working on. All the analyses within a task can be accessed by <code>sc::tm_get_plans_argsets_as_dt()</code>.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span><span class='op'>(</span>width <span class='op'>=</span> <span class='fl'>150</span><span class='op'>)</span>
+<span class='co'># if don't know which plan to choose, can examine by </span>
+<span class='fu'>sc</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/sc/man/tm_get_plans_argsets_as_dt.html'>tm_get_plans_argsets_as_dt</a></span><span class='op'>(</span><span class='st'>'ui_autoc19_report_county'</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>    index_plan index_analysis location_code                                                               folder
+ 1:          1              1      county03 sykdomspulsen_covid19_autoreport_kommune_output/{argset$today}/fylke
+ 2:          2              1      county11 sykdomspulsen_covid19_autoreport_kommune_output/{argset$today}/fylke
+ 3:          3              1      county15 sykdomspulsen_covid19_autoreport_kommune_output/{argset$today}/fylke
+ 4:          4              1      county18 sykdomspulsen_covid19_autoreport_kommune_output/{argset$today}/fylke
+ 5:          5              1      county30 sykdomspulsen_covid19_autoreport_kommune_output/{argset$today}/fylke
+ 6:          6              1      county34 sykdomspulsen_covid19_autoreport_kommune_output/{argset$today}/fylke
+ 7:          7              1      county38 sykdomspulsen_covid19_autoreport_kommune_output/{argset$today}/fylke
+ 8:          8              1      county42 sykdomspulsen_covid19_autoreport_kommune_output/{argset$today}/fylke
+ 9:          9              1      county46 sykdomspulsen_covid19_autoreport_kommune_output/{argset$today}/fylke
+10:         10              1      county50 sykdomspulsen_covid19_autoreport_kommune_output/{argset$today}/fylke
+11:         11              1      county54 sykdomspulsen_covid19_autoreport_kommune_output/{argset$today}/fylke
+                                        file    week index      today first_analysis first_argset last_analysis last_argset
+ 1: _dagsrapport_covid19_{argset$today}.docx 2021-28     1 2021-07-12           TRUE         TRUE         FALSE       FALSE
+ 2: _dagsrapport_covid19_{argset$today}.docx 2021-28     2 2021-07-12          FALSE        FALSE         FALSE       FALSE
+ 3: _dagsrapport_covid19_{argset$today}.docx 2021-28     3 2021-07-12          FALSE        FALSE         FALSE       FALSE
+ 4: _dagsrapport_covid19_{argset$today}.docx 2021-28     4 2021-07-12          FALSE        FALSE         FALSE       FALSE
+ 5: _dagsrapport_covid19_{argset$today}.docx 2021-28     5 2021-07-12          FALSE        FALSE         FALSE       FALSE
+ 6: _dagsrapport_covid19_{argset$today}.docx 2021-28     6 2021-07-12          FALSE        FALSE         FALSE       FALSE
+ 7: _dagsrapport_covid19_{argset$today}.docx 2021-28     7 2021-07-12          FALSE        FALSE         FALSE       FALSE
+ 8: _dagsrapport_covid19_{argset$today}.docx 2021-28     8 2021-07-12          FALSE        FALSE         FALSE       FALSE
+ 9: _dagsrapport_covid19_{argset$today}.docx 2021-28     9 2021-07-12          FALSE        FALSE         FALSE       FALSE
+10: _dagsrapport_covid19_{argset$today}.docx 2021-28    10 2021-07-12          FALSE        FALSE         FALSE       FALSE
+11: _dagsrapport_covid19_{argset$today}.docx 2021-28    11 2021-07-12          FALSE        FALSE          TRUE        TRUE</code></pre>
+</div>
+<h2 id="running-tasks">Running tasks</h2>
+<h3 id="run-externally-without-manually-loading-data-into-environment">Run externally (without manually loading data into environment)</h3>
+<p>The analysis (<strong>main function</strong>) is run in loops, with data/argset/schema iterating over all combinations.</p>
+<p>The following two are equivalent:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/pkg/sykdomspulsen/man/tm_run_task.html'>tm_run_task</a></span><span class='op'>(</span><span class='st'>'analysis_covid_metrics'</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<p>What it actually does:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>retval</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>
+
+<span class='co'># 1:5 is an example</span>
+<span class='kw'>for</span><span class='op'>(</span><span class='va'>index_plan</span> <span class='kw'>in</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>)</span><span class='op'>{</span>  
+  <span class='co'># data is the same for each plan</span>
+  <span class='va'>data</span> <span class='op'>&lt;-</span> <span class='va'>plans</span><span class='op'>[[</span><span class='va'>index_plan</span><span class='op'>]</span><span class='op'>]</span><span class='op'>$</span><span class='fu'>get_data</span><span class='op'>(</span><span class='op'>)</span>
+  
+  <span class='co'># argset could be different for the SAME DATA</span>
+  <span class='kw'>for</span><span class='op'>(</span><span class='va'>index_analysis</span> <span class='kw'>in</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>)</span><span class='op'>{</span>
+    <span class='va'>argset</span> <span class='op'>&lt;-</span> <span class='va'>plans</span><span class='op'>[[</span><span class='va'>index_plan</span><span class='op'>]</span><span class='op'>]</span><span class='op'>$</span><span class='fu'>get_argset</span><span class='op'>(</span><span class='va'>index_analysis</span><span class='op'>)</span>
+    
+    <span class='co'># then run the MAIN ANALYSIS </span>
+    <span class='va'>retval</span><span class='op'>[[</span><span class='va'>index</span><span class='op'>]</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fu'>analysis_covid_metrics</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>data</span>, argset <span class='op'>=</span> <span class='va'>argset</span><span class='op'>)</span> <span class='co'># schema = schema</span>
+  <span class='op'>}</span>
+<span class='op'>}</span>
+</code></pre>
+</div>
+</div>
+<h3 id="run-internally-manually">Run internally (manually)</h3>
+<p>Since we do not run with the loop above, it is necessary to specify <strong>ONE set of data/argset/schema</strong> manually. This is done with the following.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'>if</span><span class='op'>(</span><span class='fu'>plnr</span><span class='fu'>::</span><span class='fu'><a href='https://folkehelseinstituttet.github.io/plnr//reference/is_run_directly.html'>is_run_directly</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span><span class='op'>{</span>
+  <span class='co'># sc::tm_get_plans_argsets_as_dt("skuhr_import_data_recent")</span>
+
+  <span class='va'>index_plan</span> <span class='op'>&lt;-</span> <span class='fl'>7</span>
+  <span class='va'>index_analysis</span> <span class='op'>&lt;-</span> <span class='fl'>1</span>
+
+  <span class='va'>data</span> <span class='op'>&lt;-</span> <span class='fu'>sc</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/sc/man/tm_get_data.html'>tm_get_data</a></span><span class='op'>(</span><span class='st'>"skuhr_import_data_recent"</span>, index_plan <span class='op'>=</span> <span class='va'>index_plan</span><span class='op'>)</span>
+  <span class='va'>argset</span> <span class='op'>&lt;-</span> <span class='fu'>sc</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/sc/man/tm_get_argset.html'>tm_get_argset</a></span><span class='op'>(</span><span class='st'>"skuhr_import_data_recent"</span>, index_plan <span class='op'>=</span> <span class='va'>index_plan</span>, index_analysis <span class='op'>=</span> <span class='va'>index_analysis</span><span class='op'>)</span>
+  <span class='va'>schema</span> <span class='op'>&lt;-</span> <span class='fu'>sc</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/sc/man/tm_get_schema.html'>tm_get_schema</a></span><span class='op'>(</span><span class='st'>"skuhr_import_data_recent"</span><span class='op'>)</span>
+<span class='op'>}</span>
+</code></pre>
+</div>
+</div>
+<p>As this chunk is INSIDE the main function, it overwrites the argument values.</p>
+<h2 class="appendix" id="changelog">Changelog</h2>
+<p>2021-06-02: Originally published.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
