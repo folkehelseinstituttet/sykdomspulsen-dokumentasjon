@@ -41,13 +41,13 @@ d <- rbindlist(list(
   data.table(
     Object = glue::glue("argset"),
     Description = glue::glue(
-"A named list containing arguments."
-  )),
+      "A named list containing arguments."
+    )
+  ),
   data.table(
     Object = glue::glue("plnr analysis"),
     Description = glue::glue(
-
-"These are the fundamental units that are scheduled in plnr:
+      "These are the fundamental units that are scheduled in plnr:
 <ul>
   <li>1 argset</li>
   <li>1 function that takes two (or more) arguments:
@@ -59,22 +59,24 @@ d <- rbindlist(list(
   </li>
 </ul>
 "
-  )),
+    )
+  ),
   data.table(
     Object = glue::glue("data_selector_fn"),
     Description = glue::glue(
-"A function that takes two arguments:
+      "A function that takes two arguments:
 <ul>
   <li>argset (named list)</li>
   <li>schema (named list)</li>
 </ul>
 This function provides a named list to be used as the `data` argument to `action_fn`
 "
-  )),
+    )
+  ),
   data.table(
     Object = glue::glue("action_fn"),
     Description = glue::glue(
-"A function that takes three arguments:
+      "A function that takes three arguments:
 <ul>
   <li>data (named list, returned from data_selector_fn)</li>
   <li>argset (named list)</li>
@@ -82,38 +84,42 @@ This function provides a named list to be used as the `data` argument to `action
 </ul>
 This is the thing that **'does stuff'** in Sykdomspulsen Core.
 "
-  )),
+    )
+  ),
   data.table(
     Object = glue::glue("sc analysis"),
     Description = glue::glue(
-"A `sc analysis` is essentially a `plnr analysis` with database schemas:
+      "A `sc analysis` is essentially a `plnr analysis` with database schemas:
 <ul>
   <li>1 argset</li>
   <li>1 action_fn</li>
 </ul>
 "
-  )),
+    )
+  ),
   data.table(
     Object = glue::glue("plan"),
     Description = glue::glue(
-"
+      "
 <ul>
   <li>1 data-pull (using data_selector_fn)</li>
   <li>1 list of sc analyses</li>
 </ul>
 "
-  )),
+    )
+  ),
   data.table(
     Object = glue::glue("task"),
     Description = glue::glue(
-"
+      "
 This is is the unit that Airflow schedules.
 <ul>
   <li>1 list of plans</li>
 </ul>
 We sometimes run the list of plans in parallel.
 "
-  ))
+    )
+  )
 ))
 tab <- fhiplot::htmltable_quick_style(d, widths = c(20, 80)) %>%
   htmlTable::htmlTable(

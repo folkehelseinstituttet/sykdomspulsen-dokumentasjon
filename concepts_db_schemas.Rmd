@@ -63,7 +63,7 @@ This is not technically a database, however, it is treated as one.
 
 If a person creates a db schema that exists in both the anonymous and restricted databases, then Sykdomspulsen Core will automatically detect the highest level of access and connect to that database when working with redirect schemas.
 
-```{r, layout="l-body-outset"}
+```{r, echo=F, layout="l-body-outset"}
 knitr::include_graphics("analytics_db_schemas/db_redirect.png")
 ```
 
@@ -75,7 +75,7 @@ Some projects require specific databases that are restricted to a few employees 
 
 Sykdomspulsen Core requires a lot of boilerplate code. It is strongly recommended that you use the RStudio `Addins` menu to help you quickly insert code templates.
 
-```{r, layout="l-body-outset"}
+```{r, echo=F, layout="l-body-outset"}
 knitr::include_graphics("analytics_db_schemas/addins.png")
 ```
 
@@ -299,7 +299,7 @@ We extract data from db schemas using [dplyr](https://dplyr.tidyverse.org/) with
 
 ```{r, echo=T, eval=T}
 options(width = 150)
-sc::config$schemas$redirect_example$tbl() %>% 
+sc::config$schemas$redirect_example$tbl() %>%
   sc::mandatory_db_filter(
     granularity_time = "day",
     granularity_time_not = NULL,
@@ -320,7 +320,7 @@ sc::config$schemas$redirect_example$tbl() %>%
     value_n_censored
   ) %>%
   dplyr::collect() %>%
-  as.data.table() %>% 
+  as.data.table() %>%
   print()
 ```
 
@@ -328,7 +328,7 @@ We can observe the effects of censoring as defined in `sc::add_schema_v8`
 
 ```{r, echo=T, eval=T}
 options(width = 150)
-sc::config$schemas$restr_example$tbl() %>% 
+sc::config$schemas$restr_example$tbl() %>%
   sc::mandatory_db_filter(
     granularity_time = "day",
     granularity_time_not = NULL,
@@ -348,11 +348,11 @@ sc::config$schemas$restr_example$tbl() %>%
     value_n,
     value_n_censored
   ) %>%
-  dplyr::collect() %>% 
-  as.data.table() %>% 
+  dplyr::collect() %>%
+  as.data.table() %>%
   print()
 
-sc::config$schemas$anon_example$tbl() %>% 
+sc::config$schemas$anon_example$tbl() %>%
   sc::mandatory_db_filter(
     granularity_time = "day",
     granularity_time_not = NULL,
@@ -372,8 +372,8 @@ sc::config$schemas$anon_example$tbl() %>%
     value_n,
     value_n_censored
   ) %>%
-  dplyr::collect() %>% 
-  as.data.table() %>% 
+  dplyr::collect() %>%
+  as.data.table() %>%
   print()
 ```
 

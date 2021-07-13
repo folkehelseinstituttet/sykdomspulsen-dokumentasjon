@@ -7,10 +7,18 @@ navbar:
   right:
     - text: "Home"
       href: index.html
+    - text: "Concepts"
+      menu:
+        - text: "DB Schemas"
+          href: concepts_db_schemas.html
+        - text: "Tasks"
+          href: concepts_tasks.html
     - text: "Tutorial"
       menu:
-        - text: "Introduction to tasks"
-          href: tasks_introduction.html
+        - text: "1. DB Schemas"
+          href: concepts_db_schemas.html
+        - text: "2. Tasks"
+          href: concepts_tasks.html
     - text: "About"
       href: about.html
 output: distill::distill_article
