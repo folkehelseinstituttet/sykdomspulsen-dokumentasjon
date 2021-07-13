@@ -21,6 +21,8 @@ pipeline {
         sh 'git -C $WORKSPACE add .'
         sh 'git -C $WORKSPACE commit -m "[ci-skip]"'
         sh 'git -C $WORKSPACE push origin HEAD:master'
+        
+        sh '$WORKSPACE/bin/distill_deploy.sh'
       }
     }
   }
