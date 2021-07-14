@@ -2,6 +2,8 @@ name: "distill-spuls"
 title: "Documentation for Sykdomspulsen Core"
 description: |
   Sykdomspulsen Core
+repository_url: https://github.com/folkehelseinstituttet/sykdomspulsen-dokumentasjon
+creative_commons: CC BY
 output_dir: "_site"
 navbar:
   right:
@@ -21,4 +23,7 @@ navbar:
           href: concepts_tasks.html
     - text: "About"
       href: about.html
-output: distill::distill_article
+output:
+  distill::distill_article:
+    toc: true
+    toc_depth: 2

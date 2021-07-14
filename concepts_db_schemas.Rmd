@@ -34,11 +34,11 @@ A database schema is our way of representing how the database is constructed. In
 
 ## Database servers
 
-Currently we have two database servers that run parallel systems. One database server is `dm-prod` ("auto") and the other is `dm-test` ("interactive").
+Normally, an implementation of Sykdomspulsen Core would have two database servers that run parallel systems. One database server is `auto` and the other is `interactive`.
 
-If you run code in RStudio Server Pro or on Airflow interactive, you will automatically be connected to the interactive database server. If you run code on Airflow auto, you will automatically be connected to the auto database server.
+If you run code in RStudio Workbench or on Airflow interactive, you should be automatically be connected to the interactive database server. If you run code on Airflow auto, you should be automatically be connected to the auto database server. This is something that your implementation will have to solve.
 
-## Access level (anon/restr/redirect/daar)
+## Access level (anon/restr/redirect)
 
 Within each database server, there are multiple databases with different access levels and censoring requirements.
 
@@ -46,7 +46,7 @@ Censoring is performed via the db schema.
 
 ### anon
 
-The "anonymous" database contains data that is anonymous. All Sykdomspulsen team members have access to this database.
+The "anonymous" database contains data that is anonymous. All team members should have access to this database.
 
 ### restr
 
@@ -55,7 +55,7 @@ The "restricted" database contains data that is:
 - Indirectly identifiable
 - Anonymous
 
-Only a restricted number of Sykdomspulsen team members will have access to this database.
+Only a restricted number of team members should have access to this database.
 
 ### redirect
 
@@ -66,10 +66,6 @@ If a person creates a db schema that exists in both the anonymous and restricted
 ```{r, echo=F, layout="l-body-outset"}
 knitr::include_graphics("analytics_db_schemas/db_redirect.png")
 ```
-
-### daar, etc
-
-Some projects require specific databases that are restricted to a few employees for reasons of data security.
 
 ## Creating your own
 
@@ -223,12 +219,11 @@ While developing new code we found that it was difficult to force all developers
 
 Checklist:
 
-
 1. Remember that "keys" (as defined in sc::add_schema_v8) defines the uniquely identifying rows of data that are allowed in the db table
 2. Use `sc::fill_in_missing_v8(d)`
 3. Choose your method of loading the data (upsert/insert/drop_all_rows_and_then_upsert_data)
 
-```{r}
+```{r, echo = F}
 sc::drop_table("restr_example")
 sc::drop_table("anon_example")
 ```
@@ -278,7 +273,7 @@ d[]
 # always fill in missing data!
 sc::fill_in_missing_v8(d)
 
-# we have three options to get the data into the db table
+# we have four options to get the data into the db table
 # remember that "keys" defines the uniquely identifying rows of data that are allowed in the db table!
 # - upsert means "update if data exists, otherwise append"
 # - insert means "append" (data cannot already exist)
@@ -286,6 +281,7 @@ sc::fill_in_missing_v8(d)
 sc::config$schemas$redirect_example$upsert_data(d)
 #sc::config$schemas$redirect_example$insert_data(d)
 #sc::config$schemas$redirect_example$drop_all_rows_and_then_upsert_data(d)
+#sc::config$schemas$redirect_example$drop_all_rows_and_then_insert_data(d)
 ```
 
 ## Accessing the data in a db schema
