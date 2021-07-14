@@ -146,13 +146,13 @@ x <- readLines("https://raw.githubusercontent.com/folkehelseinstituttet/scskelet
 print(x, quote = FALSE)
 ```
 
-### eather_export_weather_plots.r
+### weather_export_weather_plots.r
 
-https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/eather_export_weather_plots.r
+https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/weather_export_weather_plots.r
 
 ```{r, echo=FALSE}
 options(width = 150)
-x <- readLines("https://raw.githubusercontent.com/folkehelseinstituttet/scskeleton/main/R/eather_export_weather_plots.r")
+x <- readLines("https://raw.githubusercontent.com/folkehelseinstituttet/scskeleton/main/R/weather_export_weather_plots.r")
 print(x, quote = FALSE)
 ```
 
