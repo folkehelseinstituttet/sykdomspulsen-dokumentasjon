@@ -2132,39 +2132,15 @@ Tutorial
 <p>In short, you can think of a Sykdomspulsen Core task as multiple <a href="https://folkehelseinstituttet.github.io/plnr/">plnr plans</a> plus <a href="analytics_db_schemas_introduction.html">Sykdomspulsen Core db schemas</a>.</p>
 <h2 id="definitions">Definitions</h2>
 <div class="layout-chunk" data-layout="l-body">
-<pre><code> [1] &quot;#&#39; @import ggplot2&quot;                                                            
- [2] &quot;#&#39; @import data.table&quot;                                                         
- [3] &quot;#&#39; @importFrom magrittr %&gt;% %&lt;&gt;%&quot;                                              
- [4] &quot;1&quot;                                                                             
- [5] &quot;&quot;                                                                              
- [6] &quot;# https://github.com/rstudio/rmarkdown/issues/1632&quot;                            
- [7] &quot;clean_tmpfiles_mod &lt;- function() {&quot;                                            
- [8] &quot;  # message(\&quot;Calling clean_tmpfiles_mod()\&quot;)&quot;                                 
- [9] &quot;}&quot;                                                                             
-[10] &quot;&quot;                                                                              
-[11] &quot;#&#39; Shortcut to run task&quot;                                                       
-[12] &quot;#&#39;&quot;                                                                            
-[13] &quot;#&#39; This task is needed to ensure that all the definitions/db schemas/tasks/etc&quot;
-[14] &quot;#&#39; are loaded from the package scskeleton.&quot;                                    
-[15] &quot;#&#39; @param task_name Name of the task&quot;                                          
-[16] &quot;#&#39; @param index_plan Not used&quot;                                                 
-[17] &quot;#&#39; @param index_analysis Not used&quot;                                             
-[18] &quot;#&#39; @export&quot;                                                                    
-[19] &quot;tm_run_task &lt;- function(task_name, index_plan = NULL, index_analysis = NULL) {&quot;
-[20] &quot;  sc::tm_run_task(&quot;                                                            
-[21] &quot;    task_name = task_name,&quot;                                                    
-[22] &quot;    index_plan = index_plan,&quot;                                                  
-[23] &quot;    index_analysis = index_analysis&quot;                                           
-[24] &quot;  )&quot;                                                                           
-[25] &quot;}&quot;                                                                             
-[26] &quot;&quot;                                                                              
-[27] &quot;#&#39; Declaration of environments that can be used globally&quot;                      
-[28] &quot;#&#39; @export config&quot;                                                             
-[29] &quot;config &lt;- new.env()&quot;                                                           </code></pre>
+<p>#’ <span class="citation" data-cites="import">@import</span> ggplot2 #’ <span class="citation" data-cites="import">@import</span> data.table #’ <span class="citation" data-cites="importFrom">@importFrom</span> magrittr %&gt;% %&lt;&gt;% 1</p>
+<h1 id="httpsgithub.comrstudiormarkdownissues1632"><a href="https://github.com/rstudio/rmarkdown/issues/1632" class="uri">https://github.com/rstudio/rmarkdown/issues/1632</a></h1>
+<p>clean_tmpfiles_mod &lt;- function() { # message(“Calling clean_tmpfiles_mod()”) }</p>
+<p>#’ Shortcut to run task #’ #’ This task is needed to ensure that all the definitions/db schemas/tasks/etc #’ are loaded from the package scskeleton. #’ <span class="citation" data-cites="param">@param</span> task_name Name of the task #’ <span class="citation" data-cites="param">@param</span> index_plan Not used #’ <span class="citation" data-cites="param">@param</span> index_analysis Not used #’ <span class="citation" data-cites="export">@export</span> tm_run_task &lt;- function(task_name, index_plan = NULL, index_analysis = NULL) { sc::tm_run_task( task_name = task_name, index_plan = index_plan, index_analysis = index_analysis ) }</p>
+<p>#’ Declaration of environments that can be used globally #’ <span class="citation" data-cites="export">@export</span> config config &lt;- new.env()</p>
 </div>
 <h2 class="appendix" id="changelog">Changelog</h2>
 <p>2021-05-26: Draft created.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
