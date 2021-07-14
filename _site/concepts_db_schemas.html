@@ -90,6 +90,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
   <meta property="description" itemprop="description" content="How do database tables work in Sykdomspulsen Core?"/>
 
+  <link rel="license" href="https://creativecommons.org/licenses/by/4.0/"/>
 
   <!--  https://schema.org/Article -->
   <meta property="article:published" itemprop="datePublished" content="2021-05-26"/>
@@ -2121,7 +2122,7 @@ Tutorial
 <ul>
 <li><a href="#introduction">Introduction</a></li>
 <li><a href="#database-servers">Database servers</a></li>
-<li><a href="#access-level-anonrestrredirectdaar">Access level (anon/restr/redirect/daar)</a></li>
+<li><a href="#access-level-anonrestrredirect">Access level (anon/restr/redirect)</a></li>
 <li><a href="#creating-your-own">Creating your own</a></li>
 <li><a href="#loading-data-into-a-db-schema">Loading data into a db schema</a></li>
 <li><a href="#accessing-the-data-in-a-db-schema">Accessing the data in a db schema</a></li>
@@ -2133,28 +2134,26 @@ Tutorial
 <h2 id="introduction">Introduction</h2>
 <p>A database schema is our way of representing how the database is constructed. In short, you can think of these as database tables.</p>
 <h2 id="database-servers">Database servers</h2>
-<p>Currently we have two database servers that run parallel systems. One database server is <code>dm-prod</code> (“auto”) and the other is <code>dm-test</code> (“interactive”).</p>
-<p>If you run code in RStudio Server Pro or on Airflow interactive, you will automatically be connected to the interactive database server. If you run code on Airflow auto, you will automatically be connected to the auto database server.</p>
-<h2 id="access-level-anonrestrredirectdaar">Access level (anon/restr/redirect/daar)</h2>
+<p>Normally, an implementation of Sykdomspulsen Core would have two database servers that run parallel systems. One database server is <code>auto</code> and the other is <code>interactive</code>.</p>
+<p>If you run code in RStudio Workbench or on Airflow interactive, you should be automatically be connected to the interactive database server. If you run code on Airflow auto, you should be automatically be connected to the auto database server. This is something that your implementation will have to solve.</p>
+<h2 id="access-level-anonrestrredirect">Access level (anon/restr/redirect)</h2>
 <p>Within each database server, there are multiple databases with different access levels and censoring requirements.</p>
 <p>Censoring is performed via the db schema.</p>
 <h3 id="anon">anon</h3>
-<p>The “anonymous” database contains data that is anonymous. All Sykdomspulsen team members have access to this database.</p>
+<p>The “anonymous” database contains data that is anonymous. All team members should have access to this database.</p>
 <h3 id="restr">restr</h3>
 <p>The “restricted” database contains data that is:</p>
 <ul>
 <li>Indirectly identifiable</li>
 <li>Anonymous</li>
 </ul>
-<p>Only a restricted number of Sykdomspulsen team members will have access to this database.</p>
+<p>Only a restricted number of team members should have access to this database.</p>
 <h3 id="redirect">redirect</h3>
 <p>This is not technically a database, however, it is treated as one.</p>
 <p>If a person creates a db schema that exists in both the anonymous and restricted databases, then Sykdomspulsen Core will automatically detect the highest level of access and connect to that database when working with redirect schemas.</p>
 <div class="layout-chunk" data-layout="l-body-outset">
 <p><img src="analytics_db_schemas/db_redirect.png" width="849" /></p>
 </div>
-<h3 id="daar-etc">daar, etc</h3>
-<p>Some projects require specific databases that are restricted to a few employees for reasons of data security.</p>
 <h2 id="creating-your-own">Creating your own</h2>
 <p>Sykdomspulsen Core requires a lot of boilerplate code. It is strongly recommended that you use the RStudio <code>Addins</code> menu to help you quickly insert code templates.</p>
 <div class="layout-chunk" data-layout="l-body-outset">
@@ -2292,11 +2291,7 @@ Tutorial
 <li>Choose your method of loading the data (upsert/insert/drop_all_rows_and_then_upsert_data)</li>
 </ol>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>sc</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/sc/man/drop_table.html'>drop_table</a></span><span class='op'>(</span><span class='st'>"restr_example"</span><span class='op'>)</span>
-<span class='fu'>sc</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/sc/man/drop_table.html'>drop_table</a></span><span class='op'>(</span><span class='st'>"anon_example"</span><span class='op'>)</span>
-</code></pre>
-</div>
+
 </div>
 <p>We check to see what schemas are available:</p>
 <div class="layout-chunk" data-layout="l-body">
@@ -2353,7 +2348,7 @@ Remember that “keys” (as defined in <code>sc::add_schema_v8</code>) defines 
 <span class='co'># always fill in missing data!</span>
 <span class='fu'>sc</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/sc/man/fill_in_missing_v8.html'>fill_in_missing_v8</a></span><span class='op'>(</span><span class='va'>d</span><span class='op'>)</span>
 
-<span class='co'># we have three options to get the data into the db table</span>
+<span class='co'># we have four options to get the data into the db table</span>
 <span class='co'># remember that "keys" defines the uniquely identifying rows of data that are allowed in the db table!</span>
 <span class='co'># - upsert means "update if data exists, otherwise append"</span>
 <span class='co'># - insert means "append" (data cannot already exist)</span>
@@ -2361,6 +2356,7 @@ Remember that “keys” (as defined in <code>sc::add_schema_v8</code>) defines 
 <span class='fu'>sc</span><span class='fu'>::</span><span class='va'><a href='https://rdrr.io/pkg/sc/man/config.html'>config</a></span><span class='op'>$</span><span class='va'>schemas</span><span class='op'>$</span><span class='va'>redirect_example</span><span class='op'>$</span><span class='fu'>upsert_data</span><span class='op'>(</span><span class='va'>d</span><span class='op'>)</span>
 <span class='co'>#sc::config$schemas$redirect_example$insert_data(d)</span>
 <span class='co'>#sc::config$schemas$redirect_example$drop_all_rows_and_then_upsert_data(d)</span>
+<span class='co'>#sc::config$schemas$redirect_example$drop_all_rows_and_then_insert_data(d)</span>
 </code></pre>
 </div>
 </div>
@@ -2521,7 +2517,12 @@ Remember that “keys” (as defined in <code>sc::add_schema_v8</code>) defines 
 <!--radix_placeholder_site_after_body-->
 <!--/radix_placeholder_site_after_body-->
 <!--radix_placeholder_appendices-->
-<div class="appendix-bottom"></div>
+<div class="appendix-bottom">
+<h3 id="updates-and-corrections">Corrections</h3>
+<p>If you see mistakes or want to suggest changes, please <a href="https://github.com/folkehelseinstituttet/sykdomspulsen-dokumentasjon/issues/new">create an issue</a> on the source repository.</p>
+<h3 id="reuse">Reuse</h3>
+<p>Text and figures are licensed under Creative Commons Attribution <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. Source code is available at <a href="https://github.com/folkehelseinstituttet/sykdomspulsen-dokumentasjon">https://github.com/folkehelseinstituttet/sykdomspulsen-dokumentasjon</a>, unless otherwise noted. The figures that have been reused from other sources don't fall under this license and can be recognized by a note in their caption: "Figure from ...".</p>
+</div>
 <!--/radix_placeholder_appendices-->
 <!--radix_placeholder_navigation_after_body-->
 <!--/radix_placeholder_navigation_after_body-->
