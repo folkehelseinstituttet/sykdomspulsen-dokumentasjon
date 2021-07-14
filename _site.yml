@@ -15,6 +15,8 @@ navbar:
           href: concepts_db_schemas.html
         - text: "Tasks"
           href: concepts_tasks.html
+        - text: "File Layout"
+          href: concepts_file_layout.html
     - text: "Tutorial"
       menu:
         - text: "1. DB Schemas"
