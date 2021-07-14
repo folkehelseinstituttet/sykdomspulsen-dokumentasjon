@@ -36,9 +36,10 @@ In short, you can think of a Sykdomspulsen Core task as multiple [plnr plans](ht
 
 ## Definitions
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, results = 'asis'}
 options(width = 150)
-readLines("https://raw.githubusercontent.com/folkehelseinstituttet/scskeleton/main/R/00_env_and_namespace.r")
+x <- readLines("https://raw.githubusercontent.com/folkehelseinstituttet/scskeleton/main/R/00_env_and_namespace.r")
+for(i in x) cat(i, "\n")
 ```
 
 ## Changelog {.appendix}
