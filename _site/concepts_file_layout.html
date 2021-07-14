@@ -2186,21 +2186,22 @@ Tutorial
 [42] #&#39; etc. *before* we run the task. Hence, this wrapper ensures that all of this    
 [43] #&#39; package&#39;s configs files are loaded via OURPACKAGE::.onLoad() first, and then   
 [44] #&#39; sc::tm_run_task can run.                                                       
-[45] #&#39; @param task_name Name of the task                                              
-[46] #&#39; @param index_plan Not used                                                     
-[47] #&#39; @param index_analysis Not used                                                 
-[48] #&#39; @export                                                                        
-[49] tm_run_task &lt;- function(task_name, index_plan = NULL, index_analysis = NULL) {    
-[50]   sc::tm_run_task(                                                                
-[51]     task_name = task_name,                                                        
-[52]     index_plan = index_plan,                                                      
-[53]     index_analysis = index_analysis                                               
-[54]   )                                                                               
-[55] }                                                                                 
-[56]                                                                                   
-[57] #&#39; Declaration of environments that can be used globally                          
-[58] #&#39; @export config                                                                 
-[59] config &lt;- new.env()                                                               </code></pre>
+[45] #&#39;                                                                                
+[46] #&#39; @param task_name Name of the task                                              
+[47] #&#39; @param index_plan Not used                                                     
+[48] #&#39; @param index_analysis Not used                                                 
+[49] #&#39; @export                                                                        
+[50] tm_run_task &lt;- function(task_name, index_plan = NULL, index_analysis = NULL) {    
+[51]   sc::tm_run_task(                                                                
+[52]     task_name = task_name,                                                        
+[53]     index_plan = index_plan,                                                      
+[54]     index_analysis = index_analysis                                               
+[55]   )                                                                               
+[56] }                                                                                 
+[57]                                                                                   
+[58] #&#39; Declaration of environments that can be used globally                          
+[59] #&#39; @export config                                                                 
+[60] config &lt;- new.env()                                                               </code></pre>
 </div>
 <h2 id="definitions.r">01_definitions.r</h2>
 <p><a href="https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/01_definitions.r" class="uri">https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/01_definitions.r</a></p>
@@ -2222,15 +2223,19 @@ Tutorial
 [15] #&#39; Set global definitions                                                       
 [16] set_definitions &lt;- function() {                                                 
 [17]                                                                                 
-[18]   # Norway&#39;s last redistricting occurred 020-01-01                              
+[18]   # Norway&#39;s last redistricting occurred 2020-01-01                             
 [19]   config$border &lt;- 2020                                                         
 [20]                                                                                 
 [21]   # fhidata needs to know which border is in use                                
-[22]   fhidata::set_config(                                                          
-[23]     border = config$border,                                                     
-[24]     use_current_year_as_1900_pop = TRUE                                         
-[25]   )                                                                             
-[26] }                                                                               </code></pre>
+[22]   # fhidata should also replace the population of 1900 with the current year,   
+[23]   # because year = 1900 is shorthand for granularity_geo = &quot;total&quot;.             
+[24]   # This means that it is more appropriate to use the current year&#39;s population 
+[25]   # for year = 1900.                                                            
+[26]   fhidata::set_config(                                                          
+[27]     border = config$border,                                                     
+[28]     use_current_year_as_1900_pop = TRUE                                         
+[29]   )                                                                             
+[30] }                                                                               </code></pre>
 </div>
 <h2 id="permissions.r">02_permissions.r</h2>
 <p><a href="https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/02_permissions.r" class="uri">https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/02_permissions.r</a></p>
@@ -2267,255 +2272,319 @@ Tutorial
 <h2 id="db_schemas.r">03_db_schemas.r</h2>
 <p><a href="https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/03_db_schemas.r" class="uri">https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/03_db_schemas.r</a></p>
 <div class="layout-chunk" data-layout="l-body">
-<pre><code> [1] set_db_schemas &lt;- function() {                                            
- [2]   # __________ ----                                                       
- [3]   # Weather  ----                                                         
- [4]   ## &gt; anon_example_weather_rawdata ----                                  
- [5]   sc::add_schema_v8(                                                      
- [6]     name_access = c(&quot;anon&quot;),                                              
- [7]     name_grouping = &quot;example_weather&quot;,                                    
- [8]     name_variant = &quot;rawdata&quot;,                                             
- [9]     db_configs = sc::config$db_configs,                                   
-[10]     field_types =  c(                                                     
-[11]       &quot;granularity_time&quot; = &quot;TEXT&quot;,                                        
-[12]       &quot;granularity_geo&quot; = &quot;TEXT&quot;,                                         
-[13]       &quot;country_iso3&quot; = &quot;TEXT&quot;,                                            
-[14]       &quot;location_code&quot; = &quot;TEXT&quot;,                                           
-[15]       &quot;border&quot; = &quot;INTEGER&quot;,                                               
-[16]       &quot;age&quot; = &quot;TEXT&quot;,                                                     
-[17]       &quot;sex&quot; = &quot;TEXT&quot;,                                                     
-[18]                                                                           
-[19]       &quot;date&quot; = &quot;DATE&quot;,                                                    
-[20]                                                                           
-[21]       &quot;isoyear&quot; = &quot;INTEGER&quot;,                                              
-[22]       &quot;isoweek&quot; = &quot;INTEGER&quot;,                                              
-[23]       &quot;isoyearweek&quot; = &quot;TEXT&quot;,                                             
-[24]       &quot;season&quot; = &quot;TEXT&quot;,                                                  
-[25]       &quot;seasonweek&quot; = &quot;DOUBLE&quot;,                                            
-[26]                                                                           
-[27]       &quot;calyear&quot; = &quot;INTEGER&quot;,                                              
-[28]       &quot;calmonth&quot; = &quot;INTEGER&quot;,                                             
-[29]       &quot;calyearmonth&quot; = &quot;TEXT&quot;,                                            
-[30]                                                                           
-[31]       &quot;temp_max&quot; = &quot;DOUBLE&quot;,                                              
-[32]       &quot;temp_min&quot; = &quot;DOUBLE&quot;,                                              
-[33]       &quot;precip&quot; = &quot;DOUBLE&quot;                                                 
-[34]     ),                                                                    
-[35]     keys = c(                                                             
-[36]       &quot;granularity_time&quot;,                                                 
-[37]       &quot;location_code&quot;,                                                    
-[38]       &quot;date&quot;,                                                             
-[39]       &quot;age&quot;,                                                              
-[40]       &quot;sex&quot;                                                               
-[41]     ),                                                                    
-[42]     censors = list(                                                       
-[43]       anon = list(                                                        
-[44]                                                                           
-[45]       )                                                                   
-[46]     ),                                                                    
-[47]     validator_field_types = sc::validator_field_types_sykdomspulsen,      
-[48]     validator_field_contents = sc::validator_field_contents_sykdomspulsen,
-[49]     info = &quot;This db table is used for...&quot;                                 
-[50]   )                                                                       
-[51]                                                                           
-[52]   ## &gt; anon_example_weather_data ----                                     
-[53]   sc::add_schema_v8(                                                      
-[54]     name_access = c(&quot;anon&quot;),                                              
-[55]     name_grouping = &quot;example_weather&quot;,                                    
-[56]     name_variant = &quot;data&quot;,                                                
-[57]     db_configs = sc::config$db_configs,                                   
-[58]     field_types =  c(                                                     
-[59]       &quot;granularity_time&quot; = &quot;TEXT&quot;,                                        
-[60]       &quot;granularity_geo&quot; = &quot;TEXT&quot;,                                         
-[61]       &quot;country_iso3&quot; = &quot;TEXT&quot;,                                            
-[62]       &quot;location_code&quot; = &quot;TEXT&quot;,                                           
-[63]       &quot;border&quot; = &quot;INTEGER&quot;,                                               
-[64]       &quot;age&quot; = &quot;TEXT&quot;,                                                     
-[65]       &quot;sex&quot; = &quot;TEXT&quot;,                                                     
-[66]                                                                           
-[67]       &quot;date&quot; = &quot;DATE&quot;,                                                    
-[68]                                                                           
-[69]       &quot;isoyear&quot; = &quot;INTEGER&quot;,                                              
-[70]       &quot;isoweek&quot; = &quot;INTEGER&quot;,                                              
-[71]       &quot;isoyearweek&quot; = &quot;TEXT&quot;,                                             
-[72]       &quot;season&quot; = &quot;TEXT&quot;,                                                  
-[73]       &quot;seasonweek&quot; = &quot;DOUBLE&quot;,                                            
-[74]                                                                           
-[75]       &quot;calyear&quot; = &quot;INTEGER&quot;,                                              
-[76]       &quot;calmonth&quot; = &quot;INTEGER&quot;,                                             
-[77]       &quot;calyearmonth&quot; = &quot;TEXT&quot;,                                            
-[78]                                                                           
-[79]       &quot;temp_max&quot; = &quot;DOUBLE&quot;,                                              
-[80]       &quot;temp_min&quot; = &quot;DOUBLE&quot;,                                              
-[81]       &quot;precip&quot; = &quot;DOUBLE&quot;                                                 
-[82]     ),                                                                    
-[83]     keys = c(                                                             
-[84]       &quot;granularity_time&quot;,                                                 
-[85]       &quot;location_code&quot;,                                                    
-[86]       &quot;date&quot;,                                                             
-[87]       &quot;age&quot;,                                                              
-[88]       &quot;sex&quot;                                                               
-[89]     ),                                                                    
-[90]     censors = list(                                                       
-[91]       anon = list(                                                        
-[92]                                                                           
-[93]       )                                                                   
-[94]     ),                                                                    
-[95]     validator_field_types = sc::validator_field_types_sykdomspulsen,      
-[96]     validator_field_contents = sc::validator_field_contents_sykdomspulsen,
-[97]     info = &quot;This db table is used for...&quot;                                 
-[98]   )                                                                       
-[99] }                                                                         </code></pre>
+<pre><code>  [1] # ******************************************************************************
+  [2] # 03_db_schemas.r                                                               
+  [3] #                                                                               
+  [4] # PURPOSE 1:                                                                    
+  [5] #   Set db schemas that are used throughout the package.                        
+  [6] #                                                                               
+  [7] #   These are basically all of the database tables that you will be writing to, 
+  [8] #   and reading from.                                                           
+  [9] #                                                                               
+ [10] # ******************************************************************************
+ [11]                                                                                 
+ [12] set_db_schemas &lt;- function() {                                                  
+ [13]   # __________ ----                                                             
+ [14]   # Weather  ----                                                               
+ [15]   ## &gt; anon_example_weather_rawdata ----                                        
+ [16]   sc::add_schema_v8(                                                            
+ [17]     name_access = c(&quot;anon&quot;),                                                    
+ [18]     name_grouping = &quot;example_weather&quot;,                                          
+ [19]     name_variant = &quot;rawdata&quot;,                                                   
+ [20]     db_configs = sc::config$db_configs,                                         
+ [21]     field_types =  c(                                                           
+ [22]       &quot;granularity_time&quot; = &quot;TEXT&quot;,                                              
+ [23]       &quot;granularity_geo&quot; = &quot;TEXT&quot;,                                               
+ [24]       &quot;country_iso3&quot; = &quot;TEXT&quot;,                                                  
+ [25]       &quot;location_code&quot; = &quot;TEXT&quot;,                                                 
+ [26]       &quot;border&quot; = &quot;INTEGER&quot;,                                                     
+ [27]       &quot;age&quot; = &quot;TEXT&quot;,                                                           
+ [28]       &quot;sex&quot; = &quot;TEXT&quot;,                                                           
+ [29]                                                                                 
+ [30]       &quot;date&quot; = &quot;DATE&quot;,                                                          
+ [31]                                                                                 
+ [32]       &quot;isoyear&quot; = &quot;INTEGER&quot;,                                                    
+ [33]       &quot;isoweek&quot; = &quot;INTEGER&quot;,                                                    
+ [34]       &quot;isoyearweek&quot; = &quot;TEXT&quot;,                                                   
+ [35]       &quot;season&quot; = &quot;TEXT&quot;,                                                        
+ [36]       &quot;seasonweek&quot; = &quot;DOUBLE&quot;,                                                  
+ [37]                                                                                 
+ [38]       &quot;calyear&quot; = &quot;INTEGER&quot;,                                                    
+ [39]       &quot;calmonth&quot; = &quot;INTEGER&quot;,                                                   
+ [40]       &quot;calyearmonth&quot; = &quot;TEXT&quot;,                                                  
+ [41]                                                                                 
+ [42]       &quot;temp_max&quot; = &quot;DOUBLE&quot;,                                                    
+ [43]       &quot;temp_min&quot; = &quot;DOUBLE&quot;,                                                    
+ [44]       &quot;precip&quot; = &quot;DOUBLE&quot;                                                       
+ [45]     ),                                                                          
+ [46]     keys = c(                                                                   
+ [47]       &quot;granularity_time&quot;,                                                       
+ [48]       &quot;location_code&quot;,                                                          
+ [49]       &quot;date&quot;,                                                                   
+ [50]       &quot;age&quot;,                                                                    
+ [51]       &quot;sex&quot;                                                                     
+ [52]     ),                                                                          
+ [53]     censors = list(                                                             
+ [54]       anon = list(                                                              
+ [55]                                                                                 
+ [56]       )                                                                         
+ [57]     ),                                                                          
+ [58]     validator_field_types = sc::validator_field_types_sykdomspulsen,            
+ [59]     validator_field_contents = sc::validator_field_contents_sykdomspulsen,      
+ [60]     info = &quot;This db table is used for...&quot;                                       
+ [61]   )                                                                             
+ [62]                                                                                 
+ [63]   ## &gt; anon_example_weather_data ----                                           
+ [64]   sc::add_schema_v8(                                                            
+ [65]     name_access = c(&quot;anon&quot;),                                                    
+ [66]     name_grouping = &quot;example_weather&quot;,                                          
+ [67]     name_variant = &quot;data&quot;,                                                      
+ [68]     db_configs = sc::config$db_configs,                                         
+ [69]     field_types =  c(                                                           
+ [70]       &quot;granularity_time&quot; = &quot;TEXT&quot;,                                              
+ [71]       &quot;granularity_geo&quot; = &quot;TEXT&quot;,                                               
+ [72]       &quot;country_iso3&quot; = &quot;TEXT&quot;,                                                  
+ [73]       &quot;location_code&quot; = &quot;TEXT&quot;,                                                 
+ [74]       &quot;border&quot; = &quot;INTEGER&quot;,                                                     
+ [75]       &quot;age&quot; = &quot;TEXT&quot;,                                                           
+ [76]       &quot;sex&quot; = &quot;TEXT&quot;,                                                           
+ [77]                                                                                 
+ [78]       &quot;date&quot; = &quot;DATE&quot;,                                                          
+ [79]                                                                                 
+ [80]       &quot;isoyear&quot; = &quot;INTEGER&quot;,                                                    
+ [81]       &quot;isoweek&quot; = &quot;INTEGER&quot;,                                                    
+ [82]       &quot;isoyearweek&quot; = &quot;TEXT&quot;,                                                   
+ [83]       &quot;season&quot; = &quot;TEXT&quot;,                                                        
+ [84]       &quot;seasonweek&quot; = &quot;DOUBLE&quot;,                                                  
+ [85]                                                                                 
+ [86]       &quot;calyear&quot; = &quot;INTEGER&quot;,                                                    
+ [87]       &quot;calmonth&quot; = &quot;INTEGER&quot;,                                                   
+ [88]       &quot;calyearmonth&quot; = &quot;TEXT&quot;,                                                  
+ [89]                                                                                 
+ [90]       &quot;temp_max&quot; = &quot;DOUBLE&quot;,                                                    
+ [91]       &quot;temp_min&quot; = &quot;DOUBLE&quot;,                                                    
+ [92]       &quot;precip&quot; = &quot;DOUBLE&quot;                                                       
+ [93]     ),                                                                          
+ [94]     keys = c(                                                                   
+ [95]       &quot;granularity_time&quot;,                                                       
+ [96]       &quot;location_code&quot;,                                                          
+ [97]       &quot;date&quot;,                                                                   
+ [98]       &quot;age&quot;,                                                                    
+ [99]       &quot;sex&quot;                                                                     
+[100]     ),                                                                          
+[101]     censors = list(                                                             
+[102]       anon = list(                                                              
+[103]                                                                                 
+[104]       )                                                                         
+[105]     ),                                                                          
+[106]     validator_field_types = sc::validator_field_types_sykdomspulsen,            
+[107]     validator_field_contents = sc::validator_field_contents_sykdomspulsen,      
+[108]     info = &quot;This db table is used for...&quot;                                       
+[109]   )                                                                             
+[110] }                                                                               </code></pre>
 </div>
 <h2 id="tasks.r">04_tasks.r</h2>
 <p><a href="https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/04_tasks.r" class="uri">https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/04_tasks.r</a></p>
 <div class="layout-chunk" data-layout="l-body">
-<pre><code> [1] set_tasks &lt;- function() {                                                                               
- [2]   # __________ ----                                                                                     
- [3]   # Weather  ----                                                                                       
- [4]   ## &gt; weather_download_and_import_rawdata ----                                                         
- [5]   # tm_run_task(&quot;weather_download_and_import_rawdata&quot;)                                                  
- [6]   sc::add_task_from_config_v8(                                                                          
- [7]     name_grouping = &quot;weather&quot;,                                                                          
- [8]     name_action = &quot;download_and_import_rawdata&quot;,                                                        
- [9]     name_variant = NULL,                                                                                
-[10]     cores = 1,                                                                                          
-[11]     plan_analysis_fn_name = NULL,                                                                       
-[12]     for_each_plan = plnr::expand_list(                                                                  
-[13]       location_code = fhidata::norway_locations_names()[granularity_geo %in% c(&quot;municip&quot;)]$location_code
-[14]     ),                                                                                                  
-[15]     for_each_analysis = NULL,                                                                           
-[16]     universal_argset = NULL,                                                                            
-[17]     upsert_at_end_of_each_plan = FALSE,                                                                 
-[18]     insert_at_end_of_each_plan = FALSE,                                                                 
-[19]     action_fn_name = &quot;scskeleton::weather_download_and_import_rawdata_action&quot;,                          
-[20]     data_selector_fn_name = &quot;scskeleton::weather_download_and_import_rawdata_data_selector&quot;,            
-[21]     schema = list(                                                                                      
-[22]       # input                                                                                           
-[23]                                                                                                         
-[24]       # output                                                                                          
-[25]       &quot;anon_example_weather_rawdata&quot; = sc::config$schemas$anon_example_weather_rawdata                  
+<pre><code> [1] # ******************************************************************************                        
+ [2] # 04_tasks.r                                                                                            
+ [3] #                                                                                                       
+ [4] # PURPOSE 1:                                                                                            
+ [5] #   Set all the tasks that are run by the package.                                                      
+ [6] #                                                                                                       
+ [7] #   These are basically all of the &quot;things&quot; that you want to do.                                        
+ [8] #   E.g. Downloading data, cleaning data, importing data, analyzing data,                               
+ [9] #   making Excel files, making docx/pdf reports, sending emails, etc.                                   
+[10] #                                                                                                       
+[11] # ******************************************************************************                        
+[12]                                                                                                         
+[13] set_tasks &lt;- function() {                                                                               
+[14]   # __________ ----                                                                                     
+[15]   # Weather  ----                                                                                       
+[16]   ## &gt; weather_download_and_import_rawdata ----                                                         
+[17]   # tm_run_task(&quot;weather_download_and_import_rawdata&quot;)                                                  
+[18]   sc::add_task_from_config_v8(                                                                          
+[19]     name_grouping = &quot;weather&quot;,                                                                          
+[20]     name_action = &quot;download_and_import_rawdata&quot;,                                                        
+[21]     name_variant = NULL,                                                                                
+[22]     cores = 1,                                                                                          
+[23]     plan_analysis_fn_name = NULL,                                                                       
+[24]     for_each_plan = plnr::expand_list(                                                                  
+[25]       location_code = fhidata::norway_locations_names()[granularity_geo %in% c(&quot;municip&quot;)]$location_code
 [26]     ),                                                                                                  
-[27]     info = &quot;This task downloads and imports the raw weather data from MET&#39;s API at the municipal level&quot; 
-[28]   )                                                                                                     
-[29]                                                                                                         
-[30]   ## &gt; weather_clean_data ----                                                                          
-[31]   # tm_run_task(&quot;weather_clean_data&quot;)                                                                   
-[32]   sc::add_task_from_config_v8(                                                                          
-[33]     name_grouping = &quot;weather&quot;,                                                                          
-[34]     name_action = &quot;clean_data&quot;,                                                                         
-[35]     name_variant = NULL,                                                                                
-[36]     cores = 1,                                                                                          
-[37]     plan_analysis_fn_name = NULL,                                                                       
-[38]     for_each_plan = plnr::expand_list(                                                                  
-[39]       x = 1                                                                                             
-[40]     ),                                                                                                  
-[41]     for_each_analysis = NULL,                                                                           
-[42]     universal_argset = NULL,                                                                            
-[43]     upsert_at_end_of_each_plan = FALSE,                                                                 
-[44]     insert_at_end_of_each_plan = FALSE,                                                                 
-[45]     action_fn_name = &quot;scskeleton::weather_clean_data_action&quot;,                                           
-[46]     data_selector_fn_name = &quot;scskeleton::weather_clean_data_data_selector&quot;,                             
-[47]     schema = list(                                                                                      
-[48]       # input                                                                                           
-[49]       &quot;anon_example_weather_rawdata&quot; = sc::config$schemas$anon_example_weather_rawdata,                 
-[50]                                                                                                         
-[51]       # output                                                                                          
-[52]       &quot;anon_example_weather_data&quot; = sc::config$schemas$anon_example_weather_data                        
-[53]     ),                                                                                                  
-[54]     info = &quot;This task cleans the raw data and aggregates it to county and national level&quot;               
-[55]   )                                                                                                     
-[56]                                                                                                         
-[57]   ## &gt; weather_clean_data ----                                                                          
-[58]   # tm_run_task(&quot;weather_export_weather_plots&quot;)                                                         
-[59]   sc::add_task_from_config_v8(                                                                          
-[60]     name_grouping = &quot;weather&quot;,                                                                          
-[61]     name_action = &quot;export_weather_plots&quot;,                                                               
-[62]     name_variant = NULL,                                                                                
-[63]     cores = 1,                                                                                          
-[64]     plan_analysis_fn_name = NULL,                                                                       
-[65]     for_each_plan = plnr::expand_list(                                                                  
-[66]       location_code = fhidata::norway_locations_names()[granularity_geo %in% c(&quot;county&quot;)]$location_code 
-[67]     ),                                                                                                  
-[68]     for_each_analysis = NULL,                                                                           
-[69]     universal_argset = list(                                                                            
-[70]       output_dir = tempdir(),                                                                           
-[71]       output_filename = &quot;weather_{argset$location_code}.png&quot;,                                           
-[72]       output_absolute_path = fs::path(&quot;{argset$output_dir}&quot;, &quot;{argset$output_filename}&quot;)                
-[73]     ),                                                                                                  
-[74]     upsert_at_end_of_each_plan = FALSE,                                                                 
-[75]     insert_at_end_of_each_plan = FALSE,                                                                 
-[76]     action_fn_name = &quot;scskeleton::weather_export_weather_plots_action&quot;,                                 
-[77]     data_selector_fn_name = &quot;scskeleton::weather_export_weather_plots_data_selector&quot;,                   
-[78]     schema = list(                                                                                      
-[79]       # input                                                                                           
-[80]       &quot;anon_example_weather_data&quot; = sc::config$schemas$anon_example_weather_data                        
-[81]                                                                                                         
-[82]       # output                                                                                          
-[83]     ),                                                                                                  
-[84]     info = &quot;This task ploduces plots&quot;                                                                   
-[85]   )                                                                                                     
-[86] }                                                                                                       </code></pre>
+[27]     for_each_analysis = NULL,                                                                           
+[28]     universal_argset = NULL,                                                                            
+[29]     upsert_at_end_of_each_plan = FALSE,                                                                 
+[30]     insert_at_end_of_each_plan = FALSE,                                                                 
+[31]     action_fn_name = &quot;scskeleton::weather_download_and_import_rawdata_action&quot;,                          
+[32]     data_selector_fn_name = &quot;scskeleton::weather_download_and_import_rawdata_data_selector&quot;,            
+[33]     schema = list(                                                                                      
+[34]       # input                                                                                           
+[35]                                                                                                         
+[36]       # output                                                                                          
+[37]       &quot;anon_example_weather_rawdata&quot; = sc::config$schemas$anon_example_weather_rawdata                  
+[38]     ),                                                                                                  
+[39]     info = &quot;This task downloads and imports the raw weather data from MET&#39;s API at the municipal level&quot; 
+[40]   )                                                                                                     
+[41]                                                                                                         
+[42]   ## &gt; weather_clean_data ----                                                                          
+[43]   # tm_run_task(&quot;weather_clean_data&quot;)                                                                   
+[44]   sc::add_task_from_config_v8(                                                                          
+[45]     name_grouping = &quot;weather&quot;,                                                                          
+[46]     name_action = &quot;clean_data&quot;,                                                                         
+[47]     name_variant = NULL,                                                                                
+[48]     cores = 1,                                                                                          
+[49]     plan_analysis_fn_name = NULL,                                                                       
+[50]     for_each_plan = plnr::expand_list(                                                                  
+[51]       x = 1                                                                                             
+[52]     ),                                                                                                  
+[53]     for_each_analysis = NULL,                                                                           
+[54]     universal_argset = NULL,                                                                            
+[55]     upsert_at_end_of_each_plan = FALSE,                                                                 
+[56]     insert_at_end_of_each_plan = FALSE,                                                                 
+[57]     action_fn_name = &quot;scskeleton::weather_clean_data_action&quot;,                                           
+[58]     data_selector_fn_name = &quot;scskeleton::weather_clean_data_data_selector&quot;,                             
+[59]     schema = list(                                                                                      
+[60]       # input                                                                                           
+[61]       &quot;anon_example_weather_rawdata&quot; = sc::config$schemas$anon_example_weather_rawdata,                 
+[62]                                                                                                         
+[63]       # output                                                                                          
+[64]       &quot;anon_example_weather_data&quot; = sc::config$schemas$anon_example_weather_data                        
+[65]     ),                                                                                                  
+[66]     info = &quot;This task cleans the raw data and aggregates it to county and national level&quot;               
+[67]   )                                                                                                     
+[68]                                                                                                         
+[69]   ## &gt; weather_clean_data ----                                                                          
+[70]   # tm_run_task(&quot;weather_export_weather_plots&quot;)                                                         
+[71]   sc::add_task_from_config_v8(                                                                          
+[72]     name_grouping = &quot;weather&quot;,                                                                          
+[73]     name_action = &quot;export_weather_plots&quot;,                                                               
+[74]     name_variant = NULL,                                                                                
+[75]     cores = 1,                                                                                          
+[76]     plan_analysis_fn_name = NULL,                                                                       
+[77]     for_each_plan = plnr::expand_list(                                                                  
+[78]       location_code = fhidata::norway_locations_names()[granularity_geo %in% c(&quot;county&quot;)]$location_code 
+[79]     ),                                                                                                  
+[80]     for_each_analysis = NULL,                                                                           
+[81]     universal_argset = list(                                                                            
+[82]       output_dir = tempdir(),                                                                           
+[83]       output_filename = &quot;weather_{argset$location_code}.png&quot;,                                           
+[84]       output_absolute_path = fs::path(&quot;{argset$output_dir}&quot;, &quot;{argset$output_filename}&quot;)                
+[85]     ),                                                                                                  
+[86]     upsert_at_end_of_each_plan = FALSE,                                                                 
+[87]     insert_at_end_of_each_plan = FALSE,                                                                 
+[88]     action_fn_name = &quot;scskeleton::weather_export_weather_plots_action&quot;,                                 
+[89]     data_selector_fn_name = &quot;scskeleton::weather_export_weather_plots_data_selector&quot;,                   
+[90]     schema = list(                                                                                      
+[91]       # input                                                                                           
+[92]       &quot;anon_example_weather_data&quot; = sc::config$schemas$anon_example_weather_data                        
+[93]                                                                                                         
+[94]       # output                                                                                          
+[95]     ),                                                                                                  
+[96]     info = &quot;This task ploduces plots&quot;                                                                   
+[97]   )                                                                                                     
+[98] }                                                                                                       </code></pre>
 </div>
 <h2 id="deliverables.r">05_deliverables.r</h2>
 <p><a href="https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/05_deliverables.r" class="uri">https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/05_deliverables.r</a></p>
 <div class="layout-chunk" data-layout="l-body">
-<pre><code>[1] set_deliverables &lt;- function() {
-[2]                                 
-[3] }                               </code></pre>
+<pre><code> [1] # ******************************************************************************
+ [2] # 05_deliverables.r                                                             
+ [3] #                                                                               
+ [4] # PURPOSE 1:                                                                    
+ [5] #   Set all the deliverables that team members are supposed to manually do/check
+ [6] #   every day/week/month.                                                       
+ [7] #                                                                               
+ [8] # ******************************************************************************
+ [9]                                                                                 
+[10] set_deliverables &lt;- function() {                                                
+[11]                                                                                 
+[12] }                                                                               </code></pre>
 </div>
 <h2 id="config.r">06_config.r</h2>
 <p><a href="https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/06_config.r" class="uri">https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/06_config.r</a></p>
 <div class="layout-chunk" data-layout="l-body">
-<pre><code> [1] set_config &lt;- function() {                                                  
- [2]   # 01_definitions.r                                                        
- [3]   set_definitions()                                                         
- [4]                                                                             
- [5]   # 02_permissions.r                                                        
- [6]   set_permissions()                                                         
- [7]                                                                             
- [8]   # 03_db_schemas.r                                                         
- [9]   set_db_schemas()                                                          
-[10]                                                                             
-[11]   # 04_tasks.r                                                              
-[12]   set_tasks()                                                               
-[13]                                                                             
-[14]   # 05_deliverables.r                                                       
-[15]   set_deliverables()                                                        
-[16]                                                                             
-[17]   # 06_config.r                                                             
-[18]   set_progressr()                                                           
-[19] }                                                                           
-[20]                                                                             
-[21] set_progressr &lt;- function() {                                               
-[22]   progressr::handlers(progressr::handler_progress(                          
-[23]     format = &quot;[:bar] :current/:total (:percent) in :elapsedfull, eta: :eta&quot;,
-[24]     clear = FALSE                                                           
-[25]   ))                                                                        
-[26] }                                                                           </code></pre>
+<pre><code> [1] # ******************************************************************************  
+ [2] # 06_config.r                                                                     
+ [3] #                                                                                 
+ [4] # PURPOSE 1:                                                                      
+ [5] #   Call all the functions defined in 01, 02, 03, 04, and 05 in the correct order.
+ [6] #                                                                                 
+ [7] # PURPOSE 2:                                                                      
+ [8] #   Set all necessary configs that do not belong anywhere else.                   
+ [9] #                                                                                 
+[10] #   E.g. Formatting for progress bars.                                            
+[11] #                                                                                 
+[12] # ******************************************************************************  
+[13]                                                                                   
+[14] set_config &lt;- function() {                                                        
+[15]   # 01_definitions.r                                                              
+[16]   set_definitions()                                                               
+[17]                                                                                   
+[18]   # 02_permissions.r                                                              
+[19]   set_permissions()                                                               
+[20]                                                                                   
+[21]   # 03_db_schemas.r                                                               
+[22]   set_db_schemas()                                                                
+[23]                                                                                   
+[24]   # 04_tasks.r                                                                    
+[25]   set_tasks()                                                                     
+[26]                                                                                   
+[27]   # 05_deliverables.r                                                             
+[28]   set_deliverables()                                                              
+[29]                                                                                   
+[30]   # 06_config.r                                                                   
+[31]   set_progressr()                                                                 
+[32] }                                                                                 
+[33]                                                                                   
+[34] set_progressr &lt;- function() {                                                     
+[35]   progressr::handlers(progressr::handler_progress(                                
+[36]     format = &quot;[:bar] :current/:total (:percent) in :elapsedfull, eta: :eta&quot;,      
+[37]     clear = FALSE                                                                 
+[38]   ))                                                                              
+[39] }                                                                                 </code></pre>
 </div>
 <h2 id="onload.r">07_onLoad.r</h2>
 <p><a href="https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/07_onLoad.r" class="uri">https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/07_onLoad.r</a></p>
 <div class="layout-chunk" data-layout="l-body">
-<pre><code> [1] .onLoad &lt;- function(libname, pkgname) {                                    
- [2]   # Mechanism to authenticate as necessary (e.g. Kerebros)                 
- [3]   try(system2(&quot;/bin/authenticate.sh&quot;, stdout = NULL), TRUE)                
- [4]                                                                            
- [5]   # 5_config.r                                                             
- [6]   set_config()                                                             
- [7]                                                                            
- [8]   # https://github.com/rstudio/rmarkdown/issues/1632                       
- [9]   assignInNamespace(&quot;clean_tmpfiles&quot;, clean_tmpfiles_mod, ns = &quot;rmarkdown&quot;)
-[10]                                                                            
-[11]   invisible()                                                              
-[12] }                                                                          </code></pre>
+<pre><code> [1] # ******************************************************************************
+ [2] # 07_onLoad.r                                                                   
+ [3] #                                                                               
+ [4] # PURPOSE 1:                                                                    
+ [5] #   Initializing everything that happens when the package is loaded.            
+ [6] #                                                                               
+ [7] #   E.g. Calling bash scripts that authenticate against Kerebros, setting the   
+ [8] #   configs as defined in 06_config.r.                                          
+ [9] #                                                                               
+[10] # ******************************************************************************
+[11]                                                                                 
+[12] .onLoad &lt;- function(libname, pkgname) {                                         
+[13]   # Mechanism to authenticate as necessary (e.g. Kerebros)                      
+[14]   try(system2(&quot;/bin/authenticate.sh&quot;, stdout = NULL), TRUE)                     
+[15]                                                                                 
+[16]   # 5_config.r                                                                  
+[17]   set_config()                                                                  
+[18]                                                                                 
+[19]   # https://github.com/rstudio/rmarkdown/issues/1632                            
+[20]   assignInNamespace(&quot;clean_tmpfiles&quot;, clean_tmpfiles_mod, ns = &quot;rmarkdown&quot;)     
+[21]                                                                                 
+[22]   invisible()                                                                   
+[23] }                                                                               </code></pre>
 </div>
 <h2 id="onattach.r">08_onAttach.r</h2>
 <p><a href="https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/08_onAttach.r" class="uri">https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/08_onAttach.r</a></p>
 <div class="layout-chunk" data-layout="l-body">
-<pre><code>[1] .onAttach &lt;- function(libname, pkgname) {
-[2]                                          
-[3] }                                        </code></pre>
+<pre><code> [1] # ******************************************************************************
+ [2] # 08_onAttach.r                                                                 
+ [3] #                                                                               
+ [4] # PURPOSE 1:                                                                    
+ [5] #   What you want to happen when someone types library(yourpackage)             
+ [6] #                                                                               
+ [7] # ******************************************************************************
+ [8]                                                                                 
+ [9] .onAttach &lt;- function(libname, pkgname) {                                       
+[10]                                                                                 
+[11] }                                                                               </code></pre>
 </div>
 <h2 id="task-files">Task files</h2>
 <h3 id="weather_download_and_import_rawdata.r">weather_download_and_import_rawdata.r</h3>
