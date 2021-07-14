@@ -1,7 +1,7 @@
 ---
-title: "Files"
+title: "File Layout"
 description: |
-  What are tasks, and how do they work in Sykdomspulsen Core?
+  What files go where?
 date: 2021-05-26
 author:
   - first_name: "Richard Aubrey"
@@ -34,12 +34,126 @@ A task is the basic operational unit of Sykdomspulsen Core. It is based on [plnr
 
 In short, you can think of a Sykdomspulsen Core task as multiple [plnr plans](https://folkehelseinstituttet.github.io/plnr/) plus [Sykdomspulsen Core db schemas](analytics_db_schemas_introduction.html).
 
-## Definitions
+## 00_env_and_namespace.r
 
-```{r, echo=FALSE, results = 'asis'}
+https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/00_env_and_namespace.r
+
+```{r, echo=FALSE}
 options(width = 150)
 x <- readLines("https://raw.githubusercontent.com/folkehelseinstituttet/scskeleton/main/R/00_env_and_namespace.r")
-for(i in x) cat(i, "\n")
+print(x, quote = FALSE)
+```
+
+## 01_definitions.r
+
+https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/01_definitions.r
+
+```{r, echo=FALSE}
+options(width = 150)
+x <- readLines("https://raw.githubusercontent.com/folkehelseinstituttet/scskeleton/main/R/01_definitions.r")
+print(x, quote = FALSE)
+```
+
+## 02_permissions.r
+
+https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/02_permissions.r
+
+```{r, echo=FALSE}
+options(width = 150)
+x <- readLines("https://raw.githubusercontent.com/folkehelseinstituttet/scskeleton/main/R/02_permissions.r")
+print(x, quote = FALSE)
+```
+
+## 03_db_schemas.r
+
+https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/03_db_schemas.r
+
+```{r, echo=FALSE}
+options(width = 150)
+x <- readLines("https://raw.githubusercontent.com/folkehelseinstituttet/scskeleton/main/R/03_db_schemas.r")
+print(x, quote = FALSE)
+```
+
+## 04_tasks.R
+
+https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/04_tasks.R
+
+```{r, echo=FALSE}
+options(width = 150)
+x <- readLines("https://raw.githubusercontent.com/folkehelseinstituttet/scskeleton/main/R/04_tasks.R")
+print(x, quote = FALSE)
+```
+
+## 05_deliverables.r
+
+https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/05_deliverables.r
+
+```{r, echo=FALSE}
+options(width = 150)
+x <- readLines("https://raw.githubusercontent.com/folkehelseinstituttet/scskeleton/main/R/05_deliverables.r")
+print(x, quote = FALSE)
+```
+
+## 06_config.r
+
+https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/06_config.r
+
+```{r, echo=FALSE}
+options(width = 150)
+x <- readLines("https://raw.githubusercontent.com/folkehelseinstituttet/scskeleton/main/R/06_config.r")
+print(x, quote = FALSE)
+```
+
+## 07_onLoad.r
+
+https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/07_onLoad.r
+
+```{r, echo=FALSE}
+options(width = 150)
+x <- readLines("https://raw.githubusercontent.com/folkehelseinstituttet/scskeleton/main/R/07_onLoad.r")
+print(x, quote = FALSE)
+```
+
+## 08_onAttach.r
+
+https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/08_onAttach.r
+
+```{r, echo=FALSE}
+options(width = 150)
+x <- readLines("https://raw.githubusercontent.com/folkehelseinstituttet/scskeleton/main/R/08_onAttach.r")
+print(x, quote = FALSE)
+```
+
+## Task files
+
+### weather_download_and_import_rawdata.r
+
+https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/weather_download_and_import_rawdata.r
+
+```{r, echo=FALSE}
+options(width = 150)
+x <- readLines("https://raw.githubusercontent.com/folkehelseinstituttet/scskeleton/main/R/weather_download_and_import_rawdata.r")
+print(x, quote = FALSE)
+```
+
+### weather_clean_data.r
+
+https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/weather_clean_data.r
+
+```{r, echo=FALSE}
+options(width = 150)
+x <- readLines("https://raw.githubusercontent.com/folkehelseinstituttet/scskeleton/main/R/weather_clean_data.r")
+print(x, quote = FALSE)
+```
+
+### eather_export_weather_plots.r
+
+https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/eather_export_weather_plots.r
+
+```{r, echo=FALSE}
+options(width = 150)
+x <- readLines("https://raw.githubusercontent.com/folkehelseinstituttet/scskeleton/main/R/eather_export_weather_plots.r")
+print(x, quote = FALSE)
 ```
 
 ## Changelog {.appendix}
