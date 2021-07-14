@@ -2126,7 +2126,7 @@ Tutorial
 <li><a href="#definitions.r">01_definitions.r</a></li>
 <li><a href="#permissions.r">02_permissions.r</a></li>
 <li><a href="#db_schemas.r">03_db_schemas.r</a></li>
-<li><a href="#tasks.r">04_tasks.R</a></li>
+<li><a href="#tasks.r">04_tasks.r</a></li>
 <li><a href="#deliverables.r">05_deliverables.r</a></li>
 <li><a href="#config.r">06_config.r</a></li>
 <li><a href="#onload.r">07_onLoad.r</a></li>
@@ -2142,65 +2142,127 @@ Tutorial
 <h2 id="env_and_namespace.r">00_env_and_namespace.r</h2>
 <p><a href="https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/00_env_and_namespace.r" class="uri">https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/00_env_and_namespace.r</a></p>
 <div class="layout-chunk" data-layout="l-body">
-<pre><code> [1] #&#39; @import ggplot2                                                            
- [2] #&#39; @import data.table                                                         
- [3] #&#39; @importFrom magrittr %&gt;% %&lt;&gt;%                                              
- [4] 1                                                                             
- [5]                                                                               
- [6] # https://github.com/rstudio/rmarkdown/issues/1632                            
- [7] clean_tmpfiles_mod &lt;- function() {                                            
- [8]   # message(&quot;Calling clean_tmpfiles_mod()&quot;)                                   
- [9] }                                                                             
-[10]                                                                               
-[11] #&#39; Shortcut to run task                                                       
-[12] #&#39;                                                                            
-[13] #&#39; This task is needed to ensure that all the definitions/db schemas/tasks/etc
-[14] #&#39; are loaded from the package scskeleton.                                    
-[15] #&#39; @param task_name Name of the task                                          
-[16] #&#39; @param index_plan Not used                                                 
-[17] #&#39; @param index_analysis Not used                                             
-[18] #&#39; @export                                                                    
-[19] tm_run_task &lt;- function(task_name, index_plan = NULL, index_analysis = NULL) {
-[20]   sc::tm_run_task(                                                            
-[21]     task_name = task_name,                                                    
-[22]     index_plan = index_plan,                                                  
-[23]     index_analysis = index_analysis                                           
-[24]   )                                                                           
-[25] }                                                                             
-[26]                                                                               
-[27] #&#39; Declaration of environments that can be used globally                      
-[28] #&#39; @export config                                                             
-[29] config &lt;- new.env()                                                           </code></pre>
+<pre><code> [1] # ******************************************************************************  
+ [2] # 00_env_and_namespace.r                                                          
+ [3] #                                                                                 
+ [4] # PURPOSE 1:                                                                      
+ [5] #   Use roxygen2 to import ggplot2, data.table, %&gt;%, and %&lt;&gt;% into the namespace, 
+ [6] #   because these are the most commonly used packages/functions.                  
+ [7] #                                                                                 
+ [8] # PURPOSE 2:                                                                      
+ [9] #   Fix issues/integration with other packages.                                   
+[10] #                                                                                 
+[11] #   Most notably is the issue with rmarkdown, where an error is thrown when       
+[12] #   rendering multiple rmarkdown documents in parallel.                           
+[13] #                                                                                 
+[14] #   We also need to declare our own &quot;tm_run_task&quot; inside this package, as a       
+[15] #   wrapper around sc::tm_run_task. We cannot run sc::tm_run_task directly,       
+[16] #   because we need to load all of the database connections, db schemas, tasks,   
+[17] #   etc. *before* we run the task. Hence, this wrapper ensures that all of this   
+[18] #   package&#39;s configs files are loaded via OURPACKAGE::.onLoad() first, and then  
+[19] #   sc::tm_run_task can run.                                                      
+[20] #                                                                                 
+[21] # PURPOSE 3:                                                                      
+[22] #   Declaration of environments that can be used globally.                        
+[23] #                                                                                 
+[24] # ******************************************************************************  
+[25]                                                                                   
+[26] #&#39; @import ggplot2                                                                
+[27] #&#39; @import data.table                                                             
+[28] #&#39; @importFrom magrittr %&gt;% %&lt;&gt;%                                                  
+[29] 1                                                                                 
+[30]                                                                                   
+[31] # https://github.com/rstudio/rmarkdown/issues/1632                                
+[32] # An error is thrown when rendering multiple rmarkdown documents in parallel.     
+[33] clean_tmpfiles_mod &lt;- function() {                                                
+[34]   # message(&quot;Calling clean_tmpfiles_mod()&quot;)                                       
+[35] }                                                                                 
+[36]                                                                                   
+[37] #&#39; Shortcut to run task                                                           
+[38] #&#39;                                                                                
+[39] #&#39; This task is needed to ensure that all the definitions/db schemas/tasks/etc    
+[40] #&#39; are loaded from the package scskeleton. We cannot run sc::tm_run_task directly,
+[41] #&#39; because we need to load all of the database connections, db schemas, tasks,    
+[42] #&#39; etc. *before* we run the task. Hence, this wrapper ensures that all of this    
+[43] #&#39; package&#39;s configs files are loaded via OURPACKAGE::.onLoad() first, and then   
+[44] #&#39; sc::tm_run_task can run.                                                       
+[45] #&#39; @param task_name Name of the task                                              
+[46] #&#39; @param index_plan Not used                                                     
+[47] #&#39; @param index_analysis Not used                                                 
+[48] #&#39; @export                                                                        
+[49] tm_run_task &lt;- function(task_name, index_plan = NULL, index_analysis = NULL) {    
+[50]   sc::tm_run_task(                                                                
+[51]     task_name = task_name,                                                        
+[52]     index_plan = index_plan,                                                      
+[53]     index_analysis = index_analysis                                               
+[54]   )                                                                               
+[55] }                                                                                 
+[56]                                                                                   
+[57] #&#39; Declaration of environments that can be used globally                          
+[58] #&#39; @export config                                                                 
+[59] config &lt;- new.env()                                                               </code></pre>
 </div>
 <h2 id="definitions.r">01_definitions.r</h2>
 <p><a href="https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/01_definitions.r" class="uri">https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/01_definitions.r</a></p>
 <div class="layout-chunk" data-layout="l-body">
-<pre><code> [1] #&#39; Set global definitions                         
- [2] set_definitions &lt;- function() {                   
- [3]                                                   
- [4]   # Norway&#39;s last redistricting occurred 020-01-01
- [5]   config$border &lt;- 2020                           
- [6]                                                   
- [7]   # fhidata needs to know which border is in use  
- [8]   fhidata::set_config(                            
- [9]     border = config$border,                       
-[10]     use_current_year_as_1900_pop = TRUE           
-[11]   )                                               
-[12] }                                                 </code></pre>
+<pre><code> [1] # ******************************************************************************
+ [2] # 01_definitions.r                                                              
+ [3] #                                                                               
+ [4] # PURPOSE 1:                                                                    
+ [5] #   Set global definitions that are used throughout the package, and further    
+ [6] #   (e.g. in shiny/plumber creations).                                          
+ [7] #                                                                               
+ [8] #   Examples of global definitions are:                                         
+ [9] #     - Border years                                                            
+[10] #     - Age definitions                                                         
+[11] #     - Diagnosis mappings (e.g. &quot;R80&quot; = &quot;Influenza&quot;)                           
+[12] #                                                                               
+[13] # ******************************************************************************
+[14]                                                                                 
+[15] #&#39; Set global definitions                                                       
+[16] set_definitions &lt;- function() {                                                 
+[17]                                                                                 
+[18]   # Norway&#39;s last redistricting occurred 020-01-01                              
+[19]   config$border &lt;- 2020                                                         
+[20]                                                                                 
+[21]   # fhidata needs to know which border is in use                                
+[22]   fhidata::set_config(                                                          
+[23]     border = config$border,                                                     
+[24]     use_current_year_as_1900_pop = TRUE                                         
+[25]   )                                                                             
+[26] }                                                                               </code></pre>
 </div>
 <h2 id="permissions.r">02_permissions.r</h2>
 <p><a href="https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/02_permissions.r" class="uri">https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/02_permissions.r</a></p>
 <div class="layout-chunk" data-layout="l-body">
-<pre><code> [1] set_permissions &lt;- function() {                                         
- [2]   # sc::add_permission(                                                 
- [3]   #   name = &quot;khtemails_send_emails&quot;,                                   
- [4]   #   permission = sc::Permission$new(                                  
- [5]   #     key = &quot;khtemails_send_emails&quot;,                                  
- [6]   #     value = as.character(lubridate::today()),  # one time per day   
- [7]   #     production_days = c(3) # wed, send to everyone, otherwise prelim
- [8]   #   )                                                                 
- [9]   # )                                                                   
-[10] }                                                                       </code></pre>
+<pre><code> [1] # ******************************************************************************   
+ [2] # 02_permissions.r                                                                 
+ [3] #                                                                                  
+ [4] # PURPOSE 1:                                                                       
+ [5] #   Set permissions that can be used in this package.                              
+ [6] #                                                                                  
+ [7] # PURPOSE 2:                                                                       
+ [8] #   Permissions are a way of ensuring that a task only runs once per hour/day/week.
+ [9] #   This can be useful when you want to be 100% sure that you don&#39;t want to spam   
+[10] #   emails to your recipients.                                                     
+[11] #                                                                                  
+[12] # PURPOSE 3:                                                                       
+[13] #   Permissions can also be used to differentiate between &quot;production days&quot; and    
+[14] #   &quot;preliminary days&quot;. This can be useful when you have different email lists     
+[15] #   for production days (everyone) and preliminary days (a smaller group).         
+[16] #                                                                                  
+[17] # ******************************************************************************   
+[18]                                                                                    
+[19] set_permissions &lt;- function() {                                                    
+[20]   # sc::add_permission(                                                            
+[21]   #   name = &quot;khtemails_send_emails&quot;,                                              
+[22]   #   permission = sc::Permission$new(                                             
+[23]   #     key = &quot;khtemails_send_emails&quot;,                                             
+[24]   #     value = as.character(lubridate::today()),  # one time per day              
+[25]   #     production_days = c(3) # wed, send to everyone, otherwise prelim           
+[26]   #   )                                                                            
+[27]   # )                                                                              
+[28] }                                                                                  </code></pre>
 </div>
 <h2 id="db_schemas.r">03_db_schemas.r</h2>
 <p><a href="https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/03_db_schemas.r" class="uri">https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/03_db_schemas.r</a></p>
@@ -2305,8 +2367,8 @@ Tutorial
 [98]   )                                                                       
 [99] }                                                                         </code></pre>
 </div>
-<h2 id="tasks.r">04_tasks.R</h2>
-<p><a href="https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/04_tasks.R" class="uri">https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/04_tasks.R</a></p>
+<h2 id="tasks.r">04_tasks.r</h2>
+<p><a href="https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/04_tasks.r" class="uri">https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/04_tasks.r</a></p>
 <div class="layout-chunk" data-layout="l-body">
 <pre><code> [1] set_tasks &lt;- function() {                                                                               
  [2]   # __________ ----                                                                                     
