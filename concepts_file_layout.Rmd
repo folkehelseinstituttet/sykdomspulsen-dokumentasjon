@@ -74,13 +74,13 @@ x <- readLines("https://raw.githubusercontent.com/folkehelseinstituttet/scskelet
 print(x, width = 10, quote = FALSE)
 ```
 
-## 04_tasks.R
+## 04_tasks.r
 
-https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/04_tasks.R
+https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/04_tasks.r
 
 ```{r, echo=FALSE}
 options(width = 150)
-x <- readLines("https://raw.githubusercontent.com/folkehelseinstituttet/scskeleton/main/R/04_tasks.R")
+x <- readLines("https://raw.githubusercontent.com/folkehelseinstituttet/scskeleton/main/R/04_tasks.r")
 print(x, width = 10, quote = FALSE)
 ```
 
