@@ -41,7 +41,7 @@ https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/00_env_and_names
 ```{r, echo=FALSE}
 options(width = 150)
 x <- readLines("https://raw.githubusercontent.com/folkehelseinstituttet/scskeleton/main/R/00_env_and_namespace.r")
-print(x, quote = FALSE)
+for(i in x) print(i, quote = FALSE)
 ```
 
 ## 01_definitions.r
@@ -51,7 +51,7 @@ https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/01_definitions.r
 ```{r, echo=FALSE}
 options(width = 150)
 x <- readLines("https://raw.githubusercontent.com/folkehelseinstituttet/scskeleton/main/R/01_definitions.r")
-print(x, quote = FALSE)
+for(i in x) print(i, quote = FALSE)
 ```
 
 ## 02_permissions.r
@@ -61,7 +61,7 @@ https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/02_permissions.r
 ```{r, echo=FALSE}
 options(width = 150)
 x <- readLines("https://raw.githubusercontent.com/folkehelseinstituttet/scskeleton/main/R/02_permissions.r")
-print(x, quote = FALSE)
+for(i in x) print(i, quote = FALSE)
 ```
 
 ## 03_db_schemas.r
@@ -71,7 +71,7 @@ https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/03_db_schemas.r
 ```{r, echo=FALSE}
 options(width = 150)
 x <- readLines("https://raw.githubusercontent.com/folkehelseinstituttet/scskeleton/main/R/03_db_schemas.r")
-print(x, quote = FALSE)
+for(i in x) print(i, quote = FALSE)
 ```
 
 ## 04_tasks.R
@@ -81,7 +81,7 @@ https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/04_tasks.R
 ```{r, echo=FALSE}
 options(width = 150)
 x <- readLines("https://raw.githubusercontent.com/folkehelseinstituttet/scskeleton/main/R/04_tasks.R")
-print(x, quote = FALSE)
+for(i in x) print(i, quote = FALSE)
 ```
 
 ## 05_deliverables.r
@@ -91,7 +91,7 @@ https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/05_deliverables.
 ```{r, echo=FALSE}
 options(width = 150)
 x <- readLines("https://raw.githubusercontent.com/folkehelseinstituttet/scskeleton/main/R/05_deliverables.r")
-print(x, quote = FALSE)
+for(i in x) print(i, quote = FALSE)
 ```
 
 ## 06_config.r
@@ -101,7 +101,7 @@ https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/06_config.r
 ```{r, echo=FALSE}
 options(width = 150)
 x <- readLines("https://raw.githubusercontent.com/folkehelseinstituttet/scskeleton/main/R/06_config.r")
-print(x, quote = FALSE)
+for(i in x) print(i, quote = FALSE)
 ```
 
 ## 07_onLoad.r
@@ -111,7 +111,7 @@ https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/07_onLoad.r
 ```{r, echo=FALSE}
 options(width = 150)
 x <- readLines("https://raw.githubusercontent.com/folkehelseinstituttet/scskeleton/main/R/07_onLoad.r")
-print(x, quote = FALSE)
+for(i in x) print(i, quote = FALSE)
 ```
 
 ## 08_onAttach.r
@@ -121,7 +121,7 @@ https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/08_onAttach.r
 ```{r, echo=FALSE}
 options(width = 150)
 x <- readLines("https://raw.githubusercontent.com/folkehelseinstituttet/scskeleton/main/R/08_onAttach.r")
-print(x, quote = FALSE)
+for(i in x) print(i, quote = FALSE)
 ```
 
 ## Task files
@@ -133,7 +133,7 @@ https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/weather_download
 ```{r, echo=FALSE}
 options(width = 150)
 x <- readLines("https://raw.githubusercontent.com/folkehelseinstituttet/scskeleton/main/R/weather_download_and_import_rawdata.r")
-print(x, quote = FALSE)
+for(i in x) print(i, quote = FALSE)
 ```
 
 ### weather_clean_data.r
@@ -143,7 +143,7 @@ https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/weather_clean_da
 ```{r, echo=FALSE}
 options(width = 150)
 x <- readLines("https://raw.githubusercontent.com/folkehelseinstituttet/scskeleton/main/R/weather_clean_data.r")
-print(x, quote = FALSE)
+for(i in x) print(i, quote = FALSE)
 ```
 
 ### weather_export_weather_plots.r
@@ -153,7 +153,7 @@ https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/weather_export_w
 ```{r, echo=FALSE}
 options(width = 150)
 x <- readLines("https://raw.githubusercontent.com/folkehelseinstituttet/scskeleton/main/R/weather_export_weather_plots.r")
-print(x, quote = FALSE)
+for(i in x) print(i, quote = FALSE)
 ```
 
 ## Changelog {.appendix}
