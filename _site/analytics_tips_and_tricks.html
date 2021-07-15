@@ -2135,33 +2135,9 @@ Tutorial
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span><span class='op'>(</span>width <span class='op'>=</span> <span class='fl'>150</span><span class='op'>)</span>
 <span class='co'># if don't know which plan to choose, can examine by </span>
-<span class='fu'>sc</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/sc/man/tm_get_plans_argsets_as_dt.html'>tm_get_plans_argsets_as_dt</a></span><span class='op'>(</span><span class='st'>'ui_autoc19_report_county'</span><span class='op'>)</span>
+<span class='co'>#sc::tm_get_plans_argsets_as_dt('ui_autoc19_report_county')</span>
 </code></pre>
 </div>
-<pre><code>    index_plan index_analysis location_code                                                               folder
- 1:          1              1      county03 sykdomspulsen_covid19_autoreport_kommune_output/{argset$today}/fylke
- 2:          2              1      county11 sykdomspulsen_covid19_autoreport_kommune_output/{argset$today}/fylke
- 3:          3              1      county15 sykdomspulsen_covid19_autoreport_kommune_output/{argset$today}/fylke
- 4:          4              1      county18 sykdomspulsen_covid19_autoreport_kommune_output/{argset$today}/fylke
- 5:          5              1      county30 sykdomspulsen_covid19_autoreport_kommune_output/{argset$today}/fylke
- 6:          6              1      county34 sykdomspulsen_covid19_autoreport_kommune_output/{argset$today}/fylke
- 7:          7              1      county38 sykdomspulsen_covid19_autoreport_kommune_output/{argset$today}/fylke
- 8:          8              1      county42 sykdomspulsen_covid19_autoreport_kommune_output/{argset$today}/fylke
- 9:          9              1      county46 sykdomspulsen_covid19_autoreport_kommune_output/{argset$today}/fylke
-10:         10              1      county50 sykdomspulsen_covid19_autoreport_kommune_output/{argset$today}/fylke
-11:         11              1      county54 sykdomspulsen_covid19_autoreport_kommune_output/{argset$today}/fylke
-                                        file    week index      today first_analysis first_argset last_analysis last_argset
- 1: _dagsrapport_covid19_{argset$today}.docx 2021-28     1 2021-07-15           TRUE         TRUE         FALSE       FALSE
- 2: _dagsrapport_covid19_{argset$today}.docx 2021-28     2 2021-07-15          FALSE        FALSE         FALSE       FALSE
- 3: _dagsrapport_covid19_{argset$today}.docx 2021-28     3 2021-07-15          FALSE        FALSE         FALSE       FALSE
- 4: _dagsrapport_covid19_{argset$today}.docx 2021-28     4 2021-07-15          FALSE        FALSE         FALSE       FALSE
- 5: _dagsrapport_covid19_{argset$today}.docx 2021-28     5 2021-07-15          FALSE        FALSE         FALSE       FALSE
- 6: _dagsrapport_covid19_{argset$today}.docx 2021-28     6 2021-07-15          FALSE        FALSE         FALSE       FALSE
- 7: _dagsrapport_covid19_{argset$today}.docx 2021-28     7 2021-07-15          FALSE        FALSE         FALSE       FALSE
- 8: _dagsrapport_covid19_{argset$today}.docx 2021-28     8 2021-07-15          FALSE        FALSE         FALSE       FALSE
- 9: _dagsrapport_covid19_{argset$today}.docx 2021-28     9 2021-07-15          FALSE        FALSE         FALSE       FALSE
-10: _dagsrapport_covid19_{argset$today}.docx 2021-28    10 2021-07-15          FALSE        FALSE         FALSE       FALSE
-11: _dagsrapport_covid19_{argset$today}.docx 2021-28    11 2021-07-15          FALSE        FALSE          TRUE        TRUE</code></pre>
 </div>
 <h2 id="running-tasks">Running tasks</h2>
 <h3 id="run-externally-without-manually-loading-data-into-environment">Run externally (without manually loading data into environment)</h3>
@@ -2169,7 +2145,7 @@ Tutorial
 <p>The following two are equivalent:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/pkg/sykdomspulsen/man/tm_run_task.html'>tm_run_task</a></span><span class='op'>(</span><span class='st'>'analysis_covid_metrics'</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/pkg/scexample/man/tm_run_task.html'>tm_run_task</a></span><span class='op'>(</span><span class='st'>'analysis_covid_metrics'</span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
@@ -2214,7 +2190,7 @@ Tutorial
 <p>As this chunk is INSIDE the main function, it overwrites the argument values.</p>
 <h2 class="appendix" id="changelog">Changelog</h2>
 <p>2021-06-02: Originally published.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
