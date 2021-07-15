@@ -40,7 +40,7 @@ Descriptions of the required files/functions are detailed below.
 
 https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/00_env_and_namespace.r
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, results='asis'}
 options(width = 150)
 x <- fhiplot::as_github_code("https://raw.githubusercontent.com/folkehelseinstituttet/scskeleton/main/R/00_env_and_namespace.r")
 print(x, include_url_as_link = TRUE)
