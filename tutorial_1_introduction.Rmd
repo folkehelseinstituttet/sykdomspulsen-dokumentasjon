@@ -20,7 +20,8 @@ editor_options:
 ---
 
 ```{r setup, include=FALSE}
-rm(list=ls())
+unloadNamespace("scexample")
+unloadNamespace("sc")
 knitr::opts_chunk$set(collapse = TRUE)
 options(knitr.kable.NA = "")
 library(scexample)
