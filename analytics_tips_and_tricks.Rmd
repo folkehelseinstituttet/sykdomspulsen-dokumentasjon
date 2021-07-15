@@ -22,7 +22,7 @@ editor_options:
 knitr::opts_chunk$set(collapse = TRUE)
 options(knitr.kable.NA = '')
 library(data.table)
-library(sykdomspulsen)
+library(scexample)
 library(magrittr)
 ```
 
