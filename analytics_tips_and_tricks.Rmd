@@ -36,7 +36,7 @@ It is necessary to know which **analysis** you are working on. All the analyses 
 ```{r, echo=T}
 options(width = 150)
 # if don't know which plan to choose, can examine by 
-sc::tm_get_plans_argsets_as_dt('ui_autoc19_report_county')
+#sc::tm_get_plans_argsets_as_dt('ui_autoc19_report_county')
 ```
 
 ## Running tasks
