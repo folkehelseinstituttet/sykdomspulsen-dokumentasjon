@@ -42,8 +42,8 @@ https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/00_env_and_names
 
 ```{r, echo=FALSE}
 options(width = 150)
-x <- readLines("https://raw.githubusercontent.com/folkehelseinstituttet/scskeleton/main/R/00_env_and_namespace.r")
-print(x, width = 10, quote = FALSE)
+x <- fhiplot::as_github_code("https://raw.githubusercontent.com/folkehelseinstituttet/scskeleton/main/R/00_env_and_namespace.r")
+print(x, include_url_as_link = TRUE)
 ```
 
 ## 01_definitions.r
@@ -52,8 +52,8 @@ https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/01_definitions.r
 
 ```{r, echo=FALSE}
 options(width = 150)
-x <- readLines("https://raw.githubusercontent.com/folkehelseinstituttet/scskeleton/main/R/01_definitions.r")
-print(x, width = 10, quote = FALSE)
+x <- fhiplot::as_github_code("https://raw.githubusercontent.com/folkehelseinstituttet/scskeleton/main/R/01_definitions.r")
+print(x, include_url_as_link = TRUE)
 ```
 
 ## 02_permissions.r
@@ -62,8 +62,8 @@ https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/02_permissions.r
 
 ```{r, echo=FALSE}
 options(width = 150)
-x <- readLines("https://raw.githubusercontent.com/folkehelseinstituttet/scskeleton/main/R/02_permissions.r")
-print(x, width = 10, quote = FALSE)
+x <- fhiplot::as_github_code("https://raw.githubusercontent.com/folkehelseinstituttet/scskeleton/main/R/02_permissions.r")
+print(x, include_url_as_link = TRUE)
 ```
 
 ## 03_db_schemas.r
@@ -72,8 +72,8 @@ https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/03_db_schemas.r
 
 ```{r, echo=FALSE}
 options(width = 150)
-x <- readLines("https://raw.githubusercontent.com/folkehelseinstituttet/scskeleton/main/R/03_db_schemas.r")
-print(x, width = 10, quote = FALSE)
+x <- fhiplot::as_github_code("https://raw.githubusercontent.com/folkehelseinstituttet/scskeleton/main/R/03_db_schemas.r")
+print(x, include_url_as_link = TRUE)
 ```
 
 ## 04_tasks.r
@@ -82,8 +82,8 @@ https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/04_tasks.r
 
 ```{r, echo=FALSE}
 options(width = 150)
-x <- readLines("https://raw.githubusercontent.com/folkehelseinstituttet/scskeleton/main/R/04_tasks.r")
-print(x, width = 10, quote = FALSE)
+x <- fhiplot::as_github_code("https://raw.githubusercontent.com/folkehelseinstituttet/scskeleton/main/R/04_tasks.r")
+print(x, include_url_as_link = TRUE)
 ```
 
 ## 05_deliverables.r
@@ -92,8 +92,8 @@ https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/05_deliverables.
 
 ```{r, echo=FALSE}
 options(width = 150)
-x <- readLines("https://raw.githubusercontent.com/folkehelseinstituttet/scskeleton/main/R/05_deliverables.r")
-print(x, width = 10, quote = FALSE)
+x <- fhiplot::as_github_code("https://raw.githubusercontent.com/folkehelseinstituttet/scskeleton/main/R/05_deliverables.r")
+print(x, include_url_as_link = TRUE)
 ```
 
 ## 06_config.r
@@ -102,8 +102,8 @@ https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/06_config.r
 
 ```{r, echo=FALSE}
 options(width = 150)
-x <- readLines("https://raw.githubusercontent.com/folkehelseinstituttet/scskeleton/main/R/06_config.r")
-print(x, width = 10, quote = FALSE)
+x <- fhiplot::as_github_code("https://raw.githubusercontent.com/folkehelseinstituttet/scskeleton/main/R/06_config.r")
+print(x, include_url_as_link = TRUE)
 ```
 
 ## 07_onLoad.r
@@ -112,8 +112,8 @@ https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/07_onLoad.r
 
 ```{r, echo=FALSE}
 options(width = 150)
-x <- readLines("https://raw.githubusercontent.com/folkehelseinstituttet/scskeleton/main/R/07_onLoad.r")
-print(x, width = 10, quote = FALSE)
+x <- fhiplot::as_github_code("https://raw.githubusercontent.com/folkehelseinstituttet/scskeleton/main/R/07_onLoad.r")
+print(x, include_url_as_link = TRUE)
 ```
 
 ## 08_onAttach.r
@@ -122,8 +122,8 @@ https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/08_onAttach.r
 
 ```{r, echo=FALSE}
 options(width = 150)
-x <- readLines("https://raw.githubusercontent.com/folkehelseinstituttet/scskeleton/main/R/08_onAttach.r")
-print(x, width = 10, quote = FALSE)
+x <- fhiplot::as_github_code("https://raw.githubusercontent.com/folkehelseinstituttet/scskeleton/main/R/08_onAttach.r")
+print(x, include_url_as_link = TRUE)
 ```
 
 ## 99_util_*.r
@@ -132,8 +132,8 @@ https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/99_util_no_data_
 
 ```{r, echo=FALSE}
 options(width = 150)
-x <- readLines("https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/99_util_no_data_plot.r")
-print(x, width = 10, quote = FALSE)
+x <- fhiplot::as_github_code("https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/99_util_no_data_plot.r")
+print(x, include_url_as_link = TRUE)
 ```
 
 
@@ -147,8 +147,8 @@ https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/weather_download
 
 ```{r, echo=FALSE}
 options(width = 150)
-x <- readLines("https://raw.githubusercontent.com/folkehelseinstituttet/scskeleton/main/R/weather_download_and_import_rawdata.r")
-print(x, width = 10, quote = FALSE)
+x <- fhiplot::as_github_code("https://raw.githubusercontent.com/folkehelseinstituttet/scskeleton/main/R/weather_download_and_import_rawdata.r")
+print(x, include_url_as_link = TRUE)
 ```
 
 ### weather_clean_data.r
@@ -157,8 +157,8 @@ https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/weather_clean_da
 
 ```{r, echo=FALSE}
 options(width = 150)
-x <- readLines("https://raw.githubusercontent.com/folkehelseinstituttet/scskeleton/main/R/weather_clean_data.r")
-print(x, width = 10, quote = FALSE)
+x <- fhiplot::as_github_code("https://raw.githubusercontent.com/folkehelseinstituttet/scskeleton/main/R/weather_clean_data.r")
+print(x, include_url_as_link = TRUE)
 ```
 
 ### weather_export_weather_plots.r
@@ -167,8 +167,8 @@ https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/weather_export_p
 
 ```{r, echo=FALSE}
 options(width = 150)
-x <- readLines("https://raw.githubusercontent.com/folkehelseinstituttet/scskeleton/main/R/weather_export_plots.r")
-print(x, width = 10, quote = FALSE)
+x <- fhiplot::as_github_code("https://raw.githubusercontent.com/folkehelseinstituttet/scskeleton/main/R/weather_export_plots.r")
+print(x, include_url_as_link = TRUE)
 ```
 
 ## Changelog {.appendix}

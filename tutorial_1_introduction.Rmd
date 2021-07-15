@@ -22,7 +22,7 @@ editor_options:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(collapse = TRUE)
 options(knitr.kable.NA = "")
-library(sykdomspulsen)
+library(scexample)
 library(data.table)
 library(magrittr)
 library(sc)
@@ -38,24 +38,17 @@ You should also clone https://github.com/folkehelseinstituttet/scexample to your
 
 For the purposes of this tutorial, we assume that the reader is either using RStudio Server Open Source or RStudio Workbench inside Docker containers that have been built according to the Sykdomspulsen specifications. We will refer to your implementation of RStudio Server Open Source/RStudio Workbench with the generic term "RStudio".
 
-## First runs
-
-Open `scskeleton` in [RStudio project mode](https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects).
+## Load the code
 
 <aside>
 In general, we recommend cleaning your working environment every time before running `devtools::load_all(".")`.
 </aside>
 
-Restart the R session via `Ctrl+Shift+F10`, `rstudioapi::restartSession()`, or `Session > Restart R`. This will ensure that you have a clean working environment before you begin. 
-
-You may now load your sc implementation. This can be done via `Ctrl+Shift+L`, `devtools::load_all(".")`, or `Build > Load All`.
+Open `scskeleton` in [RStudio project mode](https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects). Restart the R session via `Ctrl+Shift+F10`, `rstudioapi::restartSession()`, or `Session > Restart R`. This will ensure that you have a clean working environment before you begin. You may now load your sc implementation. This can be done via `Ctrl+Shift+L`, `devtools::load_all(".")`, or `Build > Load All`.
 
 ```{r eval=FALSE, include=TRUE}
+rstudioapi::restartSession()
 devtools::load_all(".")
-```
-
-```{r eval=TRUE, include=FALSE}
-library(scexample)
 ```
 
 You can now see which schemas have been loaded. These schemas were included in the skeleton.
@@ -70,12 +63,24 @@ You can now see which tasks have been loaded. These tasks were included in the s
 sc::tm_get_task_names()
 ```
 
+## Running
+
 You can now run these tasks. Note that we use `scskeleton::tm_run_task` instead of `sc::tm_run_task`. This is because we want to ensure that `scexample::.onLoad` has been called.
 
 ```{r eval=FALSE, include=TRUE}
 scskeleton::tm_run_task("weather_download_and_import_rawdata")
 scskeleton::tm_run_task("weather_clean_data")
 scskeleton::tm_run_task("weather_export_weather_plots")
+```
+
+## Develop
+
+The first step when developing any task is specifying the schemas that will be used.
+
+```{r, echo=FALSE}
+options(width = 150)
+x <- readLines("https://raw.githubusercontent.com/folkehelseinstituttet/scskeleton/main/R/03_db_schemas.r")
+print(x, width = 10, quote = FALSE)
 ```
 
 
