@@ -126,7 +126,20 @@ x <- readLines("https://raw.githubusercontent.com/folkehelseinstituttet/scskelet
 print(x, width = 10, quote = FALSE)
 ```
 
+## 99_util_*.r
+
+https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/99_util_no_data_plot.r
+
+```{r, echo=FALSE}
+options(width = 150)
+x <- readLines("https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/99_util_no_data_plot.r")
+print(x, width = 10, quote = FALSE)
+```
+
+
 ## Task files
+
+Task files are placed in .r files under their own names.
 
 ### weather_download_and_import_rawdata.r
 
@@ -150,11 +163,11 @@ print(x, width = 10, quote = FALSE)
 
 ### weather_export_weather_plots.r
 
-https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/weather_export_weather_plots.r
+https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/weather_export_plots.r
 
 ```{r, echo=FALSE}
 options(width = 150)
-x <- readLines("https://raw.githubusercontent.com/folkehelseinstituttet/scskeleton/main/R/weather_export_weather_plots.r")
+x <- readLines("https://raw.githubusercontent.com/folkehelseinstituttet/scskeleton/main/R/weather_export_plots.r")
 print(x, width = 10, quote = FALSE)
 ```
 

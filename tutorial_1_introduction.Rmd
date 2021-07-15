@@ -1,0 +1,72 @@
+---
+title: "Tutorial 1: Introduction"
+description: |
+  Which files go where, and what is in them?
+date: 2021-07-15
+author:
+  - first_name: "Richard Aubrey"
+    last_name: "White"
+    url: https://www.fhi.no
+    affiliation: Folkehelseinstituttet
+    affiliation_url: https://www.fhi.no
+    orcid_id: 0000-0002-6747-1726
+output:
+  distill::distill_article:
+    toc: true
+    toc_depth: 2
+    toc_float: true
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(collapse = TRUE)
+options(knitr.kable.NA = '')
+library(sykdomspulsen)
+library(data.table)
+library(magrittr)
+library(sc)
+```
+
+## Setup
+
+Implementing Sykdomspulsen Core requires a number of functions to be called in the correct order. To make this as simple as possible, we have provided a skeleton implementation at https://github.com/folkehelseinstituttet/scskeleton
+
+You should clone this GitHub repo (https://github.com/folkehelseinstituttet/scskeleton) to your server. This will be the package that you will be working on throughout this tutorial. You may choose to do a global find/replace on `scskeleton` with the name you want for your R package. We will refer to this R package as your "sc implementation".
+
+You should also clone https://github.com/folkehelseinstituttet/scexample to your server. This is the end product of the tutorial, and you should refer to it in order to check your work.
+
+For the purposes of this tutorial, we assume that the reader is either using RStudio Server Open Source or RStudio Workbench inside Docker containers that have been built according to the Sykdomspulsen specifications. We will refer to your implementation of RStudio Server Open Source/RStudio Workbench with the generic term "RStudio".
+
+## 00_env_and_namespace.r
+
+Open `scskeleton` in [RStudio project mode](https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects).
+
+<aside>
+In general, we recommend cleaning your working environment every time before running `devtools::load_all(".")`.
+https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/00_env_and_namespace.r
+</aside>
+
+Restart the R session via `Ctrl+Shift+F10`, `rstudioapi::restartSession()`, or `Session > Restart R`. This will ensure that you have a clean working environment before you begin. 
+
+You may now load your sc implementation. This can be done via `Ctrl+Shift+L`, `devtools::load_all(".")`, or `Build > Load All`.
+
+```{r eval=FALSE, include=TRUE}
+devtools::load_all(".")
+```
+
+```{r eval=TRUE, include=FALSE}
+library(scexample)
+```
+
+You can now see which tasks have been loaded.
+
+```{r, include=FALSE}
+sc::tm_get_task_names()
+```
+
+
+## Changelog {.appendix}
+
+2021-07-15: Draft created.
+
