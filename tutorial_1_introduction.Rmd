@@ -21,7 +21,7 @@ editor_options:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(collapse = TRUE)
-options(knitr.kable.NA = '')
+options(knitr.kable.NA = "")
 library(sykdomspulsen)
 library(data.table)
 library(magrittr)
@@ -38,13 +38,12 @@ You should also clone https://github.com/folkehelseinstituttet/scexample to your
 
 For the purposes of this tutorial, we assume that the reader is either using RStudio Server Open Source or RStudio Workbench inside Docker containers that have been built according to the Sykdomspulsen specifications. We will refer to your implementation of RStudio Server Open Source/RStudio Workbench with the generic term "RStudio".
 
-## 00_env_and_namespace.r
+## First runs
 
 Open `scskeleton` in [RStudio project mode](https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects).
 
 <aside>
 In general, we recommend cleaning your working environment every time before running `devtools::load_all(".")`.
-https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/00_env_and_namespace.r
 </aside>
 
 Restart the R session via `Ctrl+Shift+F10`, `rstudioapi::restartSession()`, or `Session > Restart R`. This will ensure that you have a clean working environment before you begin. 
@@ -59,14 +58,27 @@ devtools::load_all(".")
 library(scexample)
 ```
 
-You can now see which tasks have been loaded.
+You can now see which schemas have been loaded. These schemas were included in the skeleton.
 
-```{r, include=FALSE}
+```{r, include=TRUE}
+sc::tm_get_schema_names()
+```
+
+You can now see which tasks have been loaded. These tasks were included in the skeleton.
+
+```{r, include=TRUE}
 sc::tm_get_task_names()
+```
+
+You can now run these tasks. Note that we use `scskeleton::tm_run_task` instead of `sc::tm_run_task`. This is because we want to ensure that `scexample::.onLoad` has been called.
+
+```{r eval=FALSE, include=TRUE}
+scskeleton::tm_run_task("weather_download_and_import_rawdata")
+scskeleton::tm_run_task("weather_clean_data")
+scskeleton::tm_run_task("weather_export_weather_plots")
 ```
 
 
 ## Changelog {.appendix}
 
 2021-07-15: Draft created.
-
