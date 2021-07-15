@@ -2651,119 +2651,54 @@ In general, we recommend cleaning your working environment every time before run
 <h2 id="develop">Develop</h2>
 <p>The first step when developing any task is specifying the schemas that will be used.</p>
 <div class="layout-chunk" data-layout="l-body">
-<pre><code>  [1] # ******************************************************************************
-  [2] # ******************************************************************************
-  [3] #                                                                               
-  [4] # 03_db_schemas.r                                                               
-  [5] #                                                                               
-  [6] # PURPOSE 1:                                                                    
-  [7] #   Set db schemas that are used throughout the package.                        
-  [8] #                                                                               
-  [9] #   These are basically all of the database tables that you will be writing to, 
- [10] #   and reading from.                                                           
- [11] #                                                                               
- [12] # ******************************************************************************
- [13] # ******************************************************************************
- [14]                                                                                 
- [15] set_db_schemas &lt;- function() {                                                  
- [16]   # __________ ----                                                             
- [17]   # Weather  ----                                                               
- [18]   ## &gt; anon_example_weather_rawdata ----                                        
- [19]   sc::add_schema_v8(                                                            
- [20]     name_access = c(&quot;anon&quot;),                                                    
- [21]     name_grouping = &quot;example_weather&quot;,                                          
- [22]     name_variant = &quot;rawdata&quot;,                                                   
- [23]     db_configs = sc::config$db_configs,                                         
- [24]     field_types =  c(                                                           
- [25]       &quot;granularity_time&quot; = &quot;TEXT&quot;,                                              
- [26]       &quot;granularity_geo&quot; = &quot;TEXT&quot;,                                               
- [27]       &quot;country_iso3&quot; = &quot;TEXT&quot;,                                                  
- [28]       &quot;location_code&quot; = &quot;TEXT&quot;,                                                 
- [29]       &quot;border&quot; = &quot;INTEGER&quot;,                                                     
- [30]       &quot;age&quot; = &quot;TEXT&quot;,                                                           
- [31]       &quot;sex&quot; = &quot;TEXT&quot;,                                                           
- [32]                                                                                 
- [33]       &quot;date&quot; = &quot;DATE&quot;,                                                          
- [34]                                                                                 
- [35]       &quot;isoyear&quot; = &quot;INTEGER&quot;,                                                    
- [36]       &quot;isoweek&quot; = &quot;INTEGER&quot;,                                                    
- [37]       &quot;isoyearweek&quot; = &quot;TEXT&quot;,                                                   
- [38]       &quot;season&quot; = &quot;TEXT&quot;,                                                        
- [39]       &quot;seasonweek&quot; = &quot;DOUBLE&quot;,                                                  
- [40]                                                                                 
- [41]       &quot;calyear&quot; = &quot;INTEGER&quot;,                                                    
- [42]       &quot;calmonth&quot; = &quot;INTEGER&quot;,                                                   
- [43]       &quot;calyearmonth&quot; = &quot;TEXT&quot;,                                                  
- [44]                                                                                 
- [45]       &quot;temp_max&quot; = &quot;DOUBLE&quot;,                                                    
- [46]       &quot;temp_min&quot; = &quot;DOUBLE&quot;,                                                    
- [47]       &quot;precip&quot; = &quot;DOUBLE&quot;                                                       
- [48]     ),                                                                          
- [49]     keys = c(                                                                   
- [50]       &quot;granularity_time&quot;,                                                       
- [51]       &quot;location_code&quot;,                                                          
- [52]       &quot;date&quot;,                                                                   
- [53]       &quot;age&quot;,                                                                    
- [54]       &quot;sex&quot;                                                                     
- [55]     ),                                                                          
- [56]     censors = list(                                                             
- [57]       anon = list(                                                              
- [58]                                                                                 
- [59]       )                                                                         
- [60]     ),                                                                          
- [61]     validator_field_types = sc::validator_field_types_sykdomspulsen,            
- [62]     validator_field_contents = sc::validator_field_contents_sykdomspulsen,      
- [63]     info = &quot;This db table is used for...&quot;                                       
- [64]   )                                                                             
- [65]                                                                                 
- [66]   ## &gt; anon_example_weather_data ----                                           
- [67]   sc::add_schema_v8(                                                            
- [68]     name_access = c(&quot;anon&quot;),                                                    
- [69]     name_grouping = &quot;example_weather&quot;,                                          
- [70]     name_variant = &quot;data&quot;,                                                      
- [71]     db_configs = sc::config$db_configs,                                         
- [72]     field_types =  c(                                                           
- [73]       &quot;granularity_time&quot; = &quot;TEXT&quot;,                                              
- [74]       &quot;granularity_geo&quot; = &quot;TEXT&quot;,                                               
- [75]       &quot;country_iso3&quot; = &quot;TEXT&quot;,                                                  
- [76]       &quot;location_code&quot; = &quot;TEXT&quot;,                                                 
- [77]       &quot;border&quot; = &quot;INTEGER&quot;,                                                     
- [78]       &quot;age&quot; = &quot;TEXT&quot;,                                                           
- [79]       &quot;sex&quot; = &quot;TEXT&quot;,                                                           
- [80]                                                                                 
- [81]       &quot;date&quot; = &quot;DATE&quot;,                                                          
- [82]                                                                                 
- [83]       &quot;isoyear&quot; = &quot;INTEGER&quot;,                                                    
- [84]       &quot;isoweek&quot; = &quot;INTEGER&quot;,                                                    
- [85]       &quot;isoyearweek&quot; = &quot;TEXT&quot;,                                                   
- [86]       &quot;season&quot; = &quot;TEXT&quot;,                                                        
- [87]       &quot;seasonweek&quot; = &quot;DOUBLE&quot;,                                                  
- [88]                                                                                 
- [89]       &quot;calyear&quot; = &quot;INTEGER&quot;,                                                    
- [90]       &quot;calmonth&quot; = &quot;INTEGER&quot;,                                                   
- [91]       &quot;calyearmonth&quot; = &quot;TEXT&quot;,                                                  
- [92]                                                                                 
- [93]       &quot;temp_max&quot; = &quot;DOUBLE&quot;,                                                    
- [94]       &quot;temp_min&quot; = &quot;DOUBLE&quot;,                                                    
- [95]       &quot;precip&quot; = &quot;DOUBLE&quot;                                                       
- [96]     ),                                                                          
- [97]     keys = c(                                                                   
- [98]       &quot;granularity_time&quot;,                                                       
- [99]       &quot;location_code&quot;,                                                          
-[100]       &quot;date&quot;,                                                                   
-[101]       &quot;age&quot;,                                                                    
-[102]       &quot;sex&quot;                                                                     
-[103]     ),                                                                          
-[104]     censors = list(                                                             
-[105]       anon = list(                                                              
-[106]                                                                                 
-[107]       )                                                                         
-[108]     ),                                                                          
-[109]     validator_field_types = sc::validator_field_types_sykdomspulsen,            
-[110]     validator_field_contents = sc::validator_field_contents_sykdomspulsen,      
-[111]     info = &quot;This db table is used for...&quot;                                       
-[112]   )                                                                             
-[113] }                                                                               </code></pre>
+<pre><code>https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/03_db_schemas.r#L19-L64
+
+19 |   sc::add_schema_v8(
+20 |     name_access = c(&quot;anon&quot;),
+21 |     name_grouping = &quot;example_weather&quot;,
+22 |     name_variant = &quot;rawdata&quot;,
+23 |     db_configs = sc::config$db_configs,
+24 |     field_types =  c(
+25 |       &quot;granularity_time&quot; = &quot;TEXT&quot;,
+26 |       &quot;granularity_geo&quot; = &quot;TEXT&quot;,
+27 |       &quot;country_iso3&quot; = &quot;TEXT&quot;,
+28 |       &quot;location_code&quot; = &quot;TEXT&quot;,
+29 |       &quot;border&quot; = &quot;INTEGER&quot;,
+30 |       &quot;age&quot; = &quot;TEXT&quot;,
+31 |       &quot;sex&quot; = &quot;TEXT&quot;,
+32 | 
+33 |       &quot;date&quot; = &quot;DATE&quot;,
+34 | 
+35 |       &quot;isoyear&quot; = &quot;INTEGER&quot;,
+36 |       &quot;isoweek&quot; = &quot;INTEGER&quot;,
+37 |       &quot;isoyearweek&quot; = &quot;TEXT&quot;,
+38 |       &quot;season&quot; = &quot;TEXT&quot;,
+39 |       &quot;seasonweek&quot; = &quot;DOUBLE&quot;,
+40 | 
+41 |       &quot;calyear&quot; = &quot;INTEGER&quot;,
+42 |       &quot;calmonth&quot; = &quot;INTEGER&quot;,
+43 |       &quot;calyearmonth&quot; = &quot;TEXT&quot;,
+44 | 
+45 |       &quot;temp_max&quot; = &quot;DOUBLE&quot;,
+46 |       &quot;temp_min&quot; = &quot;DOUBLE&quot;,
+47 |       &quot;precip&quot; = &quot;DOUBLE&quot;
+48 |     ),
+49 |     keys = c(
+50 |       &quot;granularity_time&quot;,
+51 |       &quot;location_code&quot;,
+52 |       &quot;date&quot;,
+53 |       &quot;age&quot;,
+54 |       &quot;sex&quot;
+55 |     ),
+56 |     censors = list(
+57 |       anon = list(
+58 | 
+59 |       )
+60 |     ),
+61 |     validator_field_types = sc::validator_field_types_sykdomspulsen,
+62 |     validator_field_contents = sc::validator_field_contents_sykdomspulsen,
+63 |     info = &quot;This db table is used for...&quot;
+64 |   )</code></pre>
 </div>
 <h2 class="appendix" id="changelog">Changelog</h2>
 <p>2021-07-15: Draft created.</p>
