@@ -2152,11 +2152,9 @@ In general, we recommend cleaning your working environment every time before run
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>sc</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/sc/man/tm_get_schema_names.html'>tm_get_schema_names</a></span><span class='op'>(</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code> [1] &quot;config_last_updated&quot;          &quot;config_structure_time&quot;       
- [3] &quot;rundate&quot;                      &quot;config_datetime&quot;             
- [5] &quot;anon_example_weather_rawdata&quot; &quot;anon_example_weather_data&quot;   
- [7] &quot;restr_example&quot;                &quot;anon_example&quot;                
- [9] &quot;redirect_example&quot;             &quot;anon_example_weather&quot;        </code></pre>
+<pre><code>[1] &quot;config_last_updated&quot;          &quot;config_structure_time&quot;       
+[3] &quot;rundate&quot;                      &quot;config_datetime&quot;             
+[5] &quot;anon_example_weather_rawdata&quot; &quot;anon_example_weather_data&quot;   </code></pre>
 </div>
 <p>You can now see which tasks have been loaded. These tasks were included in the skeleton.</p>
 <div class="layout-chunk" data-layout="l-body">
@@ -2164,10 +2162,9 @@ In general, we recommend cleaning your working environment every time before run
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>sc</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/sc/man/tm_get_task_names.html'>tm_get_task_names</a></span><span class='op'>(</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code>[1] &quot;weather_download_and_import_rawdata&quot; 
-[2] &quot;weather_clean_data&quot;                  
-[3] &quot;weather_export_plots&quot;                
-[4] &quot;example_weather_import_data_from_api&quot;</code></pre>
+<pre><code>[1] &quot;weather_download_and_import_rawdata&quot;
+[2] &quot;weather_clean_data&quot;                 
+[3] &quot;weather_export_plots&quot;               </code></pre>
 </div>
 <h2 id="running">Running</h2>
 <p>You can now run these tasks. Note that we use <code>scskeleton::tm_run_task</code> instead of <code>sc::tm_run_task</code>. This is because we want to ensure that <code>scexample::.onLoad</code> has been called.</p>
