@@ -2122,7 +2122,9 @@ Tutorial
 <h3>Contents</h3>
 <ul>
 <li><a href="#setup">Setup</a></li>
-<li><a href="#first-runs">First runs</a></li>
+<li><a href="#load-the-code">Load the code</a></li>
+<li><a href="#running">Running</a></li>
+<li><a href="#develop">Develop</a></li>
 <li><a href="#changelog">Changelog</a></li>
 </ul>
 </nav>
@@ -2132,16 +2134,15 @@ Tutorial
 <p>You should clone this GitHub repo (<a href="https://github.com/folkehelseinstituttet/scskeleton" class="uri">https://github.com/folkehelseinstituttet/scskeleton</a>) to your server. This will be the package that you will be working on throughout this tutorial. You may choose to do a global find/replace on <code>scskeleton</code> with the name you want for your R package. We will refer to this R package as your “sc implementation”.</p>
 <p>You should also clone <a href="https://github.com/folkehelseinstituttet/scexample" class="uri">https://github.com/folkehelseinstituttet/scexample</a> to your server. This is the end product of the tutorial, and you should refer to it in order to check your work.</p>
 <p>For the purposes of this tutorial, we assume that the reader is either using RStudio Server Open Source or RStudio Workbench inside Docker containers that have been built according to the Sykdomspulsen specifications. We will refer to your implementation of RStudio Server Open Source/RStudio Workbench with the generic term “RStudio”.</p>
-<h2 id="first-runs">First runs</h2>
-<p>Open <code>scskeleton</code> in <a href="https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects">RStudio project mode</a>.</p>
+<h2 id="load-the-code">Load the code</h2>
 <aside>
 In general, we recommend cleaning your working environment every time before running <code>devtools::load_all(".")</code>.
 </aside>
-<p>Restart the R session via <code>Ctrl+Shift+F10</code>, <code>rstudioapi::restartSession()</code>, or <code>Session &gt; Restart R</code>. This will ensure that you have a clean working environment before you begin.</p>
-<p>You may now load your sc implementation. This can be done via <code>Ctrl+Shift+L</code>, <code>devtools::load_all(".")</code>, or <code>Build &gt; Load All</code>.</p>
+<p>Open <code>scskeleton</code> in <a href="https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects">RStudio project mode</a>. Restart the R session via <code>Ctrl+Shift+F10</code>, <code>rstudioapi::restartSession()</code>, or <code>Session &gt; Restart R</code>. This will ensure that you have a clean working environment before you begin. You may now load your sc implementation. This can be done via <code>Ctrl+Shift+L</code>, <code>devtools::load_all(".")</code>, or <code>Build &gt; Load All</code>.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>devtools</span><span class='fu'>::</span><span class='fu'><a href='https://devtools.r-lib.org//reference/load_all.html'>load_all</a></span><span class='op'>(</span><span class='st'>"."</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>rstudioapi</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/rstudioapi/man/restartSession.html'>restartSession</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='fu'>devtools</span><span class='fu'>::</span><span class='fu'><a href='https://devtools.r-lib.org//reference/load_all.html'>load_all</a></span><span class='op'>(</span><span class='st'>"."</span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
@@ -2637,6 +2638,7 @@ In general, we recommend cleaning your working environment every time before run
 [184] &quot;weather_clean_data&quot;                                           
 [185] &quot;weather_export_plots&quot;                                         </code></pre>
 </div>
+<h2 id="running">Running</h2>
 <p>You can now run these tasks. Note that we use <code>scskeleton::tm_run_task</code> instead of <code>sc::tm_run_task</code>. This is because we want to ensure that <code>scexample::.onLoad</code> has been called.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -2646,9 +2648,126 @@ In general, we recommend cleaning your working environment every time before run
 </code></pre>
 </div>
 </div>
+<h2 id="develop">Develop</h2>
+<p>The first step when developing any task is specifying the schemas that will be used.</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre><code>  [1] # ******************************************************************************
+  [2] # ******************************************************************************
+  [3] #                                                                               
+  [4] # 03_db_schemas.r                                                               
+  [5] #                                                                               
+  [6] # PURPOSE 1:                                                                    
+  [7] #   Set db schemas that are used throughout the package.                        
+  [8] #                                                                               
+  [9] #   These are basically all of the database tables that you will be writing to, 
+ [10] #   and reading from.                                                           
+ [11] #                                                                               
+ [12] # ******************************************************************************
+ [13] # ******************************************************************************
+ [14]                                                                                 
+ [15] set_db_schemas &lt;- function() {                                                  
+ [16]   # __________ ----                                                             
+ [17]   # Weather  ----                                                               
+ [18]   ## &gt; anon_example_weather_rawdata ----                                        
+ [19]   sc::add_schema_v8(                                                            
+ [20]     name_access = c(&quot;anon&quot;),                                                    
+ [21]     name_grouping = &quot;example_weather&quot;,                                          
+ [22]     name_variant = &quot;rawdata&quot;,                                                   
+ [23]     db_configs = sc::config$db_configs,                                         
+ [24]     field_types =  c(                                                           
+ [25]       &quot;granularity_time&quot; = &quot;TEXT&quot;,                                              
+ [26]       &quot;granularity_geo&quot; = &quot;TEXT&quot;,                                               
+ [27]       &quot;country_iso3&quot; = &quot;TEXT&quot;,                                                  
+ [28]       &quot;location_code&quot; = &quot;TEXT&quot;,                                                 
+ [29]       &quot;border&quot; = &quot;INTEGER&quot;,                                                     
+ [30]       &quot;age&quot; = &quot;TEXT&quot;,                                                           
+ [31]       &quot;sex&quot; = &quot;TEXT&quot;,                                                           
+ [32]                                                                                 
+ [33]       &quot;date&quot; = &quot;DATE&quot;,                                                          
+ [34]                                                                                 
+ [35]       &quot;isoyear&quot; = &quot;INTEGER&quot;,                                                    
+ [36]       &quot;isoweek&quot; = &quot;INTEGER&quot;,                                                    
+ [37]       &quot;isoyearweek&quot; = &quot;TEXT&quot;,                                                   
+ [38]       &quot;season&quot; = &quot;TEXT&quot;,                                                        
+ [39]       &quot;seasonweek&quot; = &quot;DOUBLE&quot;,                                                  
+ [40]                                                                                 
+ [41]       &quot;calyear&quot; = &quot;INTEGER&quot;,                                                    
+ [42]       &quot;calmonth&quot; = &quot;INTEGER&quot;,                                                   
+ [43]       &quot;calyearmonth&quot; = &quot;TEXT&quot;,                                                  
+ [44]                                                                                 
+ [45]       &quot;temp_max&quot; = &quot;DOUBLE&quot;,                                                    
+ [46]       &quot;temp_min&quot; = &quot;DOUBLE&quot;,                                                    
+ [47]       &quot;precip&quot; = &quot;DOUBLE&quot;                                                       
+ [48]     ),                                                                          
+ [49]     keys = c(                                                                   
+ [50]       &quot;granularity_time&quot;,                                                       
+ [51]       &quot;location_code&quot;,                                                          
+ [52]       &quot;date&quot;,                                                                   
+ [53]       &quot;age&quot;,                                                                    
+ [54]       &quot;sex&quot;                                                                     
+ [55]     ),                                                                          
+ [56]     censors = list(                                                             
+ [57]       anon = list(                                                              
+ [58]                                                                                 
+ [59]       )                                                                         
+ [60]     ),                                                                          
+ [61]     validator_field_types = sc::validator_field_types_sykdomspulsen,            
+ [62]     validator_field_contents = sc::validator_field_contents_sykdomspulsen,      
+ [63]     info = &quot;This db table is used for...&quot;                                       
+ [64]   )                                                                             
+ [65]                                                                                 
+ [66]   ## &gt; anon_example_weather_data ----                                           
+ [67]   sc::add_schema_v8(                                                            
+ [68]     name_access = c(&quot;anon&quot;),                                                    
+ [69]     name_grouping = &quot;example_weather&quot;,                                          
+ [70]     name_variant = &quot;data&quot;,                                                      
+ [71]     db_configs = sc::config$db_configs,                                         
+ [72]     field_types =  c(                                                           
+ [73]       &quot;granularity_time&quot; = &quot;TEXT&quot;,                                              
+ [74]       &quot;granularity_geo&quot; = &quot;TEXT&quot;,                                               
+ [75]       &quot;country_iso3&quot; = &quot;TEXT&quot;,                                                  
+ [76]       &quot;location_code&quot; = &quot;TEXT&quot;,                                                 
+ [77]       &quot;border&quot; = &quot;INTEGER&quot;,                                                     
+ [78]       &quot;age&quot; = &quot;TEXT&quot;,                                                           
+ [79]       &quot;sex&quot; = &quot;TEXT&quot;,                                                           
+ [80]                                                                                 
+ [81]       &quot;date&quot; = &quot;DATE&quot;,                                                          
+ [82]                                                                                 
+ [83]       &quot;isoyear&quot; = &quot;INTEGER&quot;,                                                    
+ [84]       &quot;isoweek&quot; = &quot;INTEGER&quot;,                                                    
+ [85]       &quot;isoyearweek&quot; = &quot;TEXT&quot;,                                                   
+ [86]       &quot;season&quot; = &quot;TEXT&quot;,                                                        
+ [87]       &quot;seasonweek&quot; = &quot;DOUBLE&quot;,                                                  
+ [88]                                                                                 
+ [89]       &quot;calyear&quot; = &quot;INTEGER&quot;,                                                    
+ [90]       &quot;calmonth&quot; = &quot;INTEGER&quot;,                                                   
+ [91]       &quot;calyearmonth&quot; = &quot;TEXT&quot;,                                                  
+ [92]                                                                                 
+ [93]       &quot;temp_max&quot; = &quot;DOUBLE&quot;,                                                    
+ [94]       &quot;temp_min&quot; = &quot;DOUBLE&quot;,                                                    
+ [95]       &quot;precip&quot; = &quot;DOUBLE&quot;                                                       
+ [96]     ),                                                                          
+ [97]     keys = c(                                                                   
+ [98]       &quot;granularity_time&quot;,                                                       
+ [99]       &quot;location_code&quot;,                                                          
+[100]       &quot;date&quot;,                                                                   
+[101]       &quot;age&quot;,                                                                    
+[102]       &quot;sex&quot;                                                                     
+[103]     ),                                                                          
+[104]     censors = list(                                                             
+[105]       anon = list(                                                              
+[106]                                                                                 
+[107]       )                                                                         
+[108]     ),                                                                          
+[109]     validator_field_types = sc::validator_field_types_sykdomspulsen,            
+[110]     validator_field_contents = sc::validator_field_contents_sykdomspulsen,      
+[111]     info = &quot;This db table is used for...&quot;                                       
+[112]   )                                                                             
+[113] }                                                                               </code></pre>
+</div>
 <h2 class="appendix" id="changelog">Changelog</h2>
 <p>2021-07-15: Draft created.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
