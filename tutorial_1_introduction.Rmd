@@ -79,8 +79,8 @@ The first step when developing any task is specifying the schemas that will be u
 
 ```{r, echo=FALSE}
 options(width = 150)
-x <- readLines("https://raw.githubusercontent.com/folkehelseinstituttet/scskeleton/main/R/03_db_schemas.r")
-print(x, width = 10, quote = FALSE)
+x <- fhiplot::as_github_code("https://raw.githubusercontent.com/folkehelseinstituttet/scskeleton/main/R/03_db_schemas.r")
+print(x, lines = 19:64, include_url = TRUE)
 ```
 
 
