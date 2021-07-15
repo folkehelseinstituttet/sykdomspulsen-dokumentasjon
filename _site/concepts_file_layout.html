@@ -2144,73 +2144,8 @@ Tutorial
 <h2 id="env_and_namespace.r">00_env_and_namespace.r</h2>
 <p><a href="https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/00_env_and_namespace.r" class="uri">https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/00_env_and_namespace.r</a></p>
 <div class="layout-chunk" data-layout="l-body">
-<pre><code>&lt;a href=&#39;https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/00_env_and_namespace.r&#39;&gt;https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/00_env_and_namespace.r&lt;/a&gt;
-
- 1 | # ******************************************************************************
- 2 | # ******************************************************************************
- 3 | #
- 4 | # 00_env_and_namespace.r
- 5 | #
- 6 | # PURPOSE 1:
- 7 | #   Use roxygen2 to import ggplot2, data.table, %&gt;%, and %&lt;&gt;% into the namespace,
- 8 | #   because these are the most commonly used packages/functions.
- 9 | #
-10 | # PURPOSE 2:
-11 | #   Declaring our own &quot;tm_run_task&quot; inside this package, as a wrapper around
-12 | #   sc::tm_run_task.
-13 | #
-14 | #   We cannot run sc::tm_run_task directly, because we need to load all of the
-15 | #   database connections, db schemas, tasks, etc. *before* we run the task.
-16 | #   Hence, this wrapper ensures that all of this package&#39;s configs files are
-17 | #   loaded via OURPACKAGE::.onLoad() first, and then sc::tm_run_task can run.
-18 | #
-19 | # PURPOSE 3:
-20 | #   Declaration of environments that can be used globally.
-21 | #
-22 | # PURPOSE 4:
-23 | #   Fix issues/integration with other packages.
-24 | #
-25 | #   Most notably is the issue with rmarkdown, where an error is thrown when
-26 | #   rendering multiple rmarkdown documents in parallel.
-27 | #
-28 | # ******************************************************************************
-29 | # ******************************************************************************
-30 | 
-31 | #&#39; @import ggplot2
-32 | #&#39; @import data.table
-33 | #&#39; @importFrom magrittr %&gt;% %&lt;&gt;%
-34 | 1
-35 | 
-36 | #&#39; Shortcut to run task
-37 | #&#39;
-38 | #&#39; This task is needed to ensure that all the definitions/db schemas/tasks/etc
-39 | #&#39; are loaded from the package scskeleton. We cannot run sc::tm_run_task directly,
-40 | #&#39; because we need to load all of the database connections, db schemas, tasks,
-41 | #&#39; etc. *before* we run the task. Hence, this wrapper ensures that all of this
-42 | #&#39; package&#39;s configs files are loaded via OURPACKAGE::.onLoad() first, and then
-43 | #&#39; sc::tm_run_task can run.
-44 | #&#39;
-45 | #&#39; @param task_name Name of the task
-46 | #&#39; @param index_plan Not used
-47 | #&#39; @param index_analysis Not used
-48 | #&#39; @export
-49 | tm_run_task &lt;- function(task_name, index_plan = NULL, index_analysis = NULL) {
-50 |   sc::tm_run_task(
-51 |     task_name = task_name,
-52 |     index_plan = index_plan,
-53 |     index_analysis = index_analysis
-54 |   )
-55 | }
-56 | 
-57 | #&#39; Declaration of environments that can be used globally
-58 | #&#39; @export config
-59 | config &lt;- new.env()
-60 | 
-61 | # https://github.com/rstudio/rmarkdown/issues/1632
-62 | # An error is thrown when rendering multiple rmarkdown documents in parallel.
-63 | clean_tmpfiles_mod &lt;- function() {
-64 |   # message(&quot;Calling clean_tmpfiles_mod()&quot;)
-65 | }</code></pre>
+<p><a href='https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/00_env_and_namespace.r'>https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/00_env_and_namespace.r</a></p>
+<p>1 | # ****************************************************************************** 2 | # ****************************************************************************** 3 | # 4 | # 00_env_and_namespace.r 5 | # 6 | # PURPOSE 1: 7 | # Use roxygen2 to import ggplot2, data.table, %&gt;%, and %&lt;&gt;% into the namespace, 8 | # because these are the most commonly used packages/functions. 9 | # 10 | # PURPOSE 2: 11 | # Declaring our own “tm_run_task” inside this package, as a wrapper around 12 | # sc::tm_run_task. 13 | # 14 | # We cannot run sc::tm_run_task directly, because we need to load all of the 15 | # database connections, db schemas, tasks, etc. <em>before</em> we run the task. 16 | # Hence, this wrapper ensures that all of this package’s configs files are 17 | # loaded via OURPACKAGE::.onLoad() first, and then sc::tm_run_task can run. 18 | # 19 | # PURPOSE 3: 20 | # Declaration of environments that can be used globally. 21 | # 22 | # PURPOSE 4: 23 | # Fix issues/integration with other packages. 24 | # 25 | # Most notably is the issue with rmarkdown, where an error is thrown when 26 | # rendering multiple rmarkdown documents in parallel. 27 | # 28 | # ****************************************************************************** 29 | # ****************************************************************************** 30 | 31 | #’ <span class="citation" data-cites="import">@import</span> ggplot2 32 | #’ <span class="citation" data-cites="import">@import</span> data.table 33 | #’ <span class="citation" data-cites="importFrom">@importFrom</span> magrittr %&gt;% %&lt;&gt;% 34 | 1 35 | 36 | #’ Shortcut to run task 37 | #’ 38 | #’ This task is needed to ensure that all the definitions/db schemas/tasks/etc 39 | #’ are loaded from the package scskeleton. We cannot run sc::tm_run_task directly, 40 | #’ because we need to load all of the database connections, db schemas, tasks, 41 | #’ etc. <em>before</em> we run the task. Hence, this wrapper ensures that all of this 42 | #’ package’s configs files are loaded via OURPACKAGE::.onLoad() first, and then 43 | #’ sc::tm_run_task can run. 44 | #’ 45 | #’ <span class="citation" data-cites="param">@param</span> task_name Name of the task 46 | #’ <span class="citation" data-cites="param">@param</span> index_plan Not used 47 | #’ <span class="citation" data-cites="param">@param</span> index_analysis Not used 48 | #’ <span class="citation" data-cites="export">@export</span> 49 | tm_run_task &lt;- function(task_name, index_plan = NULL, index_analysis = NULL) { 50 | sc::tm_run_task( 51 | task_name = task_name, 52 | index_plan = index_plan, 53 | index_analysis = index_analysis 54 | ) 55 | } 56 | 57 | #’ Declaration of environments that can be used globally 58 | #’ <span class="citation" data-cites="export">@export</span> config 59 | config &lt;- new.env() 60 | 61 | # <a href="https://github.com/rstudio/rmarkdown/issues/1632" class="uri">https://github.com/rstudio/rmarkdown/issues/1632</a> 62 | # An error is thrown when rendering multiple rmarkdown documents in parallel. 63 | clean_tmpfiles_mod &lt;- function() { 64 | # message(“Calling clean_tmpfiles_mod()”) 65 | }</p>
 </div>
 <h2 id="definitions.r">01_definitions.r</h2>
 <p><a href="https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/01_definitions.r" class="uri">https://github.com/folkehelseinstituttet/scskeleton/blob/main/R/01_definitions.r</a></p>
@@ -3172,7 +3107,7 @@ Tutorial
 </div>
 <h2 class="appendix" id="changelog">Changelog</h2>
 <p>2021-07-14: Draft created.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
